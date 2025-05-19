@@ -10,7 +10,7 @@ import lombok.ToString;
 import java.sql.Date;
 
 @Entity
-//@Table(name = "")
+@Table(name = "tbl_consultant")
 @Getter @Setter @ToString
 public class Consultant {
     @Id
