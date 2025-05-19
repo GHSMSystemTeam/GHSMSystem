@@ -17,7 +17,7 @@ public class BaseEntity {
 
     private String name;
     private String password;
-    private Date Birthday;
+    private Date birthday;
     private String email;
     private String phone;
 }
