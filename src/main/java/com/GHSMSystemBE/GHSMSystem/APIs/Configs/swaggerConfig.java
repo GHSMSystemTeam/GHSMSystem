@@ -1,4 +1,4 @@
-package com.GHSMSystemBE.GHSMSystem.APIs.Configs;
+package com.GHSMSystemBE.GHSMSystem.api.Configs;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
@@ -11,7 +11,7 @@ public class swaggerConfig {
     {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Gernder Healthcare System Manager Application API")
+                        .title("Gerder Healthcare System Manager Application API")
                         .description("API for GHMSystem")
                         .version("1.0.0")
                         .contact(new Contact()

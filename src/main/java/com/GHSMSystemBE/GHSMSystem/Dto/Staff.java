@@ -12,34 +12,6 @@ import java.sql.Date;
 @Entity
 @Table(name = "tbl_staff")
 @Getter @Setter @ToString
-public class Staff {
-    @Id
-    private String id; //Primary key
+public class Staff extends BaseEntity {
 
-    private String name;
-    private String password;
-    private Date Birthday;
-    private String email;
-    private String phone;
-
-    public Staff(String id, String name, String password, Date birthday, String email, String phone) {
-        this.id = id;
-        this.name = name;
-        this.password = password;
-        Birthday = birthday;
-        this.email = email;
-        this.phone = phone;
-    }
-
-    public Staff(String id, String name, Date birthday, String email, String phone) {
-        this.id = id;
-        this.name = name;
-        Birthday = birthday;
-        this.email = email;
-
-        this.phone = phone;
-    }
-
-    public Staff() {
-    }
 }

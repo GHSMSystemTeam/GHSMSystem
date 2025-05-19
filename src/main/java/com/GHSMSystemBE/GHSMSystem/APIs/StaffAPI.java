@@ -1,4 +1,4 @@
 package com.GHSMSystemBE.GHSMSystem.APIs;
 
-public class userAPI {
+public class StaffAPI {
 }
