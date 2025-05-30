@@ -14,5 +14,12 @@ import java.sql.Date;
 @Table(name = "tbl_consultant")
 @Getter @Setter @ToString @NoArgsConstructor
 public class Consultant extends BaseEntity {
+  private  int fieldOfExperty;
+  private String citizenID;
+  private String employmentDetails;
+  private String licesenseDetails;
+  private float avgRating;
+    private String profilePicture;
+    private float hourlyRates;
 
 }

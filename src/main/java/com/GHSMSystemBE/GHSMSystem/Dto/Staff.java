@@ -13,5 +13,7 @@ import java.sql.Date;
 @Table(name = "tbl_staff")
 @Getter @Setter @ToString
 public class Staff extends BaseEntity {
-
+    private String citizenID;
+    private String employmentDetails;
+    private String profilePicture;
 }

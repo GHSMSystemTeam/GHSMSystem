@@ -14,5 +14,8 @@ import java.sql.Date;
 @Table(name = "tbl_user")
 @Getter @Setter @ToString @NoArgsConstructor
 public class User extends BaseEntity {
+    private String bookingHistory;
+    private float totalSpending;
+    private String profilePicture;
 
 }

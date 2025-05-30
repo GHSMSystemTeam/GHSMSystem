@@ -72,7 +72,7 @@ public class UserAPI {
     @Operation(summary = "Delete user with matching ID" , description ="Match user with ID and delete user from database" )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Successfully deleted user"),
-            @ApiResponse(responseCode = "404", description = "Failed to delete user")
+            @ApiResponse(responseCode = "400", description = "Failed to delete user")
     })
     @DeleteMapping("/api/user/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable String id)

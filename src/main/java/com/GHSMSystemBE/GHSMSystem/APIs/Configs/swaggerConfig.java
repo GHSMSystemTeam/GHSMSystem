@@ -1,4 +1,4 @@
-package com.GHSMSystemBE.GHSMSystem.api.Configs;
+package com.GHSMSystemBE.GHSMSystem.APIs.Configs;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
