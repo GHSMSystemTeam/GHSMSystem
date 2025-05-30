@@ -12,8 +12,5 @@ import java.sql.Date;
 @Entity
 @Table(name = "tbl_staff")
 @Getter @Setter @ToString
-public class Staff extends BaseEntity {
-    private String citizenID;
-    private String employmentDetails;
-    private String profilePicture;
+public class Staff extends EmployeeEntity {
 }

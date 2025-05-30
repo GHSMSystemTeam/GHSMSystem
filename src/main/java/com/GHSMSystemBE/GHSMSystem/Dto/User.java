@@ -16,6 +16,5 @@ import java.sql.Date;
 public class User extends BaseEntity {
     private String bookingHistory;
     private float totalSpending;
-    private String profilePicture;
 
 }

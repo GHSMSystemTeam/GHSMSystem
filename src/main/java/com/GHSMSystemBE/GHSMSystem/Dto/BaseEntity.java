@@ -25,4 +25,5 @@ public class BaseEntity {
     private int gender;
     private boolean isActive;
     private LocalDateTime lastLogin;
+    private byte[] profilePicture;
 }

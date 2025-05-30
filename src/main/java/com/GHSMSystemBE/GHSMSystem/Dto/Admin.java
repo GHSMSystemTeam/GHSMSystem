@@ -13,9 +13,5 @@ import java.sql.Date;
 @Entity
 @Table(name = "tbl_admin")
 @Getter @Setter @ToString @NoArgsConstructor
-public class Admin extends BaseEntity{
-    private String citizenID;
-    private String employmentDetails;
-    private String profilePicture;
-
+public class Admin extends EmployeeEntity{
 }
