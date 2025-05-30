@@ -12,5 +12,5 @@ import lombok.Setter;
 public class EmployeeEntity  extends BaseEntity{
     private String citizenID;
     private String employmentDetails;
-    private int role
+    private int role;
 }
