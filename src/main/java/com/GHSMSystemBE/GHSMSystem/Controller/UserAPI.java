@@ -1,4 +1,4 @@
-package com.GHSMSystemBE.GHSMSystem.APIs;
+package com.GHSMSystemBE.GHSMSystem.Controller;
 
 import com.GHSMSystemBE.GHSMSystem.Dto.User;
 import com.GHSMSystemBE.GHSMSystem.Repos.userRepo;
@@ -110,7 +110,7 @@ public class UserAPI {
             existedUser.setPassword(user.getPassword());
             existedUser.setEmail(user.getEmail());
             existedUser.setPhone(user.getPhone());
-            existedUser.setBirthday(user.getBirthday());
+            existedUser.setBirthDate(user.getBirthDate());
             return  ResponseEntity.ok(userCRUDRepo.save(existedUser));
         }
     }
