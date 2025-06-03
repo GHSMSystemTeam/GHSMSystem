@@ -52,7 +52,7 @@ public class UserAPI {
     @Operation(summary = "Add new user" , description = "Add new user to the database")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Successfully added user"),
-            @ApiResponse(responseCode = "404", description = "Failed to add user")
+            @ApiResponse(responseCode = "400", description = "Failed to add user")
     })
     @PostMapping("/api/user")
     public ResponseEntity<Void> addUser(@RequestBody User user)

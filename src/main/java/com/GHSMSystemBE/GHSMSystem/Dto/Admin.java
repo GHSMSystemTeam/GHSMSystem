@@ -2,16 +2,10 @@ package com.GHSMSystemBE.GHSMSystem.Dto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @Table(name = "tbl_admin")
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
+@Data
 public class Admin extends EmployeeEntity {
 }

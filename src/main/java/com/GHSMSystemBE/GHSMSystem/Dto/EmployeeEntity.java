@@ -1,15 +1,15 @@
 package com.GHSMSystemBE.GHSMSystem.Dto;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
+import java.io.Serializable;
 
 @MappedSuperclass
-@Getter
-@Setter
-@NoArgsConstructor
-public class EmployeeEntity  extends BaseEntity{
+@Data
+public class EmployeeEntity  extends BaseEntity implements Serializable {
+    @Column(name = "citizen_id", nullable = false,unique = true)
     private String citizenID;
+    @Column(name = "employment_details", nullable = false,unique = true)
     private String employmentDetails;
 }
