@@ -1,4 +1,4 @@
-package com.GHSMSystemBE.GHSMSystem.Dto;
+package com.GHSMSystemBE.GHSMSystem.Models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

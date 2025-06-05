@@ -1,7 +1,8 @@
 package com.GHSMSystemBE.GHSMSystem.Controller;
 
-import com.GHSMSystemBE.GHSMSystem.Dto.User;
+import com.GHSMSystemBE.GHSMSystem.Models.User;
 import com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo.userRepo;
+import com.GHSMSystemBE.GHSMSystem.Services.impl.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -18,6 +19,9 @@ public class UserAPI {
     @Autowired
     private userRepo userCRUDRepo;
 
+    @Autowired
+    private UserService service;
+
     //Print user list
     @Operation(summary = "Get a list of user" , description = "Retrieve a list of available users from the Database")
     @GetMapping("/api/user")
@@ -26,6 +30,15 @@ public class UserAPI {
         List<User> userList  = userCRUDRepo.findAll();
         return ResponseEntity.ok(userList);
     }
+
+    //print out a list of user is active
+    @Operation(summary = "Get a list of active user" , description = "Retrieve a list of active users from the Database")
+    @GetMapping("/api/activeuser")
+    public ResponseEntity<List<User>> getActiveUserList(){
+        List<User> list = service.getAllActiveUser();
+        return ResponseEntity.ok(list);
+    }
+
     //Find user with matching ID
     @Operation(summary = "Search user by matching ID", description = "Retrieve user with matching ID, return a user Object")
     @ApiResponses(value = {
@@ -113,10 +126,26 @@ public class UserAPI {
             existedUser.setEmail(user.getEmail());
             existedUser.setPhone(user.getPhone());
             existedUser.setBirthDate(user.getBirthDate());
+            existedUser.setActive(user.isActive());
             return  ResponseEntity.ok(userCRUDRepo.save(existedUser));
         }
     }
 
-
-
+    // user Login
+    @Operation(summary = "User login" , description ="Match user email with password")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully login"),
+            @ApiResponse(responseCode = "401", description = "Failed to login")
+    })
+    @PostMapping("/api/login")
+    public ResponseEntity<User> checkLogin(@RequestParam String email,
+                                           @RequestParam String password){
+        User u = service.checkLogin(email, password);
+        if(u != null){
+            System.out.println("LOG: your username is " + u.getName());
+            return ResponseEntity.ok(u);
+        }
+        System.out.println("LOG:Failed to login. User null");
+        return ResponseEntity.notFound().build();
+    }
 }

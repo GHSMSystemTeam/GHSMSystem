@@ -1,4 +1,4 @@
-package com.GHSMSystemBE.GHSMSystem.Dto.healthContent;
+package com.GHSMSystemBE.GHSMSystem.Models.healthContent;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

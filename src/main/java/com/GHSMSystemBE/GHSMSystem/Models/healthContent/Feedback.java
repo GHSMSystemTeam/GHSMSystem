@@ -1,4 +1,4 @@
-package com.GHSMSystemBE.GHSMSystem.Dto.healthContent;
+package com.GHSMSystemBE.GHSMSystem.Models.healthContent;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,25 +11,22 @@ import lombok.ToString;
 @Entity
 @Data
 @ToString
-@Table(name = "tbl_question_and_answer")
-public class QuestionAndAnswer {
+@Table(name = "tbl_feedback")
+public class Feedback {
     @Id
     private String id;
 
     @Column(name = "customer_id")
     private String customerId;
 
-    @Column(name = "consultant_id")
-    private String consultantId;
+    @Column(name = "service_appointment_order_id")
+    private String serviceAppointmentOrderId;
 
     @Column(name = "title")
     private String title;
 
     @Column(name = "content")
     private String content;
-
-    @Column(name = "answer_content")
-    private String answerContent;
 
     @Column(name = "create_date")
     private LocalDateTime createDate;

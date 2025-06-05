@@ -1,6 +1,6 @@
 package com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo;
 
-import com.GHSMSystemBE.GHSMSystem.Dto.Admin;
+import com.GHSMSystemBE.GHSMSystem.Models.Admin;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
