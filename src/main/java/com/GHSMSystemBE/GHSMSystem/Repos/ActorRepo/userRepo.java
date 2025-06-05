@@ -1,4 +1,4 @@
-package com.GHSMSystemBE.GHSMSystem.Repos;
+package com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo;
 
 import com.GHSMSystemBE.GHSMSystem.Dto.User;
 import org.springframework.data.jpa.repository.JpaRepository;
