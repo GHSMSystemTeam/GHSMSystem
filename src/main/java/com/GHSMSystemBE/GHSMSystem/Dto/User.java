@@ -15,7 +15,7 @@ import java.sql.Date;
 public class User extends BaseEntity {
     @Column(name = "booking_history", nullable = true, unique = true)
     private String bookingHistory;
-    @Column(name = "booking_history", nullable = false, unique = false)
+    @Column(name = "total_spending", nullable = false, unique = false)
     private float totalSpending= 0;
 
 }

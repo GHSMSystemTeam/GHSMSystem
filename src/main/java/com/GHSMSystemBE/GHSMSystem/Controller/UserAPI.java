@@ -29,7 +29,9 @@ public class UserAPI {
     //Find user with matching ID
     @Operation(summary = "Search user by matching ID", description = "Retrieve user with matching ID, return a user Object")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "404", description = "User with Id doesn't exit")
+            @ApiResponse(responseCode = "200", description = "User with Id found"),
+            @ApiResponse(responseCode = "404", description = "User with Id doesn't exit"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @GetMapping("/api/user/{id}")
     public ResponseEntity<User> searchUserById(@PathVariable String id)
@@ -51,7 +53,7 @@ public class UserAPI {
 //Add user
     @Operation(summary = "Add new user" , description = "Add new user to the database")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Successfully added user"),
+            @ApiResponse(responseCode = "201", description = "Successfully added user"),
             @ApiResponse(responseCode = "400", description = "Failed to add user")
     })
     @PostMapping("/api/user")
