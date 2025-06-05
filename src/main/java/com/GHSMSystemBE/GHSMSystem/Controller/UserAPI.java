@@ -89,6 +89,7 @@ public class UserAPI {
         }
     }
     //Update user
+    /*
     @Operation(summary = "Update user with matching ID" , description ="Match user with ID and update user" )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully updated user"),
@@ -114,5 +115,8 @@ public class UserAPI {
             return  ResponseEntity.ok(userCRUDRepo.save(existedUser));
         }
     }
+    */
+
+
 
 }
