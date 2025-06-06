@@ -17,8 +17,8 @@ public class Post {
     private String id;
     @Column(name = "consultant_id", nullable = false,unique = false)
     private String consultantId;
-    @Column(name = "category", nullable = false,unique = false)
-    private String category;
+    @Column(name = "category_id", nullable = false,unique = false)
+    private String categoryId;
     @Column(name = "title", nullable = false,unique = true)
     private String title;
     @Column(name = "content", nullable = false,unique = true)
