@@ -32,7 +32,7 @@ public class User implements Serializable {
 
     @Schema(description = "User password hash. Must not be empty")
     @Column(name="password_hash", nullable = false)
-    private String passwordHash;
+    private String password;
 
     @Schema(description = "Full name of the user. Must not be empty")
     @Column(name="name", nullable = false)
@@ -49,6 +49,10 @@ public class User implements Serializable {
     @Schema(description = "Date and time when the user account was created. Must not be empty")
     @Column(name="create_date", nullable = false)
     private LocalDateTime createDate;
+
+    @Schema(description = "BirthDate of the user.")
+    @Column(name="birthDate")
+    private Date birthDate;
 
     @Schema(description = "Indicates whether the user account is active or not. Must not be empty")
     @Column(name = "is_active", nullable = false)
@@ -89,4 +93,139 @@ public class User implements Serializable {
     @Column(name = "description")
     private String description;
 
+    public Float getAvgRating() {
+        return avgRating;
+    }
+
+    public void setAvgRating(Float avgRating) {
+        this.avgRating = avgRating;
+    }
+
+    public String getBookingHistory() {
+        return bookingHistory;
+    }
+
+    public void setBookingHistory(String bookingHistory) {
+        this.bookingHistory = bookingHistory;
+    }
+
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Integer getExpYear() {
+        return expYear;
+    }
+
+    public void setExpYear(Integer expYear) {
+        this.expYear = expYear;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public String getLicenseDetails() {
+        return licenseDetails;
+    }
+
+    public void setLicenseDetails(String licenseDetails) {
+        this.licenseDetails = licenseDetails;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPasswordHash() {
+        return password;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.password = passwordHash;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public byte[] getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(byte[] profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+
+    public float getTotalSpending() {
+        return totalSpending;
+    }
+
+    public void setTotalSpending(float totalSpending) {
+        this.totalSpending = totalSpending;
+    }
 }
