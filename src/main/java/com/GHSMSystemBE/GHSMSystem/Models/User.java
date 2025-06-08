@@ -88,5 +88,5 @@ public class User implements Serializable {
     @Schema(description = "Description (bio) of the consultant")
     @Column(name = "description")
     private String description;
-    
+
 }

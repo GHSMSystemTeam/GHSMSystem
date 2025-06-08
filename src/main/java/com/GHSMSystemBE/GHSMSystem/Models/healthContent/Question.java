@@ -14,7 +14,7 @@ import lombok.ToString;
 @ToString
 @Table(name = "tbl_question_and_answer")
 @Schema(description = "Entity representing questions from customers and answers from consultants")
-public class QuestionAndAnswer {
+public class Question {
     @Schema(description = "ID field. Must not be empty- must be unique")
     @Id
     private String id;
@@ -35,8 +35,6 @@ public class QuestionAndAnswer {
     @Column(name = "content")
     private String content;
 
-    @Schema(description = "Content of the answer provided by the consultant")
-    @Column(name = "answer_content")
     private String answerContent;
 
     @Schema(description = "Date and time when the question was created")
