@@ -57,6 +57,7 @@ public class UserService implements IUserService {
 
         // if no user exist
         if(u1 == null){
+            System.out.println("LOG:"+ u.getPassword());
             String uPass = u.getPassword();
             u.setPassword(passwordEncoder.encode(uPass));
             return repo.save(u);
