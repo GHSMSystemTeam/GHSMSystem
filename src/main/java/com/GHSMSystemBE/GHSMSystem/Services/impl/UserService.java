@@ -120,7 +120,7 @@ public class UserService implements IUserService {
 
     @Override
     public User checkLogin(String email, String password) {
-        User u = repo.findByEmailAndPassword(email, password);
+        User u = repo.findByEmail(email);
         if(u!=null &&  passwordEncoder.matches(password, u.getPassword()) && u.isActive())
         {
             return u;
