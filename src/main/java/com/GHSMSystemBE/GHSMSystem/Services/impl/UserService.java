@@ -27,6 +27,7 @@ public class UserService implements IUserService {
         return repo.findAll();
     }
 
+    // get all user with active status
     @Override
     public List<User> getAllActiveUser(){
         return repo.findAll(UserSpecifications.hasStatusTrue());
@@ -79,7 +80,6 @@ public class UserService implements IUserService {
             String uPass = u.getPassword();
             u1.setPassword(passwordEncoder.encode(uPass));
             u1.setPhone(u.getPhone());
-            u1.setBirthDate(u.getBirthDate());
             return repo.save(u1);
         }
         return null;

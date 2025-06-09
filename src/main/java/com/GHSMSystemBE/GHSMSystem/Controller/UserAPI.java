@@ -96,6 +96,7 @@ public class UserAPI {
                return new ResponseEntity<>(HttpStatus.CREATED);
            }
     }
+
     //Delete user
     @Operation(summary = "Delete user with matching ID" , description ="Match user with ID and delete user from database" )
     @ApiResponses(value = {
@@ -120,6 +121,7 @@ public class UserAPI {
             return ResponseEntity.noContent().build();
         }
     }
+
     //Update user
     @Operation(summary = "Update user with matching ID" , description ="Match user with ID and update user" )
     @ApiResponses(value = {
