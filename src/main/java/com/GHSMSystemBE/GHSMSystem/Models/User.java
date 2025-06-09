@@ -30,8 +30,8 @@ public class User implements Serializable {
     @Column(name="email", nullable = false, unique = true)
     private String email;
 
-    @Schema(description = "User password hash. Must not be empty")
-    @Column(name="password_hash", nullable = false)
+    @Schema(description = "User password. Must not be empty")
+    @Column(name="password", nullable = false)
     private String password;
 
     @Schema(description = "Full name of the user. Must not be empty")
@@ -181,12 +181,12 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public String getPasswordHash() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.password = passwordHash;
+    public void setPassword(String password) {
+        this.password = this.password;
     }
 
     public String getPhone() {

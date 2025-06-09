@@ -7,6 +7,7 @@ import com.GHSMSystemBE.GHSMSystem.Services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,9 @@ import java.util.Optional;
 public class UserService implements IUserService {
 
     @Autowired
-    userRepo repo;
+    private userRepo repo;
+    @Autowired
+   private PasswordEncoder passwordEncoder;
 
     // get all existed user
     @Override
@@ -38,7 +41,11 @@ public class UserService implements IUserService {
     // get a user by email and password
     @Override
     public User getByEmailAndPassword(String email, String password){
-        return repo.findByEmailAndPassword(email, password);
+        User user = repo.findByEmail(email);
+        if(user != null && passwordEncoder.matches(password, user.getPassword())) {
+            return user;
+        }
+        return null;
     }
 
     // create a new user
@@ -49,7 +56,9 @@ public class UserService implements IUserService {
         User u1 = repo.findByEmail(u.getEmail());
 
         // if no user exist
-        if(u1 != null){
+        if(u1 == null){
+            String uPass = u.getPassword();
+            u.setPassword(passwordEncoder.encode(uPass));
             return repo.save(u);
         }
 
@@ -66,7 +75,8 @@ public class UserService implements IUserService {
         if(u1 != null){
             u1.setName(u.getName());
             u1.setEmail(u.getEmail());
-            u1.setPassword(u.getPassword());
+            String uPass = u.getPassword();
+            u1.setPassword(passwordEncoder.encode(uPass));
             u1.setPhone(u.getPhone());
             u1.setBirthDate(u.getBirthDate());
             return repo.save(u1);
@@ -76,17 +86,27 @@ public class UserService implements IUserService {
 
     @Override
     public User checkLogin(String email, String password) {
-
-        return repo.findByEmailAndPassword(email, password);
+        User u = repo.findByEmail(email);
+        if(u!=null &&  passwordEncoder.matches(password, u.getPassword()))
+        {
+            return u;
+        }
+        return null;
     }
 
     @Override
     public User getById(String id) {
 
             Optional<User> oUser= repo.findById(id);
-            User foundUser = oUser.get();
-            System.out.println("LOG: User found: "+ foundUser);
-            return foundUser;
+            if(oUser.isPresent()) {
+                User foundUser = oUser.get();
+                System.out.println("LOG: User found: " + foundUser);
+                return foundUser;
+            }
+            else
+            {
+                return null;
+            }
     }
 
     @Override

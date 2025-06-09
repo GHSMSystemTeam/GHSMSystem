@@ -21,8 +21,8 @@ public class UserAPI {
     @Autowired
     private UserService service;
 
-    private static final String CURRENT_USER = "TranDucHai2123";
-    private static final String CURRENT_DATE = "2025-06-09 06:34:44";
+    private static final String CURRENT_USER = "User";
+    private static final String CURRENT_DATE = "LOG:DATE";
 
     //Print user list
     @Operation(summary = "Get a list of user" , description = "Retrieve a list of available users from the Database")
@@ -83,13 +83,18 @@ public class UserAPI {
             System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Failed to add new user. User is null");
             return ResponseEntity.badRequest().build();
         }
-        else
-        {
+
             System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Creating user with name: " + user.getName());
-            service.createUser(user);
-            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Successfully added new user: " + user.getName());
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }
+           User saved = service.createUser(user);
+           if(saved == null)
+           {
+               System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - User with email already exist.");
+               return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+           }
+           else {
+               System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Successfully added new user: " + user.getName());
+               return new ResponseEntity<>(HttpStatus.CREATED);
+           }
     }
     //Delete user
     @Operation(summary = "Delete user with matching ID" , description ="Match user with ID and delete user from database" )
