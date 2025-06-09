@@ -12,4 +12,6 @@ public interface IUserService {
     User createUser(User u);
     User editUser(User u);
     User checkLogin(String email, String password);
+    User getById(String id);
+    void deleteUser(User user);
 }

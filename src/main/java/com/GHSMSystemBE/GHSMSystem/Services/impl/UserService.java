@@ -6,9 +6,11 @@ import com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo.userRepo;
 import com.GHSMSystemBE.GHSMSystem.Services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService implements IUserService {
@@ -74,7 +76,22 @@ public class UserService implements IUserService {
 
     @Override
     public User checkLogin(String email, String password) {
+
         return repo.findByEmailAndPassword(email, password);
+    }
+
+    @Override
+    public User getById(String id) {
+
+            Optional<User> oUser= repo.findById(id);
+            User foundUser = oUser.get();
+            System.out.println("LOG: User found: "+ foundUser);
+            return foundUser;
+    }
+
+    @Override
+    public void deleteUser(User user) {
+        repo.delete(user);
     }
 
 
