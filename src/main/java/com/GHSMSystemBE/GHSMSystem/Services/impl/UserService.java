@@ -19,7 +19,7 @@ public class UserService implements IUserService {
     @Autowired
     private userRepo repo;
     @Autowired
-   private PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     // get all existed user
     @Override
@@ -27,26 +27,47 @@ public class UserService implements IUserService {
         return repo.findAll();
     }
 
-    // get all user with active status
+    // get all user with active status (include Customer and Consultant)
     @Override
     public List<User> getAllActiveUser(){
         return repo.findAll(UserSpecifications.hasStatusTrue());
+    }
+
+    // get all user with role customer and active status
+    @Override
+    public List<User> getAllActiveCustomer() {
+        return repo.findByRoleAndIsActive(1, true);
+    }
+
+    @Override
+    public List<User> getAllActiveConsultant() {
+        return List.of();
+    }
+
+    @Override
+    public List<User> getAllDeActiveCustomer() {
+        return List.of();
+    }
+
+    @Override
+    public List<User> getAllDeActiveConsultant() {
+        return List.of();
+    }
+
+    @Override
+    public void deActiveCustomer(User u) {
+
+    }
+
+    @Override
+    public void deActiveConsultant(User u) {
+
     }
 
     // get user by user email
     @Override
     public User getByEmail(String email) {
         return repo.findByEmail(email);
-    }
-
-    // get a user by email and password
-    @Override
-    public User getByEmailAndPassword(String email, String password){
-        User user = repo.findByEmail(email);
-        if(user != null && passwordEncoder.matches(password, user.getPassword())) {
-            return user;
-        }
-        return null;
     }
 
     // create a new user
@@ -69,7 +90,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User editUser(User u) {
+    public void editUser(User u) {
 
         // check user is existed ????
         User u1 = repo.findByEmail(u.getEmail());
@@ -80,9 +101,8 @@ public class UserService implements IUserService {
             String uPass = u.getPassword();
             u1.setPassword(passwordEncoder.encode(uPass));
             u1.setPhone(u.getPhone());
-            return repo.save(u1);
+            repo.save(u1);
         }
-        return null;
     }
 
     @Override

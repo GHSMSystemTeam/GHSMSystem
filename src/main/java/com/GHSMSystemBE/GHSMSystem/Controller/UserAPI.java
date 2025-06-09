@@ -36,11 +36,21 @@ public class UserAPI {
     }
 
     //print out a list of user is active
-    @Operation(summary = "Get a list of active user" , description = "Retrieve a list of active users from the Database")
+    @Operation(summary = "Get a list of active user (include customer and consultant)" , description = "Retrieve a list of active users (include customer and consultant)")
     @GetMapping("/api/activeuser")
     public ResponseEntity<List<User>> getActiveUserList(){
         System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Retrieving all active users");
         List<User> list = service.getAllActiveUser();
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Found " + list.size() + " active users in the database");
+        return ResponseEntity.ok(list);
+    }
+
+    //print out a list of user with role customer and active status
+    @Operation(summary = "Get a list of active customer" , description = "Retrieve a list of active customer")
+    @GetMapping("/api/activecustomer")
+    public ResponseEntity<List<User>> getActiveCustomerList(){
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Retrieving all active users");
+        List<User> list = service.getAllActiveCustomer();
         System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Found " + list.size() + " active users in the database");
         return ResponseEntity.ok(list);
     }
@@ -93,6 +103,7 @@ public class UserAPI {
            }
            else {
                System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Successfully added new user: " + user.getName());
+               user.setId(null);
                return new ResponseEntity<>(HttpStatus.CREATED);
            }
     }
