@@ -1,4 +1,4 @@
-package com.GHSMSystemBE.GHSMSystem.Models.healthContent;
+package com.GHSMSystemBE.GHSMSystem.Models.HealthContent;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;

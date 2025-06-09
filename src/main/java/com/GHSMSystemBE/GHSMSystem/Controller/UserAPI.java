@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 public class UserAPI {
-    
+
 
     @Autowired
     private UserService service;

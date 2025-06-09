@@ -1,15 +1,20 @@
-package com.GHSMSystemBE.GHSMSystem.APIs.Configs;
+package com.GHSMSystemBE.GHSMSystem.SwaggerConfigs;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class swaggerConfig {
+public class swagConfig {
+
+    @Bean
     public OpenAPI swaggerConfig()
     {
-        return new OpenAPI()
+
+
+        OpenAPI openAPI = new OpenAPI()
                 .info(new Info()
                         .title("Gerder Healthcare System Manager Application API")
                         .description("API for GHMSystem")
@@ -17,5 +22,7 @@ public class swaggerConfig {
                         .contact(new Contact()
                                 .name("API Support")
                                 .email("support@example.com")));
+
+        return openAPI;
     }
 }

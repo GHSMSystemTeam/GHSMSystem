@@ -1,4 +1,4 @@
-package com.GHSMSystemBE.GHSMSystem.Models.heathservice;
+package com.GHSMSystemBE.GHSMSystem.Models.Heathservice;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
@@ -17,7 +17,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @Schema(description = "Entity representing a type of service offered in the system")
-public class serviceType {
+public class ServiceType {
     @Schema(description = "ID field with syntax format CS-001. Must not be empty- must be unique")
     @Id
     @Column(name="id", nullable = false, unique = true)
