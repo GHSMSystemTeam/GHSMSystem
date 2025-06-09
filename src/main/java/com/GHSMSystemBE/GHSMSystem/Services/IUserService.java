@@ -7,12 +7,14 @@ import java.util.List;
 public interface IUserService {
     List<User> getAll();
     List<User> getAllActiveUser();
+    List<User> getAllCustomer();
+    List<User> getAllConsultant();
     List<User> getAllActiveCustomer();
     List<User> getAllActiveConsultant();
     List<User> getAllDeActiveCustomer();
     List<User> getAllDeActiveConsultant();
-    void deActiveCustomer(User u);
-    void deActiveConsultant(User u);
+    void activeUser(User u);
+    void deActiveUser(User u);
     User getByEmail(String email);
     User createUser(User u);
     void editUser(User u);

@@ -5,8 +5,6 @@ import com.GHSMSystemBE.GHSMSystem.Models.UserSpecifications;
 import com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo.userRepo;
 import com.GHSMSystemBE.GHSMSystem.Services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +31,18 @@ public class UserService implements IUserService {
         return repo.findAll(UserSpecifications.hasStatusTrue());
     }
 
+    //get all customer
+    @Override
+    public List<User> getAllCustomer() {
+        return repo.findByRole(1);
+    }
+
+    //get all consultant
+    @Override
+    public List<User> getAllConsultant() {
+        return repo.findByRole(2);
+    }
+
     // get all user with role customer and active status
     @Override
     public List<User> getAllActiveCustomer() {
@@ -45,24 +55,26 @@ public class UserService implements IUserService {
         return repo.findByRoleAndIsActive(2, true);
     }
 
+    // get all user with role customer and deactive status
     @Override
     public List<User> getAllDeActiveCustomer() {
         return repo.findByRoleAndIsActive(1, false);
     }
 
+    // get all user with role consultant and deactive status
     @Override
     public List<User> getAllDeActiveConsultant() {
         return repo.findByRoleAndIsActive(2, false);
     }
 
     @Override
-    public void deActiveCustomer(User u) {
-
+    public void activeUser(User u) {
+        u.setActive(true);
     }
 
     @Override
-    public void deActiveConsultant(User u) {
-
+    public void deActiveUser(User u) {
+        u.setActive(false);
     }
 
     // get user by user email
@@ -109,7 +121,7 @@ public class UserService implements IUserService {
     @Override
     public User checkLogin(String email, String password) {
         User u = repo.findByEmailAndPassword(email, password);
-        if(u!=null &&  passwordEncoder.matches(password, u.getPassword()))
+        if(u!=null &&  passwordEncoder.matches(password, u.getPassword()) && u.isActive())
         {
             return u;
         }

@@ -45,6 +45,22 @@ public class UserAPI {
         return ResponseEntity.ok(list);
     }
 
+    //print out a list of customer
+    @Operation(summary = "Get a list of customer" , description = "Retrieve a list of customer")
+    @GetMapping("/api/customers")
+    public ResponseEntity<List<User>> getAllCustomers(){
+        List<User> list = service.getAllCustomer();
+        return ResponseEntity.ok(list);
+    }
+
+    //print out a list of consultant
+    @Operation(summary = "Get a list of consultant" , description = "Retrieve a list of consultant")
+    @GetMapping("/api/consultants")
+    public ResponseEntity<List<User>> getAllConsultants(){
+        List<User> list = service.getAllConsultant();
+        return ResponseEntity.ok(list);
+    }
+
     //print out a list of user with role customer and active status
     @Operation(summary = "Get a list of active customer" , description = "Retrieve a list of active customer")
     @GetMapping("/api/activecustomers")
@@ -108,6 +124,7 @@ public class UserAPI {
             return ResponseEntity.ok(foundUser);
         }
     }
+
     //Add user
     @Operation(summary = "Add new user" , description = "Add new user to the database")
     @ApiResponses(value = {
@@ -161,6 +178,38 @@ public class UserAPI {
             System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Successfully deleted user with ID: " + id);
             return ResponseEntity.noContent().build();
         }
+    }
+
+    //Deactive user
+    @Operation(summary = "DeActive customer" , description ="MDeActive a customer to not login website" )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully DeActive customer"),
+            @ApiResponse(responseCode = "404", description = "Failed to DeActive customer")
+    })
+    @PutMapping("/api/deactive/{id}")
+    public ResponseEntity<User> deActiveUser(@PathVariable String id){
+        User u = service.getById(id);
+        if(u != null){
+            service.deActiveUser(u);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    //Active user
+    @Operation(summary = "DeActive customer" , description ="MDeActive a customer to not login website" )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully DeActive customer"),
+            @ApiResponse(responseCode = "404", description = "Failed to DeActive customer")
+    })
+    @PutMapping("/api/active/{id}")
+    public ResponseEntity<User> activeUser(@PathVariable String id){
+        User u = service.getById(id);
+        if(u != null){
+            service.activeUser(u);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     //Update user
