@@ -39,19 +39,20 @@ public class UserService implements IUserService {
         return repo.findByRoleAndIsActive(1, true);
     }
 
+    // get all user with role consultant and active status
     @Override
     public List<User> getAllActiveConsultant() {
-        return List.of();
+        return repo.findByRoleAndIsActive(2, true);
     }
 
     @Override
     public List<User> getAllDeActiveCustomer() {
-        return List.of();
+        return repo.findByRoleAndIsActive(1, false);
     }
 
     @Override
     public List<User> getAllDeActiveConsultant() {
-        return List.of();
+        return repo.findByRoleAndIsActive(2, false);
     }
 
     @Override

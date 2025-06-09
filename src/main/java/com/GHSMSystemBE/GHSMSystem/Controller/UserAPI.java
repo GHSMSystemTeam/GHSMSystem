@@ -37,7 +37,7 @@ public class UserAPI {
 
     //print out a list of user is active
     @Operation(summary = "Get a list of active user (include customer and consultant)" , description = "Retrieve a list of active users (include customer and consultant)")
-    @GetMapping("/api/activeuser")
+    @GetMapping("/api/activeusers")
     public ResponseEntity<List<User>> getActiveUserList(){
         System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Retrieving all active users");
         List<User> list = service.getAllActiveUser();
@@ -47,11 +47,41 @@ public class UserAPI {
 
     //print out a list of user with role customer and active status
     @Operation(summary = "Get a list of active customer" , description = "Retrieve a list of active customer")
-    @GetMapping("/api/activecustomer")
+    @GetMapping("/api/activecustomers")
     public ResponseEntity<List<User>> getActiveCustomerList(){
-        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Retrieving all active users");
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Retrieving all active customers");
         List<User> list = service.getAllActiveCustomer();
-        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Found " + list.size() + " active users in the database");
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Found " + list.size() + " active customers in the database");
+        return ResponseEntity.ok(list);
+    }
+
+    //print out a list of user with role consultant and active status
+    @Operation(summary = "Get a list of active consultants" , description = "Retrieve a list of active consultant")
+    @GetMapping("/api/activeconsultants")
+    public ResponseEntity<List<User>> getActiveConsultantList(){
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Retrieving all active consultants");
+        List<User> list = service.getAllActiveConsultant();
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Found " + list.size() + " active consultants in the database");
+        return ResponseEntity.ok(list);
+    }
+
+    //print out a list of user with role customer and deactive status
+    @Operation(summary = "Get a list of deactive customer" , description = "Retrieve a list of deactive customer")
+    @GetMapping("/api/deactivecustomers")
+    public ResponseEntity<List<User>> getDeActiveCustomerList(){
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Retrieving all deactive users");
+        List<User> list = service.getAllDeActiveCustomer();
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Found " + list.size() + " deactive users in the database");
+        return ResponseEntity.ok(list);
+    }
+
+    //print out a list of user with role consultant and deactive status
+    @Operation(summary = "Get a list of deactive consultants" , description = "Retrieve a list of active consultants")
+    @GetMapping("/api/deactiveconsultants")
+    public ResponseEntity<List<User>> getDeActiveConsultantList(){
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Retrieving all deactive consultants");
+        List<User> list = service.getAllDeActiveConsultant();
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Found " + list.size() + " deactive consultants in the database");
         return ResponseEntity.ok(list);
     }
 
