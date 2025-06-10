@@ -180,38 +180,6 @@ public class UserAPI {
         }
     }
 
-    //Deactive user
-    @Operation(summary = "DeActive customer" , description ="MDeActive a customer to not login website" )
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully DeActive customer"),
-            @ApiResponse(responseCode = "404", description = "Failed to DeActive customer")
-    })
-    @PutMapping("/api/deactive/{id}")
-    public ResponseEntity<User> deActiveUser(@PathVariable String id){
-        User u = service.getById(id);
-        if(u != null){
-            service.deActiveUser(u);
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
-        }
-        return ResponseEntity.notFound().build();
-    }
-
-    //Active user
-    @Operation(summary = "DeActive customer" , description ="MDeActive a customer to not login website" )
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully DeActive customer"),
-            @ApiResponse(responseCode = "404", description = "Failed to DeActive customer")
-    })
-    @PutMapping("/api/active/{id}")
-    public ResponseEntity<User> activeUser(@PathVariable String id){
-        User u = service.getById(id);
-        if(u != null){
-            service.activeUser(u);
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
-        }
-        return ResponseEntity.notFound().build();
-    }
-
     //Update user
     @Operation(summary = "Update user with matching ID" , description ="Match user with ID and update user" )
     @ApiResponses(value = {
@@ -255,4 +223,38 @@ public class UserAPI {
         System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Failed to login. Invalid credentials");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
+
+    //////Consultant Service functions///////
+    //Deactive user
+    @Operation(summary = "DeActive customer" , description ="MDeActive a customer to not login website" )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully DeActive customer"),
+            @ApiResponse(responseCode = "404", description = "Failed to DeActive customer")
+    })
+    @PutMapping("/api/deactive/{id}")
+    public ResponseEntity<User> deActiveUser(@PathVariable String id){
+        User u = service.getById(id);
+        if(u != null){
+            service.deActiveUser(u);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    //Active user
+    @Operation(summary = "DeActive customer" , description ="MDeActive a customer to not login website" )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully DeActive customer"),
+            @ApiResponse(responseCode = "404", description = "Failed to DeActive customer")
+    })
+    @PutMapping("/api/active/{id}")
+    public ResponseEntity<User> activeUser(@PathVariable String id){
+        User u = service.getById(id);
+        if(u != null){
+            service.activeUser(u);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
 }
