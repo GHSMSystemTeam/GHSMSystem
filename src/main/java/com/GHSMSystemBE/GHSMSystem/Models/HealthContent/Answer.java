@@ -1,12 +1,14 @@
 package com.GHSMSystemBE.GHSMSystem.Models.HealthContent;
 
+import com.GHSMSystemBE.GHSMSystem.Models.User;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
+import java.util.UUID;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Entity
@@ -17,11 +19,16 @@ import lombok.ToString;
 public class Answer {
     @Schema(description = "ID field. Must not be empty- must be unique")
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", nullable = false, unique = true)
+    private UUID id;
 
     @Schema(description = "ID of the user who provided the answer")
-    @Column(name = "user_id")
-    private String userId;
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private User userId;
 
     @Schema(description = "Title or summary of the answer")
     @Column(name = "title")

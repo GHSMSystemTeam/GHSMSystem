@@ -1,12 +1,15 @@
 package com.GHSMSystemBE.GHSMSystem.Models.HealthContent;
 
+import com.GHSMSystemBE.GHSMSystem.Models.Heathservice.ServiceBooking;
+import com.GHSMSystemBE.GHSMSystem.Models.User;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
+import java.util.UUID;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Entity
@@ -17,19 +20,31 @@ import lombok.ToString;
 public class Rating {
     @Schema(description = "ID field. Must not be empty- must be unique")
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", nullable = false, unique = true)
+    private UUID id;
 
     @Schema(description = "ID of the customer who provided the rating")
-    @Column(name = "customer_id")
-    private String customerId;
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private User customerId;
+
 
     @Schema(description = "ID of the consultant being rated")
-    @Column(name = "consultant_id")
-    private String consultantId;
+    @ManyToOne
+    @JoinColumn(name = "consultant_id", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private User consultantId;
 
     @Schema(description = "ID of the service being rated")
-    @Column(name = "service_id")
-    private String serviceId;
+    @OneToOne
+    @JoinColumn(name = "service_booking_id", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ServiceBooking serviceBookingId;
 
     @Schema(description = "Title or summary of the rating")
     @Column(name = "title")

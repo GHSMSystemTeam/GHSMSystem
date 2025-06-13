@@ -1,10 +1,7 @@
 package com.GHSMSystemBE.GHSMSystem.Models.HealthContent;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
 
@@ -16,7 +13,9 @@ import lombok.ToString;
 public class PostCategory {
     @Schema(description = "ID field. Must not be empty- must be unique")
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
+    private int id;
 
     @Schema(description = "Name of the post category")
     @Column(name = "name")

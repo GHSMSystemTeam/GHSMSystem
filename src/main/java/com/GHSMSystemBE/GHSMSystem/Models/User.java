@@ -3,10 +3,11 @@ package com.GHSMSystemBE.GHSMSystem.Models;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
-
+import java.util.Set;
 import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tbl_user")
@@ -19,12 +20,29 @@ public class User implements Serializable {
 
     @Schema(description = "ID field. Must not be empty- must be unique")
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name="id", nullable = false, unique = true)
-    private String id; //Primary key
+    private UUID id; //Primary key
+
+    @Schema(description = "Full name of the user. Must not be empty")
+    @Column(name="name", nullable = false)
+    private String name;
 
     @Schema(description = "User role: 1=customer, 2=consultant, 3=admin. Must not be empty")
-    @Column(name = "role", nullable = false)
-    private int role;
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
+
+    @ManyToOne
+    @JoinColumn(name = "admin_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private User admin;
+
+    @OneToMany(mappedBy = "admin")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<User> managedUser;
 
     @Schema(description = "Email address of the user. Must not be empty- must be unique")
     @Column(name="email", nullable = false, unique = true)
@@ -33,10 +51,6 @@ public class User implements Serializable {
     @Schema(description = "User password. Must not be empty")
     @Column(name="password", nullable = false)
     private String password;
-
-    @Schema(description = "Full name of the user. Must not be empty")
-    @Column(name="name", nullable = false)
-    private String name;
 
     @Schema(description = "Gender of the user. 1=male, 2=female, 3=other. Must not be empty")
     @Column(name="gender", nullable = false)
@@ -71,8 +85,6 @@ public class User implements Serializable {
     @Column(name = "total_spending", nullable = false)
     private float totalSpending = 0;
 
-    // Consultant specific fields
-
     @Schema(description = "Specialization area of the consultant. Required for consultants")
     @Column(name = "specialization")
     private String specialization;
@@ -93,36 +105,21 @@ public class User implements Serializable {
     @Column(name = "description")
     private String description;
 
-    public Float getAvgRating() {
-        return avgRating;
+    // Keeping all the getters and setters
+    public UUID getId() {
+        return id;
     }
 
-    public void setAvgRating(Float avgRating) {
-        this.avgRating = avgRating;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
-    public String getBookingHistory() {
-        return bookingHistory;
+    public Role getRole() {
+        return role;
     }
 
-    public void setBookingHistory(String bookingHistory) {
-        this.bookingHistory = bookingHistory;
-    }
-
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getEmail() {
@@ -133,44 +130,12 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public Integer getExpYear() {
-        return expYear;
+    public String getPassword() {
+        return password;
     }
 
-    public void setExpYear(Integer expYear) {
-        this.expYear = expYear;
-    }
-
-    public int getGender() {
-        return gender;
-    }
-
-    public void setGender(int gender) {
-        this.gender = gender;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    public String getLicenseDetails() {
-        return licenseDetails;
-    }
-
-    public void setLicenseDetails(String licenseDetails) {
-        this.licenseDetails = licenseDetails;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {
@@ -181,12 +146,12 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public int getGender() {
+        return gender;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setGender(int gender) {
+        this.gender = gender;
     }
 
     public String getPhone() {
@@ -197,6 +162,30 @@ public class User implements Serializable {
         this.phone = phone;
     }
 
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
     public byte[] getProfilePicture() {
         return profilePicture;
     }
@@ -205,12 +194,20 @@ public class User implements Serializable {
         this.profilePicture = profilePicture;
     }
 
-    public int getRole() {
-        return role;
+    public String getBookingHistory() {
+        return bookingHistory;
     }
 
-    public void setRole(int role) {
-        this.role = role;
+    public void setBookingHistory(String bookingHistory) {
+        this.bookingHistory = bookingHistory;
+    }
+
+    public float getTotalSpending() {
+        return totalSpending;
+    }
+
+    public void setTotalSpending(float totalSpending) {
+        this.totalSpending = totalSpending;
     }
 
     public String getSpecialization() {
@@ -221,11 +218,51 @@ public class User implements Serializable {
         this.specialization = specialization;
     }
 
-    public float getTotalSpending() {
-        return totalSpending;
+    public String getLicenseDetails() {
+        return licenseDetails;
     }
 
-    public void setTotalSpending(float totalSpending) {
-        this.totalSpending = totalSpending;
+    public void setLicenseDetails(String licenseDetails) {
+        this.licenseDetails = licenseDetails;
+    }
+
+    public Integer getExpYear() {
+        return expYear;
+    }
+
+    public void setExpYear(Integer expYear) {
+        this.expYear = expYear;
+    }
+
+    public Float getAvgRating() {
+        return avgRating;
+    }
+
+    public void setAvgRating(Float avgRating) {
+        this.avgRating = avgRating;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public User getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(User admin) {
+        this.admin = admin;
+    }
+
+    public Set<User> getManagedUser() {
+        return managedUser;
+    }
+
+    public void setManagedUser(Set<User> managedUser) {
+        this.managedUser = managedUser;
     }
 }

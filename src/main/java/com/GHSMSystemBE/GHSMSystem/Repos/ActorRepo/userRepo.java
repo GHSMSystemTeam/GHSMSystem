@@ -1,5 +1,6 @@
 package com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo;
 
+import com.GHSMSystemBE.GHSMSystem.Models.Role;
 import com.GHSMSystemBE.GHSMSystem.Models.User;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,6 +13,6 @@ public interface userRepo extends JpaRepository<User, String> {
     User findByEmail(String email);
     User findByEmailAndPassword(String email, String password);
     List<User> findAll(Specification<User> spec);
-    List<User> findByRoleAndIsActive(int role, boolean status);
-    List<User> findByRole(int role);
+    List<User> findByRoleAndIsActive(Role role, boolean status);
+    List<User> findByRole(Role role);
 }

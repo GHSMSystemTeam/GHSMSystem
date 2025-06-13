@@ -1,12 +1,13 @@
 package com.GHSMSystemBE.GHSMSystem.Models.HealthContent;
 
+import com.GHSMSystemBE.GHSMSystem.Models.User;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.util.UUID;
 
 @Entity
 @Data
@@ -16,16 +17,23 @@ import lombok.ToString;
 public class Post {
     @Schema(description = "ID field. Must not be empty- must be unique")
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false, unique = true)
-    private String id;
+    private UUID id;
 
     @Schema(description = "ID of the consultant who authored this post. Must not be empty")
-    @Column(name = "consultant_id", nullable = false, unique = false)
-    private String consultantId;
+    @ManyToOne
+    @JoinColumn(name = "consultant_id", nullable = false, unique = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private User consultantId;
 
     @Schema(description = "ID of the category this post belongs to. Must not be empty")
-    @Column(name = "category_id", nullable = false, unique = false)
-    private String categoryId;
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false, unique = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PostCategory categoryId;
 
     @Schema(description = "Title of the post. Must not be empty- must be unique")
     @Column(name = "title", nullable = false, unique = true)

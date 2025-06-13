@@ -1,10 +1,7 @@
 package com.GHSMSystemBE.GHSMSystem.Models.Heathservice;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,12 +17,9 @@ import lombok.ToString;
 public class ServiceType {
     @Schema(description = "ID field with syntax format CS-001. Must not be empty- must be unique")
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", nullable = false, unique = true)
-    private String id; //Syntax ID CS-001
-
-    @Schema(description = "Reference to the rating associated with this service type. Must not be empty- must be unique")
-    @Column(name="rating_id", nullable = false, unique = true)
-    private String ratingId;
+    private int id; //Syntax ID CS-001
 
     @Schema(description = "Name of the service type. Must not be empty- must be unique")
     @Column(name="name", nullable = false, unique = true)

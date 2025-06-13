@@ -1,7 +1,9 @@
 package com.GHSMSystemBE.GHSMSystem.Services.impl;
 
+import com.GHSMSystemBE.GHSMSystem.Models.Role;
 import com.GHSMSystemBE.GHSMSystem.Models.User;
 import com.GHSMSystemBE.GHSMSystem.Models.UserSpecifications;
+import com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo.roleRepo;
 import com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo.userRepo;
 import com.GHSMSystemBE.GHSMSystem.Services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ public class UserService implements IUserService {
 
     @Autowired
     private userRepo repo;
+    @Autowired
+    private roleRepo roleRepo;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -34,37 +38,47 @@ public class UserService implements IUserService {
     //get all customer
     @Override
     public List<User> getAllCustomer() {
-        return repo.findByRole(1);
+        Role role = roleRepo.findById(1).orElseThrow();
+        return repo.findByRole(role);
     }
 
     //get all consultant
     @Override
     public List<User> getAllConsultant() {
-        return repo.findByRole(2);
+        Role role   = roleRepo.findById(2).orElseThrow();
+        return repo.findByRole(role);
     }
 
     // get all user with role customer and active status
     @Override
     public List<User> getAllActiveCustomer() {
-        return repo.findByRoleAndIsActive(1, true);
+Integer roleId = 1;
+        Role role = roleRepo.findById(roleId).orElseThrow();
+        return repo.findByRoleAndIsActive(role, true);
     }
 
     // get all user with role consultant and active status
     @Override
     public List<User> getAllActiveConsultant() {
-        return repo.findByRoleAndIsActive(2, true);
+        Integer roleId = 2;
+        Role role = roleRepo.findById(roleId).orElseThrow();
+        return repo.findByRoleAndIsActive(role, true);
     }
 
     // get all user with role customer and deactive status
     @Override
     public List<User> getAllDeActiveCustomer() {
-        return repo.findByRoleAndIsActive(1, false);
+        Integer roleId = 1;
+        Role role = roleRepo.findById(roleId).orElseThrow();
+        return repo.findByRoleAndIsActive(role, false);
     }
 
     // get all user with role consultant and deactive status
     @Override
     public List<User> getAllDeActiveConsultant() {
-        return repo.findByRoleAndIsActive(2, false);
+        Integer roleId = 2;
+        Role role = roleRepo.findById(roleId).orElseThrow();
+        return repo.findByRoleAndIsActive(role, false);
     }
 
     @Override
