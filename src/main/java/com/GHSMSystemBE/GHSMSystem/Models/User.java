@@ -28,13 +28,14 @@ public class User implements Serializable {
     @Column(name="name", nullable = false)
     private String name;
 
-    @Schema(description = "User role: 1=customer, 2=consultant, 3=admin. Must not be empty")
+    @Schema(description = "User role")
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
+    @Schema(description = "ID of admin managing the user")
     @ManyToOne
-    @JoinColumn(name = "admin_id")
+    @JoinColumn(name = "admin_id", nullable= true)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private User admin;
@@ -74,7 +75,7 @@ public class User implements Serializable {
 
     @Schema(description = "Profile picture of the user stored as binary data")
     @Lob
-    @Column(name="profile_picture")
+    @Column(name="profile_picture", nullable = true, unique = false)
     private byte[] profilePicture;
 
     @Schema(description = "Booking history of a specific user. Can be empty")

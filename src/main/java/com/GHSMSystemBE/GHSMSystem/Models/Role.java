@@ -15,7 +15,6 @@ public class Role {
 
     @Schema(description = "ID field. Must not be empty- must be unique")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", nullable = false, unique = true)
     private int id; //Primary key
 
