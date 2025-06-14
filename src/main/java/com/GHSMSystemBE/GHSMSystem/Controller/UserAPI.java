@@ -1,5 +1,6 @@
 package com.GHSMSystemBE.GHSMSystem.Controller;
 
+import com.GHSMSystemBE.GHSMSystem.Models.DTO.CustomerDTO;
 import com.GHSMSystemBE.GHSMSystem.Models.User;
 import com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo.userRepo;
 import com.GHSMSystemBE.GHSMSystem.Services.impl.UserService;
@@ -10,6 +11,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.catalina.mapper.Mapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +27,9 @@ public class UserAPI {
 
     @Autowired
     private UserService service;
+
+    @Autowired
+    private ModelMapper mapper;
 
     private static final String CURRENT_USER = "TranDucHai2123";
     private static final String CURRENT_DATE = "2025-06-13 07:17:44";
@@ -185,21 +191,25 @@ public class UserAPI {
     })
     @PostMapping("/api/user")
     public ResponseEntity<Void> addUser(
-            @Parameter(description = "User object to be created", required = true) @RequestBody User user) {
+            @Parameter(description = "User object to be created", required = true) @RequestBody CustomerDTO cusDTO) {
         System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Attempting to add new user");
-        if (user == null) {
+
+        // mapping DTO -> model
+        User uTmp = mapper.map(cusDTO, User.class);
+
+        if (uTmp == null) {
             System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Failed to add new user. User is null");
             return ResponseEntity.badRequest().build();
         }
 
-        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Creating user with name: " + user.getName());
-        User saved = service.createUser(user);
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Creating user with name: " + uTmp.getName());
+        User saved = service.createUser(uTmp);
         if (saved == null) {
             System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - User with email already exist.");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
-            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Successfully added new user: " + user.getName());
-            user.setId(null);
+            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Successfully added new user: " + uTmp.getName());
+            uTmp.setId(null);
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
     }
