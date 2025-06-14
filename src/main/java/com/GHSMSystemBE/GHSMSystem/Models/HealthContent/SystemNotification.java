@@ -1,6 +1,6 @@
 package com.GHSMSystemBE.GHSMSystem.Models.HealthContent;
 
-import com.GHSMSystemBE.GHSMSystem.Models.Heathservice.ServiceBooking;
+import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceBooking;
 import com.GHSMSystemBE.GHSMSystem.Models.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;

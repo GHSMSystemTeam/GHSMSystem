@@ -1,4 +1,4 @@
-package com.GHSMSystemBE.GHSMSystem.Models.Heathservice;
+package com.GHSMSystemBE.GHSMSystem.Models.HealthService;
 
 import com.GHSMSystemBE.GHSMSystem.Models.User;
 import io.swagger.v3.oas.annotations.media.Schema;

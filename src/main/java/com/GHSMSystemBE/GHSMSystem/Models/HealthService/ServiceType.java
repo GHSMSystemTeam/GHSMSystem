@@ -1,4 +1,4 @@
-package com.GHSMSystemBE.GHSMSystem.Models.Heathservice;
+package com.GHSMSystemBE.GHSMSystem.Models.HealthService;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
@@ -17,7 +17,6 @@ import lombok.ToString;
 public class ServiceType {
     @Schema(description = "ID field with syntax format CS-001. Must not be empty- must be unique")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", nullable = false, unique = true)
     private int id; //Syntax ID CS-001
 
