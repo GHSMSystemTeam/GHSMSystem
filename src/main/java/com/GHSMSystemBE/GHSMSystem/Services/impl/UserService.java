@@ -148,7 +148,7 @@ Integer roleId = 1;
     @Override
     public User getById(String id) {
 
-            Optional<User> oUser= repo.findById(id);
+            Optional<User> oUser= repo.findById(UUID.fromString(id));
             if(oUser.isPresent()) {
                 User foundUser = oUser.get();
                 System.out.println("LOG: User found: " + foundUser);
