@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ServiceTypeService implements IHealthServiceType {
+public class HealthServiceTypeService implements IHealthServiceType {
     @Autowired
     private ServiceTypeRepo repo;
 
