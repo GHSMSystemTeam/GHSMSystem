@@ -1,7 +1,7 @@
 package com.GHSMSystemBE.GHSMSystem.Controller.HealthServiceAPI;
 
 import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceType;
-import com.GHSMSystemBE.GHSMSystem.Services.impl.HealthService.HealthServiceTypeService;
+import com.GHSMSystemBE.GHSMSystem.Services.IHealthServiceType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -21,7 +21,7 @@ import java.util.List;
 @Tag(name = "Service type Management", description = "API endpoints for Service types management operations")
 public class ServiceTypeAPI {
     @Autowired
-    private HealthServiceTypeService service;
+    private IHealthServiceType service;
 
     private static final String CURRENT_USER = "TranDucHai2123";
     private static final String CURRENT_DATE = "2025-06-15 07:11:39";
