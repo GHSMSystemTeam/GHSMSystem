@@ -3,7 +3,7 @@ package com.GHSMSystemBE.GHSMSystem.Controller;
 import com.GHSMSystemBE.GHSMSystem.Models.DTO.CustomerDTO;
 import com.GHSMSystemBE.GHSMSystem.Models.User;
 import com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo.userRepo;
-import com.GHSMSystemBE.GHSMSystem.Services.impl.UserService;
+import com.GHSMSystemBE.GHSMSystem.Services.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -26,7 +26,7 @@ import java.util.Optional;
 public class UserAPI {
 
     @Autowired
-    private UserService service;
+    private IUserService service;
 
     @Autowired
     private ModelMapper mapper;
