@@ -189,9 +189,9 @@ public class UserAPI {
             @ApiResponse(responseCode = "201", description = "Successfully added user"),
             @ApiResponse(responseCode = "400", description = "Failed to add user - validation error or duplicate email")
     })
-    @PostMapping("/api/user")
-    public ResponseEntity<Void> addUser(
-            @Parameter(description = "User object to be created", required = true) @RequestBody CustomerDTO cusDTO) {
+    @PostMapping("/api/register")
+    public ResponseEntity<Void> registerUser(
+            @Parameter(description = "User object to be created/register new", required = true) @RequestBody CustomerDTO cusDTO) {
         System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Attempting to add new user");
 
         // mapping DTO -> model
