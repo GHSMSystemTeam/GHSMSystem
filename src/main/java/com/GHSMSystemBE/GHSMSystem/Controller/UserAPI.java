@@ -3,7 +3,7 @@ package com.GHSMSystemBE.GHSMSystem.Controller;
 import com.GHSMSystemBE.GHSMSystem.Models.DTO.CustomerDTO;
 import com.GHSMSystemBE.GHSMSystem.Models.User;
 import com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo.userRepo;
-import com.GHSMSystemBE.GHSMSystem.Services.impl.UserService;
+import com.GHSMSystemBE.GHSMSystem.Services.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -26,7 +26,7 @@ import java.util.Optional;
 public class UserAPI {
 
     @Autowired
-    private UserService service;
+    private IUserService service;
 
     @Autowired
     private ModelMapper mapper;
@@ -189,9 +189,9 @@ public class UserAPI {
             @ApiResponse(responseCode = "201", description = "Successfully added user"),
             @ApiResponse(responseCode = "400", description = "Failed to add user - validation error or duplicate email")
     })
-    @PostMapping("/api/user")
-    public ResponseEntity<Void> addUser(
-            @Parameter(description = "User object to be created", required = true) @RequestBody CustomerDTO cusDTO) {
+    @PostMapping("/api/register")
+    public ResponseEntity<Void> registerUser(
+            @Parameter(description = "User object to be created/register new", required = true) @RequestBody CustomerDTO cusDTO) {
         System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Attempting to add new user");
 
         // mapping DTO -> model

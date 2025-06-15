@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class UserService implements IUserService {
@@ -86,13 +85,11 @@ Integer roleId = 1;
     @Override
     public void activeUser(User u) {
         u.setActive(true);
-        repo.save(u);
     }
 
     @Override
     public void deActiveUser(User u) {
         u.setActive(false);
-        repo.save(u);
     }
 
     // get user by user email
@@ -150,7 +147,8 @@ Integer roleId = 1;
 
     @Override
     public User getById(String id) {
-            Optional<User> oUser= repo.findById(UUID.fromString(id));
+
+            Optional<User> oUser= repo.findById(id);
             if(oUser.isPresent()) {
                 User foundUser = oUser.get();
                 System.out.println("LOG: User found: " + foundUser);
