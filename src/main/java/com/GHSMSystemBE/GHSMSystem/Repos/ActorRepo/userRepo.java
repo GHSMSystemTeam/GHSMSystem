@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public interface userRepo extends JpaRepository<User, String> {
@@ -15,4 +17,6 @@ public interface userRepo extends JpaRepository<User, String> {
     List<User> findAll(Specification<User> spec);
     List<User> findByRoleAndIsActive(Role role, boolean status);
     List<User> findByRole(Role role);
+
+    Optional<User> findById(UUID uuid);
 }

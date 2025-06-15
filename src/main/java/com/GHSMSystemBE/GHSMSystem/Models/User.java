@@ -71,7 +71,7 @@ public class User implements Serializable {
 
     @Schema(description = "Indicates whether the user account is active or not. Must not be empty")
     @Column(name = "is_active", nullable = false)
-    private boolean isActive;
+    private boolean isActive=true;
 
     @Schema(description = "Profile picture of the user stored as binary data")
     @Lob

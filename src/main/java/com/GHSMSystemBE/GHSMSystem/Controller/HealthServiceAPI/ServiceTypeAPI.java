@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/service-types")
 @Tag(name = "Service type Management", description = "API endpoints for Service types management operations")
 public class ServiceTypeAPI {
     @Autowired
