@@ -18,7 +18,7 @@ public class ServiceType {
     @Schema(description = "ID field with syntax format CS-001. Must not be empty- must be unique")
     @Id
     @Column(name="id", nullable = false, unique = true)
-    private int id; //Syntax ID CS-001
+    private int id;
 
     @Schema(description = "Name of the service type. Must not be empty- must be unique")
     @Column(name="name", nullable = false, unique = true)
