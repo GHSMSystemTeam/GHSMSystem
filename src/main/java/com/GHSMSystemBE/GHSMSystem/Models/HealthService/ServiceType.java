@@ -1,5 +1,6 @@
 package com.GHSMSystemBE.GHSMSystem.Models.HealthService;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -18,6 +19,8 @@ public class ServiceType {
     @Schema(description = "ID field with syntax format CS-001. Must not be empty- must be unique")
     @Id
     @Column(name="id", nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private int id;
 
     @Schema(description = "Name of the service type. Must not be empty- must be unique")
