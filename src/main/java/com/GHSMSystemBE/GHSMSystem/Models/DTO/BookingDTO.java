@@ -13,16 +13,16 @@ import java.sql.Date;
 @NoArgsConstructor
 public class BookingDTO {
 
-    private User consultantId;
+    private String consultantId;
 
-    private User customerId;
+    private String customerId;
 
-    private ServiceType serviceTypeId;
+    private int serviceTypeId;
 
-    private Date appointmentDate;
+    private Date appointmentDate; // YYYY-MM-DD
 
-    private String appointmentSlot;
+    private int appointmentSlot;
 
-    private int duration;
+    private int duration; // hour
 
 }

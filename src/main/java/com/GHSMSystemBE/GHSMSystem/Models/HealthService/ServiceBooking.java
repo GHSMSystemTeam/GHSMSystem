@@ -40,24 +40,24 @@ public class ServiceBooking {
     @JoinColumn(name="service_type_id", nullable = false, unique = false)
     private ServiceType serviceTypeId;
 
-    @Schema(description = "Date and time when the appointment was created. Must not be empty")
-    @Column(name="create_date", nullable = false, unique = false)
-    private LocalDateTime createDate;
-
     @Schema(description = "Date scheduled for the appointment. Must not be empty")
     @Column(name="appointment_date", nullable = false, unique = false)
     private Date appointmentDate;
 
-    @Schema(description = "Time slot for the appointment (AMS-x, PMS-x syntax). Must not be empty")
+    @Schema(description = "Time slot for the appointment from slot 1 to 5. Must not be empty")
     @Column(name="appointment_slot", nullable = false, unique = false)
-    private String appointmentSlot; //AMS-x, PMS-x syntaxId
+    private int appointmentSlot;
 
     @Schema(description = "Duration of the appointment in hours. Must not be empty")
     @Column(name="duration", nullable = false, unique = false)
     private int duration; //hours
 
+    @Schema(description = "Date and time when the appointment was created. Must not be empty")
+    @Column(name="create_date", nullable = false, unique = false)
+    private LocalDateTime createDate;
+
     @Schema(description = "Description of the appointment and related information. Must not be empty")
-    @Column(name="description", nullable = true, unique = false)
+    @Column(name="description", nullable = false, unique = false)
     private String description;
 
     @Schema(description = "Indicates whether the appointment is active. Must not be empty")

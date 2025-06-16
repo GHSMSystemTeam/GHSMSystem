@@ -187,7 +187,7 @@ public class UserAPI {
             @ApiResponse(responseCode = "400", description = "Failed to add user - validation error or duplicate email")
     })
     @PostMapping("/api/register")
-    public ResponseEntity<Void> registerUser(
+    public ResponseEntity<User> registerUser(
             @Parameter(description = "User object to be created/register new", required = true) @RequestBody CustomerDTO cusDTO) {
         System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Attempting to add new user");
 
@@ -206,8 +206,8 @@ public class UserAPI {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
             System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Successfully added new user: " + uTmp.getName());
-            uTmp.setId(null);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            saved.setId(null);
+            return new ResponseEntity<>(saved, HttpStatus.CREATED);
         }
     }
 
@@ -217,7 +217,7 @@ public class UserAPI {
             @ApiResponse(responseCode = "204", description = "Successfully deleted user"),
             @ApiResponse(responseCode = "404", description = "User with ID not found")
     })
-    @DeleteMapping("/api/user/{id}")
+    @DeleteMapping("/api/delete/user/{id}")
     public ResponseEntity<Void> deleteUserById(
             @Parameter(description = "User's UUID to delete") @PathVariable String id) {
         System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Attempting to delete user with ID: " + id);
@@ -284,7 +284,7 @@ public class UserAPI {
             @ApiResponse(responseCode = "202", description = "Successfully updated user"),
             @ApiResponse(responseCode = "404", description = "User with ID not found")
     })
-    @PutMapping("/api/user/{id}")
+    @PutMapping("/api/update/user/{id}")
     public ResponseEntity<User> updateUserById(
             @Parameter(description = "User's UUID to update") @PathVariable String id,
             @Parameter(description = "Updated user object") @RequestBody User user) {

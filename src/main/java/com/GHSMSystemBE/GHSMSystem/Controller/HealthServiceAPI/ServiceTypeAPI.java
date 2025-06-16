@@ -106,7 +106,6 @@ public class ServiceTypeAPI {
         }
     }
 
-
     @Operation(summary = "Delete a service type", description = "Delete a service type by its ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Service type successfully deleted"),
