@@ -10,7 +10,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Tag(name = "Booking Service", description = "API endpoints for Booking Servuce management operations")
 public class BookingAPI {
-
-    @Autowired
-    private IBookingService service;
 }
