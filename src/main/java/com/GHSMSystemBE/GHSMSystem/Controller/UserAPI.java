@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin("*")
 @RestController
 @Tag(name = "User Management", description = "API endpoints for user management operations")
 public class UserAPI {

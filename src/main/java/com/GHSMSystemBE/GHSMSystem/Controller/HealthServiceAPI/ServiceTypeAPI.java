@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin("*")
 @RestController
 @Tag(name = "Service type Management", description = "API endpoints for Service types management operations")
 public class ServiceTypeAPI {
