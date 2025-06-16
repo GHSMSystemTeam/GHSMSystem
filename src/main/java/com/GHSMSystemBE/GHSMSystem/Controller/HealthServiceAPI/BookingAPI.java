@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("*")
+@CrossOrigin("**")
 @RestController
 @Tag(name = "Booking Service", description = "API endpoints for Booking Service management operations")
 public class BookingAPI {

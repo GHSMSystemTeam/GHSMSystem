@@ -17,7 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@CrossOrigin("*")
+@CrossOrigin("**")
 @RestController
 @Tag(name = "User Management", description = "API endpoints for user management operations")
 public class UserAPI {

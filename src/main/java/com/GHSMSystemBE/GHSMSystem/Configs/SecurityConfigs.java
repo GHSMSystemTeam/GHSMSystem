@@ -13,7 +13,7 @@ public class SecurityConfigs {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
+        /*http
                 // Disable CSRF for H2 console and API endpoints
                 .csrf(csrf -> csrf.disable())
 
@@ -29,6 +29,11 @@ public class SecurityConfigs {
                         .requestMatchers("/api/**").permitAll()
                         // Optional: require authentication for other endpoints
                         .anyRequest().permitAll()
+                );*/
+
+        HttpSecurity httpSecurity = http
+                .authorizeHttpRequests((authorize) -> authorize
+                        .anyRequest().authenticated()
                 );
 
         return http.build();
