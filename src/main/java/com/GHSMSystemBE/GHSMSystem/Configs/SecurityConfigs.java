@@ -14,6 +14,8 @@ public class SecurityConfigs {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(Customizer.withDefaults())
+                
                 // Disable CSRF for H2 console and API endpoints
                 .csrf(csrf -> csrf.disable())
 
