@@ -17,9 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
+
 @CrossOrigin("*")
 @RestController
 @Tag(name = "User Management", description = "API endpoints for user management operations")
@@ -220,7 +220,7 @@ public class UserAPI {
             @ApiResponse(responseCode = "204", description = "Successfully deleted user"),
             @ApiResponse(responseCode = "404", description = "User with ID not found")
     })
-    @DeleteMapping("/api/user/id/{id}")
+    @DeleteMapping("/api/user/{id}")
     public ResponseEntity<Void> deleteUserById(
             @Parameter(description = "User's UUID to delete") @PathVariable String id) {
         System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Attempting to delete user with ID: " + id);
@@ -242,7 +242,7 @@ public class UserAPI {
             @ApiResponse(responseCode = "204", description = "Successfully deleted user"),
             @ApiResponse(responseCode = "404", description = "User with email not found")
     })
-    @DeleteMapping("/api/user/email/{email}")
+    @DeleteMapping("/api/user/{email}")
     public ResponseEntity<Void> deleteUserByEmail(
             @Parameter(description = "User's email to delete") @PathVariable String email) {
         System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Attempting to delete user with email: " + email);
@@ -264,7 +264,7 @@ public class UserAPI {
             @ApiResponse(responseCode = "202", description = "Successfully updated user"),
             @ApiResponse(responseCode = "404", description = "User with email not found")
     })
-    @PutMapping("/api/user/email/{email}")
+    @PutMapping("/api/user/{email}")
     public ResponseEntity<User> updateUserByEmail(
             @Parameter(description = "User's email to update") @PathVariable String email,
             @Parameter(description = "Updated user object") @RequestBody User user) {
@@ -287,7 +287,7 @@ public class UserAPI {
             @ApiResponse(responseCode = "202", description = "Successfully updated user"),
             @ApiResponse(responseCode = "404", description = "User with ID not found")
     })
-    @PutMapping("/api/user/id/{id}")
+    @PutMapping("/api/user/{id}")
     public ResponseEntity<User> updateUserById(
             @Parameter(description = "User's UUID to update") @PathVariable String id,
             @Parameter(description = "Updated user object") @RequestBody User user) {
