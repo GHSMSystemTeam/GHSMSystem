@@ -35,44 +35,4 @@ public class ServiceType {
     @Schema(description = "Indicates whether this service type is currently active. Must not be empty- must be unique")
     @Column(name="is_active", nullable = false, unique = true)
     private boolean isActive;
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
 }

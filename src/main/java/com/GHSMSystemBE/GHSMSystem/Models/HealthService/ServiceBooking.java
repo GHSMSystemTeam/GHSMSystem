@@ -57,90 +57,10 @@ public class ServiceBooking {
     private int duration; //hours
 
     @Schema(description = "Description of the appointment and related information. Must not be empty")
-    @Column(name="description", nullable = false, unique = false)
+    @Column(name="description", nullable = true, unique = false)
     private String description;
 
     @Schema(description = "Indicates whether the appointment is active. Must not be empty")
     @Column(name="is_active", nullable = false, unique = false)
     private boolean isActive;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public User getConsultantId() {
-        return consultantId;
-    }
-
-    public User getCustomerId() {
-        return customerId;
-    }
-
-    public ServiceType getServiceTypeId() {
-        return serviceTypeId;
-    }
-
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public Date getAppointmentDate() {
-        return appointmentDate;
-    }
-
-    public String getAppointmentSlot() {
-        return appointmentSlot;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public void setConsultantId(User consultantId) {
-        this.consultantId = consultantId;
-    }
-
-    public void setCustomerId(User customerId) {
-        this.customerId = customerId;
-    }
-
-    public void setServiceTypeId(ServiceType serviceTypeId) {
-        this.serviceTypeId = serviceTypeId;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
-
-    public void setAppointmentDate(Date appointmentDate) {
-        this.appointmentDate = appointmentDate;
-    }
-
-    public void setAppointmentSlot(String appointmentSlot) {
-        this.appointmentSlot = appointmentSlot;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
 }

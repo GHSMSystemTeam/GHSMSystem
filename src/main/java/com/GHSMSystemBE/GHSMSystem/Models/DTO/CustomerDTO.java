@@ -30,45 +30,4 @@ public class CustomerDTO {
     @Schema(description = "Phone number of the user. Must not be empty- must be unique")
     @Column(name="phone", nullable = false, unique = true)
     private String phone;
-
-    //getter setter
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public int getGender() {
-        return gender;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setGender(int gender) {
-        this.gender = gender;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 }

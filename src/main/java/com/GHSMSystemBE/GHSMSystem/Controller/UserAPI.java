@@ -2,7 +2,6 @@ package com.GHSMSystemBE.GHSMSystem.Controller;
 
 import com.GHSMSystemBE.GHSMSystem.Models.DTO.CustomerDTO;
 import com.GHSMSystemBE.GHSMSystem.Models.User;
-import com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo.userRepo;
 import com.GHSMSystemBE.GHSMSystem.Services.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -11,14 +10,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.apache.catalina.mapper.Mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
@@ -183,8 +180,8 @@ public class UserAPI {
         }
     }
 
-    //Add user
-    @Operation(summary = "Add new user", description = "Add new user to the database with proper validation")
+    //Add user or register a new user
+    @Operation(summary = "Add new user or register a new user", description = "Add new user to the database with proper validation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Successfully added user"),
             @ApiResponse(responseCode = "400", description = "Failed to add user - validation error or duplicate email")
