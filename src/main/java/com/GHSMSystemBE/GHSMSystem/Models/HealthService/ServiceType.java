@@ -18,7 +18,7 @@ import lombok.ToString;
 public class ServiceType {
     @Schema(description = "ID field with syntax format CS-001. Must not be empty- must be unique")
     @Id
-    @Column(name="id", nullable = false, unique = true)
+    @Column(name="id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private int id;

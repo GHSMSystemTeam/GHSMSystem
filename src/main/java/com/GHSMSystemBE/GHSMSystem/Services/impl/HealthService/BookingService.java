@@ -87,7 +87,7 @@ public class BookingService implements IBookingService {
 
         // get now date from LocalDate and convert to java.sql.date
         LocalDate localDate = LocalDate.now();
-        Date sqlDate = Date.valueOf(localDate);
+        Date sqlDate = Date.valueOf(localDate.toString());
 
         if(sb != null){
             // compare if the appointment date is before current date
