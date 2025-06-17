@@ -1,5 +1,6 @@
 package com.GHSMSystemBE.GHSMSystem.Models.HealthService;
 
+import com.GHSMSystemBE.GHSMSystem.Models.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,6 +27,14 @@ public class ServiceResult {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private ServiceBooking serviceBookingId;
+
+    @Schema(description = "Reference to the original service booking order. Must not be empty- must be unique")
+    @OneToOne
+    @JoinColumn(name="customer_id", nullable = false, unique = true)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private User customerID;
+
 
     @Schema(description = "Content or results of the service appointment. Must not be empty- must be unique")
     @Column(name="content", nullable = false, unique = true)

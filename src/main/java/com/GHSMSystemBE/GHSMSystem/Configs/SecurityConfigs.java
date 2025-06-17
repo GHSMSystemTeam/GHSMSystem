@@ -20,39 +20,20 @@ import java.util.List;
 public class SecurityConfigs {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .cors(Customizer.withDefaults())
-                
-                // Disable CSRF for H2 console and API endpoints
-                .csrf(AbstractHttpConfigurer::disable)
-
-                // Allow frames for H2 console
-                //.headers(headers -> headers.frameOptions().disable())
-
-                .authorizeHttpRequests(auth -> auth
-                        // Allow H2 console access
-                        .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
-                        // Allow Swagger access
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        // Allow your API endpoints
-                        .requestMatchers("/api/**").permitAll()
-                        // Optional: require authentication for other endpoints
-                        .anyRequest().permitAll()
-                );
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.cors().and().authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll());
         return http.build();
     }
 
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
+    CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost", "http://127.0.0.1")); // Allow all localhost origins
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Allowed HTTP methods
-        configuration.setAllowedHeaders(List.of("*")); // Allow all headers
-        configuration.setAllowCredentials(true); // Allow sending credentials (cookies, authorization headers)
-
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+        configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
+        configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration); // Apply this configuration to all paths
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 }

@@ -63,4 +63,8 @@ public class ServiceBooking {
     @Schema(description = "Indicates whether the appointment is active. Must not be empty")
     @Column(name="is_active", nullable = false, unique = false)
     private boolean isActive;
+
+    @Schema(description = "Indicates booking order status")
+    @Column(name="status", nullable = false, unique = false)
+    private int status=0;//0-order received 1-inprogress 2-ended
 }

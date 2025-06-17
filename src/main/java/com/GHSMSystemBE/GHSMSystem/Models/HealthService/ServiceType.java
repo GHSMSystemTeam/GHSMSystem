@@ -16,7 +16,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Schema(description = "Entity representing a type of service offered in the system")
 public class ServiceType {
-    @Schema(description = "ID field with syntax format CS-001. Must not be empty- must be unique")
+    @Schema(description = "ID field. Must not be empty- must be unique")
     @Id
     @Column(name="id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +36,6 @@ public class ServiceType {
     private float price;
 
     @Schema(description = "Indicates whether this service type is currently active. Must not be empty- must be unique")
-    @Column(name="is_active", nullable = false, unique = true)
+    @Column(name="is_active", nullable = false)
     private boolean isActive;
 }

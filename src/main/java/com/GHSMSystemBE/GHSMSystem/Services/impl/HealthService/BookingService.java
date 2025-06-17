@@ -93,7 +93,6 @@ public class BookingService implements IBookingService {
             // compare if the appointment date is before current date
             // compare where appointment slot between slot 1 and 5
             if(sb.getAppointmentDate().compareTo(sqlDate) > 0 && (sb.getAppointmentSlot() >= 1 && sb.getAppointmentSlot() <= 5)){
-
                 sb.setCreateDate(LocalDateTime.now());
                 sb.setActive(true);
                 sb.setDescription("some appointment");

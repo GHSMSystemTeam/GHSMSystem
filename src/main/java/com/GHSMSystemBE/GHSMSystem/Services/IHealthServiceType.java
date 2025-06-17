@@ -2,7 +2,6 @@ package com.GHSMSystemBE.GHSMSystem.Services;
 
 import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceType;
 
-import java.security.Provider;
 import java.util.List;
 
 public interface IHealthServiceType {
