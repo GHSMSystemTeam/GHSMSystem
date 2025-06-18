@@ -41,7 +41,7 @@ public class ServiceTypeAPI {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List of active service types retrieved successfully")
     })
-    @GetMapping("/api/activeservicetypes")
+    @GetMapping("/api/servicetypes/active")
     public ResponseEntity<List<ServiceType>> getActiveServiceTypeList() {
         System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Retrieving all active service types");
         List<ServiceType> activeServiceTypesList = service.getAllActiveServiceType();
@@ -53,7 +53,7 @@ public class ServiceTypeAPI {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List of inactive service types retrieved successfully")
     })
-    @GetMapping("/api/inactiveservicetypes")
+    @GetMapping("/api/servicetypes/inactive")
     public ResponseEntity<List<ServiceType>> getInActiveServiceTypeList() {
         System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Retrieving all inactive service types");
         List<ServiceType> inactiveServiceTypesList = service.getAllInactiveServiceType();

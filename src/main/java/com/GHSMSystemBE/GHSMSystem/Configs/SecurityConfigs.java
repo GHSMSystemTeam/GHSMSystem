@@ -26,6 +26,9 @@ public class SecurityConfigs {
                 // Disable CSRF for H2 console and API endpoints
                 .csrf(AbstractHttpConfigurer::disable)
 
+                // Disable CORS protection
+                .cors(AbstractHttpConfigurer::disable)
+
                 // Allow frames for H2 console
                 .headers(headers -> headers.frameOptions().disable())
 
@@ -43,4 +46,19 @@ public class SecurityConfigs {
         return http.build();
     }
 
+    // Alternatively, you can define a permissive CORS configuration
+    /*
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowCredentials(false);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+    */
 }

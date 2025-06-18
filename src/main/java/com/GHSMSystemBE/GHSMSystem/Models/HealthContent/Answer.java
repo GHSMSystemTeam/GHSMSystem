@@ -34,10 +34,6 @@ public class Answer {
     @Column(name = "title")
     private String title;
 
-    @Schema(description = "Detailed content of the question being answered")
-    @Column(name = "content")
-    private String content;
-
     @Schema(description = "The actual answer content provided by the consultant")
     @Column(name = "answer_content")
     private String answerContent;
