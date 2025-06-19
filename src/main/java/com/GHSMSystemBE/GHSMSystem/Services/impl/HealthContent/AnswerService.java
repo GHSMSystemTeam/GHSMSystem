@@ -38,15 +38,8 @@ public class AnswerService implements IHealthAnswers {
         {
             return null;
         }
-       Boolean existed = harepo.existsById(newAnswer.getId());
-       if(existed)
-       {
-           return null;
-       }
-       else
-       {
 return harepo.save(newAnswer);
-       }
+
     }
 
     @Override
@@ -65,7 +58,7 @@ return harepo.save(newAnswer);
             old.setId(updatedAnswer.getId());
             old.setTitle(updatedAnswer.getTitle());
             old.setAnswerContent(updatedAnswer.getAnswerContent()+"(edited)");
-            old.setUserId(updatedAnswer.getUserId());
+            old.setUser(updatedAnswer.getUser());
             old.setIsActive(updatedAnswer.getIsActive());
             old.setIsPublic(updatedAnswer.getIsPublic());
             old.setRating(updatedAnswer.getRating());

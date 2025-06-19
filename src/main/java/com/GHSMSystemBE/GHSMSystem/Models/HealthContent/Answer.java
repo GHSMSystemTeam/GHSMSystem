@@ -1,6 +1,7 @@
 package com.GHSMSystemBE.GHSMSystem.Models.HealthContent;
 
 import com.GHSMSystemBE.GHSMSystem.Models.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
@@ -24,11 +25,19 @@ public class Answer {
     private UUID id;
 
     @Schema(description = "ID of the user who provided the answer")
-    @OneToOne
+    @ManyToOne  // Changed from @OneToOne to @ManyToOne since one user can provide multiple answers
     @JoinColumn(name = "user_id", nullable = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private User userId;
+    private User user;  // Renamed from userId to user for clarity
+
+    @Schema(description = "The question this answer belongs to")
+    @JsonBackReference // Add this annotation to break the infinite recursion cycle
+    @ManyToOne
+    @JoinColumn(name = "question_id", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Question question;
 
     @Schema(description = "Title or summary of the answer")
     @Column(name = "title")
@@ -52,7 +61,7 @@ public class Answer {
 
     @Schema(description = "Indicates whether the answer is active in the system")
     @Column(name = "is_active")
-    private Boolean isActive;
+    private Boolean isActive=true;
 
     // Added as per the template provided
     public static final String CREATED_BY = "TranDucHai2123";

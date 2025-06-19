@@ -58,7 +58,7 @@ public class QuestionService implements IHealthQuestion {
             old.setCustomer(updatedQuestion.getCustomer());
             old.setTitle(updatedQuestion.getTitle());
             old.setContent(updatedQuestion.getContent()+"(edited)");
-            old.setAnswersId(updatedQuestion.getAnswersId());
+            old.setAnswers(updatedQuestion.getAnswers());
             old.setIsPublic(updatedQuestion.getIsPublic());
             old.setIsActive(updatedQuestion.getIsActive());
         }

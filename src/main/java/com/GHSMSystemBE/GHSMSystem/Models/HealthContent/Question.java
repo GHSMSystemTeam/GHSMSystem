@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,11 +33,10 @@ public class Question {
     private User customer;
 
     @Schema(description = "Answers provided to this question")
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "answers_id") // Foreign key column in the answer table
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private List<Answer> answersId;
+    private List<Answer> answers = new ArrayList<>();
 
     @Schema(description = "Title or summary of the question")
     @Column(name = "title")
@@ -56,5 +56,16 @@ public class Question {
 
     @Schema(description = "Indicates whether the Q&A is active in the system")
     @Column(name = "is_active")
-    private Boolean isActive= true;
+    private Boolean isActive = true;
+
+    // Helper methods for managing the bidirectional relationship
+    public void addAnswer(Answer answer) {
+        answers.add(answer);
+        answer.setQuestion(this);
+    }
+
+    public void removeAnswer(Answer answer) {
+        answers.remove(answer);
+        answer.setQuestion(null);
+    }
 }

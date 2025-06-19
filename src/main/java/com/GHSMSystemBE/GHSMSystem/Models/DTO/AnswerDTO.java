@@ -10,11 +10,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnswerDTO {
-    private String id;
-    private String consultantId;  // Renamed for clarity from userId
-    private String consultantName;  // Added for frontend display convenience
+    private String questionId;
+    private String consultantId;
     private String title;
-    private String content;  // Renamed from answerContent for consistency
+    private String content;
     private LocalDateTime createDate;
     private Integer rating;
     private Boolean isPublic;
