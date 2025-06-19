@@ -56,5 +56,5 @@ public class Question {
 
     @Schema(description = "Indicates whether the Q&A is active in the system")
     @Column(name = "is_active")
-    private Boolean isActive;
+    private Boolean isActive= true;
 }

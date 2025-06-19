@@ -2,6 +2,7 @@ package com.GHSMSystemBE.GHSMSystem.Services.impl.HealthContent;
 
 import com.GHSMSystemBE.GHSMSystem.Models.AnswerSpecifications;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthContent.Answer;
+import com.GHSMSystemBE.GHSMSystem.Models.User;
 import com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo.userRepo;
 import com.GHSMSystemBE.GHSMSystem.Repos.HealthContentRepo.HealthAnswerRepo;
 import com.GHSMSystemBE.GHSMSystem.Services.IHealthAnswers;
@@ -15,8 +16,7 @@ import java.util.UUID;
 public class AnswerService implements IHealthAnswers {
     @Autowired
     private HealthAnswerRepo harepo;
-    @Autowired
-    private userRepo urepo;
+
     @Override
     public List<Answer> getAll() {
         return harepo.findAll();
@@ -55,7 +55,7 @@ return harepo.save(newAnswer);
         {
             return null;
         }
-       Answer old = harepo.getById(updatedAnswer.getId());
+       Answer old = harepo.findById(updatedAnswer.getId()).get();
         if(old==null)
         {
             return null;
@@ -79,12 +79,13 @@ return harepo.save(newAnswer);
     }
 
     @Override
-    public Answer getById(UUID answerId) {
+    public Answer getById(String answerId) {
         if(answerId==null)
         {
             return null;
         }
-     Answer answer = harepo.findById(answerId).get();
+        UUID uuid = UUID.fromString(answerId);
+     Answer answer = harepo.findById(uuid).get();
      if(answer==null)
      {
          return null;

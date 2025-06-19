@@ -16,9 +16,6 @@ import java.util.UUID;
 public class QuestionService implements IHealthQuestion {
     @Autowired
    private HealthQuestionRepo hqrepo;
-    @Autowired
-    private userRepo urepo;
-
 
     @Override
     public List<Question> getAll() {
@@ -37,20 +34,20 @@ public class QuestionService implements IHealthQuestion {
 
     @Override
     public Question createQuestion(Question newQuestion) {
-    Boolean exist = hqrepo.existsById(newQuestion.getId());
-    if(exist)
-    {
-        return null;
-    }
-    else
-    {
-     return hqrepo.save(newQuestion);
-    }
+        if (newQuestion.getId() == null) {
+            return hqrepo.save(newQuestion);
+        }
+        Boolean exist = hqrepo.existsById(newQuestion.getId());
+        if (exist) {
+            return null;
+        } else {
+            return hqrepo.save(newQuestion);
+        }
     }
 
     @Override
     public Question editQuestion(Question updatedQuestion) {
-        Question old = hqrepo.getById(updatedQuestion.getId());
+        Question old = hqrepo.findById(updatedQuestion.getId()).get();
         if(old == null)
         {
             return null;
@@ -74,15 +71,20 @@ hqrepo.delete(deleteQuestion);
     }
 
     @Override
-    public Question getById(UUID questionId) {
-        Boolean exist = hqrepo.existsById(questionId);
-        if(exist)
+    public Question getById(String questionId) {
+        if(questionId==null)
+        {
+            return null;
+        }
+        UUID uuid = UUID.fromString(questionId);
+        Boolean exist = hqrepo.existsById(uuid);
+        if(!exist)
         {
             return null;
         }
         else
         {
-            Question found =  hqrepo.findById(questionId).get();
+            Question found =  hqrepo.findById(uuid).get();
             return found;
         }
     }

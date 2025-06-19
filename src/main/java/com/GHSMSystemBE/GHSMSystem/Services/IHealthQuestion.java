@@ -12,7 +12,7 @@ public interface IHealthQuestion {
     Question createQuestion(Question newQuestion);
     Question editQuestion(Question updatedQuestion);
     void deleteQuestion(Question question);
-    Question getById(UUID questionId);
+    Question getById(String questionId);
     void active(Question question);
     void deActive(Question question);
 }

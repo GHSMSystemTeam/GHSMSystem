@@ -15,15 +15,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @CrossOrigin("*")
 @RestController
 @Tag(name = "Service type Management", description = "API endpoints for Service types management operations")
 public class ServiceTypeAPI {
+
     @Autowired
     private IHealthServiceType service;
-
-    private static final String CURRENT_USER = "TranDucHai2123";
-    private static final String CURRENT_DATE = "2025-06-15 07:11:39";
 
     @Operation(summary = "Get all service types", description = "Retrieve a complete list of all service types from the database")
     @ApiResponses(value = {
@@ -31,9 +30,9 @@ public class ServiceTypeAPI {
     })
     @GetMapping("/api/servicetypes")
     public ResponseEntity<List<ServiceType>> getServiceTypeList() {
-        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Retrieving all service types");
+        System.out.println("Retrieving all service types");
         List<ServiceType> serviceTypesList = service.getAll();
-        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Found " + serviceTypesList.size() + " service types in the database");
+        System.out.println("Found " + serviceTypesList.size() + " service types in the database");
         return ResponseEntity.ok(serviceTypesList);
     }
 
@@ -43,9 +42,9 @@ public class ServiceTypeAPI {
     })
     @GetMapping("/api/servicetypes/active")
     public ResponseEntity<List<ServiceType>> getActiveServiceTypeList() {
-        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Retrieving all active service types");
+        System.out.println("Retrieving all active service types");
         List<ServiceType> activeServiceTypesList = service.getAllActiveServiceType();
-        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Found " + activeServiceTypesList.size() + " active service types in the database");
+        System.out.println("Found " + activeServiceTypesList.size() + " active service types in the database");
         return ResponseEntity.ok(activeServiceTypesList);
     }
 
@@ -55,9 +54,9 @@ public class ServiceTypeAPI {
     })
     @GetMapping("/api/servicetypes/inactive")
     public ResponseEntity<List<ServiceType>> getInActiveServiceTypeList() {
-        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Retrieving all inactive service types");
+        System.out.println("Retrieving all inactive service types");
         List<ServiceType> inactiveServiceTypesList = service.getAllInactiveServiceType();
-        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Found " + inactiveServiceTypesList.size() + " inactive service types in the database");
+        System.out.println("Found " + inactiveServiceTypesList.size() + " inactive service types in the database");
         return ResponseEntity.ok(inactiveServiceTypesList);
     }
 
@@ -70,13 +69,13 @@ public class ServiceTypeAPI {
     @GetMapping("/api/servicetypes/id/{id}")
     public ResponseEntity<ServiceType> getById(
             @Parameter(description = "Service type ID") @PathVariable int id) {
-        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Searching for service type with ID: " + id);
+        System.out.println("Searching for service type with ID: " + id);
         ServiceType foundUser = service.getById(id);
         if(foundUser == null) {
-            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Can't find service type with ID: " + id);
+            System.out.println("Service type not found with ID: " + id);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
-            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Service type found with ID: " + id);
+            System.out.println("Service type found with ID: " + id);
             return ResponseEntity.ok(foundUser);
         }
     }
@@ -89,19 +88,19 @@ public class ServiceTypeAPI {
     @PostMapping("/api/servicetypes")
     public ResponseEntity<ServiceType> addServiceTypes(
             @org.springframework.web.bind.annotation.RequestBody ServiceType serviceType) {
-        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Attempting to add new service type");
+        System.out.println("Attempting to add new service type");
 
         if (serviceType == null) {
-            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Failed to add service type. Service type is null");
+            System.out.println("Service type creation failed - null data provided");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         ServiceType added = service.createServiceType(serviceType);
         if (added == null) {
-            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Failed to create service type - duplicate or validation error");
+            System.out.println("Failed to create service type - validation error");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
-            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Successfully added service type with ID: " + added.getId());
+            System.out.println("Successfully added service type with ID: " + added.getId());
             return new ResponseEntity<>(added, HttpStatus.CREATED);
         }
     }
@@ -116,19 +115,16 @@ public class ServiceTypeAPI {
     public ResponseEntity<Void> deleteServiceTypes(
             @Parameter(description = "ID of the service type to delete", required = true)
             @PathVariable int id) {
-
-        System.out.println("LOG: 2025-06-15 08:44:08 - TranDucHai2123 - Attempting to delete service type with ID: " + id);
-
+        System.out.println("Attempting to delete service type with ID: " + id);
         ServiceType foundServiceType = service.getById(id);
 
         if(foundServiceType == null) {
-            System.out.println("LOG: 2025-06-15 08:44:08 - TranDucHai2123 - Can't find service type with ID: " + id + " for deletion");
+            System.out.println("Service type not found for deletion");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            System.out.println("LOG: 2025-06-15 08:44:08 - TranDucHai2123 - Deleting service type with ID: " + foundServiceType.getId() +
-                    ", name: " + foundServiceType.getName());
+            System.out.println("Deleting service type");
             service.deleteServiceType(foundServiceType.getId());
-            System.out.println("LOG: 2025-06-15 08:44:08 - TranDucHai2123 - Successfully deleted service type with ID: " + foundServiceType.getId());
+            System.out.println("Successfully deleted service type");
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
@@ -143,20 +139,20 @@ public class ServiceTypeAPI {
             @Parameter(description = "Updated service type object", required = true)
             @org.springframework.web.bind.annotation.RequestBody ServiceType serviceType,
             @Parameter(description = "Service type ID to update") @PathVariable int id) {
-        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Attempting to update service type with ID: " + id);
+        System.out.println("Attempting to update service type with ID: " + id);
         ServiceType found = service.getById(id);
         if (found == null) {
-            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Can't find service type with ID: " + id + " for update");
+            System.out.println("Service type not found for update");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
-            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Updating service type with ID: " + id);
+            System.out.println("Updating service type");
             serviceType.setId(id); // Ensure ID is set correctly
             ServiceType updated = service.editServiceType(serviceType);
             if(updated == null) {
-                System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Failed to update service type with ID: " + id);
+                System.out.println("Failed to update service type");
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             } else {
-                System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Successfully updated service type with ID: " + id);
+                System.out.println("Successfully updated service type");
                 return new ResponseEntity<>(HttpStatus.ACCEPTED);
             }
         }
@@ -170,15 +166,15 @@ public class ServiceTypeAPI {
     @PutMapping("/api/servicetypes/active/{id}")
     public ResponseEntity<ServiceType> activateServiceType(
             @Parameter(description = "Service type ID to activate") @PathVariable int id) {
-        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Attempting to activate service type with ID: " + id);
+        System.out.println("Attempting to activate service type with ID: " + id);
         ServiceType found = service.getById(id);
         if (found == null) {
-            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Can't find service type with ID: " + id + " for activation");
+            System.out.println("Service type not found for activation");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
-            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Activating service type with ID: " + id);
+            System.out.println("Activating service type");
             service.active(found);
-            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Successfully activated service type with ID: " + id);
+            System.out.println("Successfully activated service type");
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
@@ -191,15 +187,15 @@ public class ServiceTypeAPI {
     @PutMapping("/api/servicetypes/deactive/{id}")
     public ResponseEntity<ServiceType> deactivateServiceType(
             @Parameter(description = "Service type ID to deactivate") @PathVariable int id) {
-        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Attempting to deactivate service type with ID: " + id);
+        System.out.println("Attempting to deactivate service type with ID: " + id);
         ServiceType found = service.getById(id);
         if (found == null) {
-            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Can't find service type with ID: " + id + " for deactivation");
+            System.out.println("Service type not found for deactivation");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
-            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Deactivating service type with ID: " + id);
+            System.out.println("Deactivating service type");
             service.deActive(found);
-            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Successfully deactivated service type with ID: " + id);
+            System.out.println("Successfully deactivated service type");
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }

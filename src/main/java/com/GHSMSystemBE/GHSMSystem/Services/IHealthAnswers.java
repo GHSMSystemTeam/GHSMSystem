@@ -12,7 +12,7 @@ public interface IHealthAnswers {
     Answer createAnswer(Answer newAnswer);
     Answer editAnswer(Answer updatedAnswer);
     void deleteAnswer(Answer answer);
-    Answer getById(UUID answerId);
+    Answer getById(String answerId);
     void active(Answer answer);
     void deActive(Answer answer);
 
