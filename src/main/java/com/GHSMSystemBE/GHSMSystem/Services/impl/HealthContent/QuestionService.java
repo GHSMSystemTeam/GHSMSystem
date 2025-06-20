@@ -3,7 +3,7 @@ package com.GHSMSystemBE.GHSMSystem.Services.impl.HealthContent;
 
 import com.GHSMSystemBE.GHSMSystem.Models.HealthContent.Question;
 import com.GHSMSystemBE.GHSMSystem.Models.QuestionSpecifications;
-import com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo.userRepo;
+import com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo.UserRepo;
 import com.GHSMSystemBE.GHSMSystem.Repos.HealthContentRepo.HealthQuestionRepo;
 import com.GHSMSystemBE.GHSMSystem.Services.IHealthQuestion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,9 @@ import java.util.UUID;
 public class QuestionService implements IHealthQuestion {
     @Autowired
    private HealthQuestionRepo hqrepo;
+
+    @Autowired
+    private UserRepo urepo;
 
     @Override
     public List<Question> getAll() {

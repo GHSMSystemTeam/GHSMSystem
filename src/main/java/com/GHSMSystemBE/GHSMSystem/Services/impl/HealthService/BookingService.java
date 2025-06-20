@@ -3,7 +3,7 @@ package com.GHSMSystemBE.GHSMSystem.Services.impl.HealthService;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceBooking;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceType;
 import com.GHSMSystemBE.GHSMSystem.Models.User;
-import com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo.userRepo;
+import com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo.UserRepo;
 import com.GHSMSystemBE.GHSMSystem.Repos.HealthServiceRepo.ServiceBookingRepo;
 import com.GHSMSystemBE.GHSMSystem.Repos.HealthServiceRepo.ServiceTypeRepo;
 import com.GHSMSystemBE.GHSMSystem.Services.IBookingService;
@@ -24,7 +24,7 @@ public class BookingService implements IBookingService {
     private ServiceBookingRepo repo;
 
     @Autowired
-    private userRepo urepo;
+    private UserRepo urepo;
 
     @Autowired
     private ServiceTypeRepo strepo;
