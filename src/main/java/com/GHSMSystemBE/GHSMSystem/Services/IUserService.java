@@ -17,6 +17,7 @@ public interface IUserService {
     void deActiveUser(User u);
     User getByEmail(String email);
     User createUser(User u);
+    User createConsultant(User u);
     void editUser(User u);
     User checkLogin(String email, String password);
     User getById(String id);

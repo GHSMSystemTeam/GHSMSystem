@@ -148,6 +148,21 @@ public class BookingAPI {
         return new ResponseEntity<>((HttpStatus.BAD_REQUEST));
     }
 
+    @Operation(summary = "Set status to a service booking")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Set active successfully")
+    })
+    @PutMapping("/api/servicebooking/status/{status}")
+    public ResponseEntity<ServiceBooking> activeServiceBooking(
+            @PathVariable String id, @PathVariable int sn) {
+
+        ServiceBooking sb = service.getById(id);
+        if(service.updateBookingStatus(sb, sn) != null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>((HttpStatus.BAD_REQUEST));
+    }
+
     @Operation(summary = "Add new service booking", description = "Add a new service booking to the database")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Successfully created service booking"),

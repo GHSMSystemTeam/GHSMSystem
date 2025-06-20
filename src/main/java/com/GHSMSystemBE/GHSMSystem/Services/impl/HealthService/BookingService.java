@@ -104,6 +104,12 @@ public class BookingService implements IBookingService {
     }
 
     @Override
+    public ServiceBooking updateBookingStatus(ServiceBooking sb, int sn) {
+        sb.setStatus(sn);
+        return repo.save(sb);
+    }
+
+    @Override
     public boolean deleteServiceBooking(ServiceBooking sb) {
         if (sb != null) {
             repo.delete(sb);

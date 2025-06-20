@@ -211,6 +211,37 @@ public class UserAPI {
         }
     }
 
+    //Add consultant
+    @Operation(summary = "Add new consultant", description = "Add new consultant to the database with proper validation")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Successfully added consultant"),
+            @ApiResponse(responseCode = "400", description = "Failed to add consultant - validation error or duplicate email")
+    })
+    @PostMapping("/api/createconsultant")
+    public ResponseEntity<User> registerconsultant(
+            @Parameter(description = "User object to be created/registerconsultant new", required = true) @RequestBody CustomerDTO cusDTO) {
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Attempting to add new user");
+
+        // mapping DTO -> model
+        User uTmp = mapper.map(cusDTO, User.class);
+
+        if (uTmp == null) {
+            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Failed to add new user. User is null");
+            return ResponseEntity.badRequest().build();
+        }
+
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Creating user with name: " + uTmp.getName());
+        User saved = service.createConsultant(uTmp);
+        if (saved == null) {
+            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - User with email already exist.");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } else {
+            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Successfully added new user: " + uTmp.getName());
+            saved.setId(null);
+            return new ResponseEntity<>(saved, HttpStatus.CREATED);
+        }
+    }
+
     //Delete user by ID
     @Operation(summary = "Delete user by ID", description = "Match user with ID and delete user from database")
     @ApiResponses(value = {

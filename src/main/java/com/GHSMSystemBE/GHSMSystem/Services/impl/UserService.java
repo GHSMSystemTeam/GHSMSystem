@@ -124,6 +124,27 @@ Integer roleId = 1;
         return null;
     }
 
+    // create Consultant
+    @Override
+    public User createConsultant(User u) {
+
+        // check user is existed ????
+        User u1 = repo.findByEmail(u.getEmail());
+
+        // if no user exist
+        if(u1 == null){
+            System.out.println("LOG:"+ u.getPassword());
+            String uPass = u.getPassword();
+            u.setPassword(passwordEncoder.encode(uPass));
+            u.setCreateDate(LocalDateTime.now());
+            u.setRole(roleRepo.findById(2).orElseThrow());
+            return repo.save(u);
+        }
+
+        //if there is existed user
+        return null;
+    }
+
     @Override
     public void editUser(User u) {
 

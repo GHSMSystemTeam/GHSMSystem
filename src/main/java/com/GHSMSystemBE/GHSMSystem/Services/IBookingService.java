@@ -16,5 +16,6 @@ public interface IBookingService {
     ServiceBooking activeBooking(ServiceBooking sb);
     ServiceBooking deActiveBooking(ServiceBooking sb);
     ServiceBooking createServiceBooking(ServiceBooking sb);
+    ServiceBooking updateBookingStatus(ServiceBooking sb, int sn);
     boolean deleteServiceBooking(ServiceBooking sb);
 }
