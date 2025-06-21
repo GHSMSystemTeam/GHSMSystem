@@ -10,8 +10,8 @@ public interface IHealthFeedback {
     List<Feedback> getAllInactiveFeedbacks();
     Feedback createFeedback(FeedbackDTO dto);
     Feedback editFeedback(FeedbackDTO dto, String id);
-    void deleteFeedback(String id);
+    Feedback deleteFeedback(String id);
     Feedback getById(String id);
-    void active(String id);
-    void deActive(String id);
+    Feedback active(String id);
+    Feedback deActive(String id);
 }

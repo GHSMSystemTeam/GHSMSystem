@@ -47,10 +47,6 @@ public class FeedbackService implements IHealthFeedback {
 
     @Override
     public Feedback createFeedback(FeedbackDTO dto) {
-     if(dto == null)
-     {
-         return null;
-     }
      Feedback feedback = new Feedback();
      User user = uService.getById(dto.getCustomerId());
      ServiceBooking booking = bService.getById(dto.getServiceBookingId());
@@ -65,10 +61,6 @@ public class FeedbackService implements IHealthFeedback {
 
     @Override
     public Feedback editFeedback(FeedbackDTO dto, String id) {
-        if(dto == null)
-        {
-            return null;
-        }
         Feedback old = getById(id) ;
         if(old ==null)
         {
@@ -85,22 +77,19 @@ public class FeedbackService implements IHealthFeedback {
     }
 
     @Override
-    public void deleteFeedback(String id) {
+    public Feedback deleteFeedback(String id) {
         Feedback found = getById(id);
         if(found!=null) {
             hfRepo.delete(found);
+            return found;
         }
         else {
-            return;
+            return null;
         }
     }
 
     @Override
     public Feedback getById(String id) {
-        if(id ==null)
-        {
-            return null;
-        }
         UUID uuid = UUID.fromString(id);
         Optional<Feedback> optionalFeedback =hfRepo.findById(uuid);
         if(optionalFeedback ==null)
@@ -112,24 +101,26 @@ public class FeedbackService implements IHealthFeedback {
     }
 
     @Override
-    public void active(String id) {
+    public Feedback active(String id) {
         Feedback found = getById(id);
         if(found!=null) {
             found.setIsActive(true);
+            return found;
         }
         else {
-            return;
+            return null;
         }
     }
 
     @Override
-    public void deActive(String id) {
+    public Feedback deActive(String id) {
         Feedback found = getById(id);
         if(found!=null) {
             found.setIsActive(false);
+            return found;
         }
         else {
-            return;
+            return null;
         }
     }
 }
