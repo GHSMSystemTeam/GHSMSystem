@@ -123,4 +123,18 @@ public class FeedbackService implements IHealthFeedback {
             return null;
         }
     }
+
+    @Override
+    public List<Feedback> findByUser(String userId) {
+        User user = uService.getById(userId);
+        List<Feedback> list = hfRepo.findAll(FeedbackSpecification.madeByCustomer(user));
+        return list;
+    }
+
+    @Override
+    public List<Feedback> findByServiceBooking(String sbId) {
+        ServiceBooking sb = bService.getById(sbId);
+        List<Feedback> list = hfRepo.findAll(FeedbackSpecification.findByserviceBooking(sb));
+        return list;
+  }
 }

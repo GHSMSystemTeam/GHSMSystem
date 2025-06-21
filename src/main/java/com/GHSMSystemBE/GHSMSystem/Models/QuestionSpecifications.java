@@ -12,4 +12,5 @@ public class QuestionSpecifications {
     {
         return (( (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("isActive"),false)));
     }
+
 }

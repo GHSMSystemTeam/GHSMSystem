@@ -14,4 +14,6 @@ public interface IHealthFeedback {
     Feedback getById(String id);
     Feedback active(String id);
     Feedback deActive(String id);
+    List<Feedback> findByUser(String userId);
+    List<Feedback> findByServiceBooking(String sbId);
 }

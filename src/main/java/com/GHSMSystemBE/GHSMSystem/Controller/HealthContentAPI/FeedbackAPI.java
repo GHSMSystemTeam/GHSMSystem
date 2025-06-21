@@ -29,6 +29,19 @@ public class FeedbackAPI {
         return ResponseEntity.ok(service.getAll());
     }
 
+    @GetMapping("/user/id/{id}")
+    @Operation(summary = "Get active feedback entries by user", description = "Retrieves all active feedback entries")
+    public ResponseEntity<List<Feedback>> getByUserId(String id) {
+        return ResponseEntity.ok(service.findByUser(id));
+    }
+
+    @GetMapping("/serviceBooking/id/{id}")
+    @Operation(summary = "Get active feedback entries by service booking", description = "Retrieves all active feedback entries")
+    public ResponseEntity<List<Feedback>> getByBookingId(String id) {
+        return ResponseEntity.ok(service.findByServiceBooking(id));
+    }
+
+
     @GetMapping("/active")
     @Operation(summary = "Get active feedback entries", description = "Retrieves all active feedback entries")
     public ResponseEntity<List<Feedback>> getAllActive() {
