@@ -56,5 +56,5 @@ public class Feedback {
 
     @Schema(description = "Indicates whether the feedback is active in the system")
     @Column(name = "is_active")
-    private Boolean isActive;
+    private Boolean isActive=true;
 }

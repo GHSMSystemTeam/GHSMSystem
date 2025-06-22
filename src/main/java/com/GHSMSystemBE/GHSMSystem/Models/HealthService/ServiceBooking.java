@@ -44,9 +44,6 @@ public class ServiceBooking {
     @Column(name="appointment_date", nullable = false, unique = false)
     private Date appointmentDate;
 
-    @Schema(description = "Time slot for the appointment from slot 1 to 5. Must not be empty")
-    @Column(name="appointment_slot", nullable = false, unique = false)
-    private int appointmentSlot;
 
     @Schema(description = "Duration of the appointment in hours. Must not be empty")
     @Column(name="duration", nullable = false, unique = false)
@@ -66,5 +63,5 @@ public class ServiceBooking {
 
     @Schema(description = "Indicates booking order status")
     @Column(name="status", nullable = false, unique = false)
-    private int status=0;//0-order received 1-inprogress 2-ended
+    private int status=0;//0-order received 1-in progress 2-ended
 }

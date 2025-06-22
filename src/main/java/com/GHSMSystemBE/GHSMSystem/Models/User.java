@@ -22,7 +22,7 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name="id", nullable = false, unique = true)
-    private UUID id; //Primary key
+    private UUID id ; //Primary key
 
     @Schema(description = "Full name of the user. Must not be empty")
     @Column(name="name", nullable = false)

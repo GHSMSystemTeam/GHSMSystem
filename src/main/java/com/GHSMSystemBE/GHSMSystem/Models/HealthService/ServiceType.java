@@ -20,7 +20,6 @@ public class ServiceType {
     @Id
     @Column(name="id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private int id;
 
     @Schema(description = "Name of the service type. Must not be empty- must be unique")
@@ -34,7 +33,7 @@ public class ServiceType {
     @Schema(description = "Price of the service in the system's currency. Must not be empty")
     @Column(name="price", nullable = false, unique = false)
     private float price;
-
+    
     @Schema(description = "Indicates whether this service type is currently active. Must not be empty- must be unique")
     @Column(name="is_active", nullable = false)
     private boolean isActive;
