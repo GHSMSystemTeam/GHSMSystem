@@ -176,23 +176,8 @@ public class BookingAPI {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        // map BookingDTo to ServiceBooking MANUALLY
-        User cus = userservice.getById(sb.getCustomerId());
-        User cons = userservice.getById(sb.getConsultantId());
-        ServiceType st = hstservice.getById(sb.getServiceTypeId());
-
-        ServiceBooking sbTmp = new ServiceBooking();
-        sbTmp.setConsultantId(cons);
-        sbTmp.setCustomerId(cus);
-        sbTmp.setServiceTypeId(st);
-        sbTmp.setAppointmentDate(sb.getAppointmentDate());
-        sbTmp.setAppointmentSlot(sb.getAppointmentSlot());
-        sbTmp.setDuration(sb.getDuration());
-
-
-        if (service.createServiceBooking(sbTmp) != null) {
-            sbTmp.setId(null);
-            return new ResponseEntity<>(sbTmp, HttpStatus.CREATED);
+        if (service.createServiceBooking(sb) != null) {
+            return new ResponseEntity<>(service.createServiceBooking(sb), HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

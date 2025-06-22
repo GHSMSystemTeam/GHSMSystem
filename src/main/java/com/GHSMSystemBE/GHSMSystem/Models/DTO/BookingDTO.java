@@ -21,8 +21,6 @@ public class BookingDTO {
 
     private Date appointmentDate; // YYYY-MM-DD
 
-    private int appointmentSlot;
-
     private int duration; // hour
 
 }

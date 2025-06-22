@@ -1,5 +1,6 @@
 package com.GHSMSystemBE.GHSMSystem.Services.impl.HealthService;
 
+import com.GHSMSystemBE.GHSMSystem.Models.DTO.BookingDTO;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceBooking;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceType;
 import com.GHSMSystemBE.GHSMSystem.Models.User;
@@ -7,6 +8,8 @@ import com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo.UserRepo;
 import com.GHSMSystemBE.GHSMSystem.Repos.HealthServiceRepo.ServiceBookingRepo;
 import com.GHSMSystemBE.GHSMSystem.Repos.HealthServiceRepo.ServiceTypeRepo;
 import com.GHSMSystemBE.GHSMSystem.Services.IBookingService;
+import com.GHSMSystemBE.GHSMSystem.Services.IHealthServiceType;
+import com.GHSMSystemBE.GHSMSystem.Services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +25,12 @@ public class BookingService implements IBookingService {
 
     @Autowired
     private ServiceBookingRepo repo;
+
+    @Autowired
+    private IHealthServiceType hst;
+
+    @Autowired
+    private IUserService us;
 
     @Autowired
     private UserRepo urepo;
@@ -83,22 +92,52 @@ public class BookingService implements IBookingService {
     }
 
     @Override
-    public ServiceBooking createServiceBooking(ServiceBooking sb) {
-
+    public ServiceBooking createServiceBooking(BookingDTO sbdto) {
         // get now date from LocalDate and convert to java.sql.date
         LocalDate localDate = LocalDate.now();
         Date sqlDate = Date.valueOf(localDate.toString());
 
-        if(sb != null){
-            // compare if the appointment date is before current date
-            // compare where appointment slot between slot 1 and 5
-            if(sb.getAppointmentDate().compareTo(sqlDate) > 0 && (sb.getAppointmentSlot() >= 1 && sb.getAppointmentSlot() <= 5)){
+        User u, c = new User();
+        ServiceType st = new ServiceType();
+        ServiceBooking sb = new ServiceBooking();
+
+        // cac truong hop service type ko yeu cau consultant
+        if(sbdto.getServiceTypeId() == 2 && sbdto.getAppointmentDate().compareTo(sqlDate) > 0){
+
+            u = us.getById(sbdto.getCustomerId());
+            st = hst.getById(sbdto.getServiceTypeId());
+
+            // mapping
+            sb.setConsultantId(null);
+            sb.setCustomerId(u);
+            sb.setServiceTypeId(st);
+            sb.setAppointmentDate(sbdto.getAppointmentDate());
+            sb.setDuration(sb.getDuration());
+
+            sb.setCreateDate(LocalDateTime.now());
+            sb.setActive(true);
+            sb.setDescription("some appointment");
+            return repo.save(sb);
+
+        }else{
+            if(sbdto.getAppointmentDate().compareTo(sqlDate) > 0){
+                // cac loai ServiceType con lai yeu cau co consultant
+                c = us.getById(sbdto.getConsultantId());
+                u = us.getById(sbdto.getCustomerId());
+                st = hst.getById(sbdto.getServiceTypeId());
+
+                // mapping
+                sb.setConsultantId(c);
+                sb.setCustomerId(u);
+                sb.setServiceTypeId(st);
+                sb.setAppointmentDate(sbdto.getAppointmentDate());
+                sb.setDuration(sb.getDuration());
+
                 sb.setCreateDate(LocalDateTime.now());
                 sb.setActive(true);
                 sb.setDescription("some appointment");
                 return repo.save(sb);
             }
-            return null;
         }
         return null;
     }

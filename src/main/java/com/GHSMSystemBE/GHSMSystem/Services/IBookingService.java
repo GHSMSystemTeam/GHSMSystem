@@ -1,5 +1,6 @@
 package com.GHSMSystemBE.GHSMSystem.Services;
 
+import com.GHSMSystemBE.GHSMSystem.Models.DTO.BookingDTO;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceBooking;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface IBookingService {
     ServiceBooking getById(String id);
     ServiceBooking activeBooking(ServiceBooking sb);
     ServiceBooking deActiveBooking(ServiceBooking sb);
-    ServiceBooking createServiceBooking(ServiceBooking sb);
+    ServiceBooking createServiceBooking(BookingDTO sb);
     ServiceBooking updateBookingStatus(ServiceBooking sb, int sn);
     boolean deleteServiceBooking(ServiceBooking sb);
 }
