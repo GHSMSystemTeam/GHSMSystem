@@ -176,7 +176,7 @@ public class BookingAPI {
         }
 
         if (service.createServiceBooking(sb) != null) {
-            return new ResponseEntity<>(service.createServiceBooking(sb), HttpStatus.CREATED);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
