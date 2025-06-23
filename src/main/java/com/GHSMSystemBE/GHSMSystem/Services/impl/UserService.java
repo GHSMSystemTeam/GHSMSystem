@@ -157,6 +157,10 @@ Integer roleId = 1;
             String uPass = u.getPassword();
             u1.setPassword(passwordEncoder.encode(uPass));
             u1.setPhone(u.getPhone());
+            if(u.getRole().getId() == 2){
+                u1.setSpecialization(u.getSpecialization());
+                u1.setExpYear(u.getExpYear());
+            }
             repo.save(u1);
         }
     }
