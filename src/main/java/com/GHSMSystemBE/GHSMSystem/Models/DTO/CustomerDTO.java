@@ -5,7 +5,7 @@ import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+//PLEASE RENAME CUSTOMER TO USER FOR ALL CLASSES
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,4 +30,10 @@ public class CustomerDTO {
     @Schema(description = "Phone number of the user. Must not be empty- must be unique")
     @Column(name="phone", nullable = false, unique = true)
     private String phone;
+
+    @Column(name = "specialization")
+    private String specilization;
+    @Column(name = "exp_year")
+    private String expYear;
+
 }

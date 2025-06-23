@@ -155,7 +155,6 @@ public class BookingAPI {
     @PutMapping("/api/servicebooking/status/{status}")
     public ResponseEntity<ServiceBooking> activeServiceBooking(
             @PathVariable String id, @PathVariable int sn) {
-
         ServiceBooking sb = service.getById(id);
         if(service.updateBookingStatus(sb, sn) != null){
             return new ResponseEntity<>(HttpStatus.OK);

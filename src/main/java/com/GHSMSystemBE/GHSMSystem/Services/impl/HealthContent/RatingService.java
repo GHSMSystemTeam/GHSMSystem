@@ -11,6 +11,7 @@ import com.GHSMSystemBE.GHSMSystem.Services.IBookingService;
 import com.GHSMSystemBE.GHSMSystem.Services.IHealthRating;
 import com.GHSMSystemBE.GHSMSystem.Services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 import java.util.Optional;
@@ -41,17 +42,43 @@ public class RatingService implements IHealthRating {
 
     @Override
     public Rating createRating(RatingDTO dto) {
-        return null;
+     Rating rating = new Rating();
+     User customer = uService.getById(dto.getCustomerId());
+     User consultant = uService.getById(dto.getConsultantId());
+     ServiceBooking sb = sbService.getById(dto.getServiceBookingId());
+     rating.setCustomerId(customer);
+     rating.setConsultantId(consultant);
+     rating.setServiceBookingId(sb);
+     rating.setTitle(dto.getTitle());
+     rating.setContent(dto.getContent());
+     rating.setRating(dto.getRating());
+     rating.setIsPublic(dto.getIsPublic());
+     rating.setCreateDate(dto.getCreateDate());
+     Rating saved = hrRepo.save(rating);
+     return saved;
     }
 
     @Override
     public Rating editRating(RatingDTO dto, String id) {
-        return null;
+       Rating old = getById(id);
+       if(old == null)
+       {
+           return  null;
+       }
+       else
+           old.setTitle(dto.getTitle()+"(edited)");
+       old.setContent(dto.getContent()+"(edited)");
+       old.setRating(dto.getRating());
+       old.setIsPublic(dto.getIsPublic());
+        Rating saved = hrRepo.save(old);
+        return saved;
     }
 
     @Override
     public Rating deleteRating(String id) {
-        return null;
+    Rating delete = getById(id);
+    hrRepo.delete(delete);
+    return delete; 
     }
 
     @Override
@@ -105,11 +132,14 @@ public class RatingService implements IHealthRating {
 
     @Override
     public List<Rating> findInRange(Float min, Float max) {
-        return List.of();
+        List<Rating> list = hrRepo.findAll(RatingSpecification.hasRatingBetween(min,max));
+        return list;
     }
 
     @Override
     public List<Rating> findForConsultantInRange(Float min, Float max, String consultantId) {
-        return List.of();
+        User consultant = uService.getById(consultantId);
+       List<Rating> list = hrRepo.findAll(RatingSpecification.hasRatingBetween(min,max).and(RatingSpecification.findByConsultant(consultant)));
+       return list;
     }
 }

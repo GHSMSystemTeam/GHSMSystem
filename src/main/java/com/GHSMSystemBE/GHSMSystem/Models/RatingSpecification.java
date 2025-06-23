@@ -4,6 +4,9 @@ import com.GHSMSystemBE.GHSMSystem.Models.HealthContent.Rating;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceBooking;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
+
 public class RatingSpecification {
     public static Specification<Rating> hasStatusTrue()
     {
@@ -21,6 +24,21 @@ public class RatingSpecification {
     public static Specification<Rating> findByServiceBooking(ServiceBooking sb)
     {
         return (( (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("serviceBookingId"),sb)));
+    }
+
+    public static Specification<Rating>hasRatingBetween(Float min, Float max)
+    {
+        return (( ((root, query, criteriaBuilder) -> criteriaBuilder.between(root.get("rating"),min,max))));
+    }
+
+    public static Specification<Rating>createdAfter(LocalDateTime createDate)
+    {
+        return (( ((root, query, criteriaBuilder) -> criteriaBuilder.greaterThanOrEqualTo(root.get("createDate"),createDate))));
+    }
+
+    public static Specification<Rating> findByConsultant(User consultant)
+    {
+        return (( (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("consultanId"),consultant)));
     }
 
 }
