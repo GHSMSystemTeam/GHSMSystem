@@ -150,11 +150,13 @@ public class BookingAPI {
 
     @Operation(summary = "Set status to a service booking")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Set active successfully")
+            @ApiResponse(responseCode = "200", description = "Set status successfully"),
+            @ApiResponse(responseCode = "400", description = "Bad request - invalid status")
     })
-    @PutMapping("/api/servicebooking/status/{status}")
-    public ResponseEntity<ServiceBooking> activeServiceBooking(
-            @PathVariable String id, @PathVariable int sn) {
+    @PutMapping("/api/servicebooking/status/{id}/{sn}")
+    public ResponseEntity<ServiceBooking> updateBookingStatus(
+            @Parameter(description = "Booking ID") @PathVariable String id,
+            @Parameter(description = "Status number") @PathVariable int sn) {
         ServiceBooking sb = service.getById(id);
         if(service.updateBookingStatus(sb, sn) != null){
             return new ResponseEntity<>(HttpStatus.OK);
@@ -168,8 +170,8 @@ public class BookingAPI {
             @ApiResponse(responseCode = "400", description = "Failed to create service booking - validation error")
     })
     @PostMapping("/api/servicebooking")
-    public ResponseEntity<ServiceBooking> addServiceTypes(
-            @org.springframework.web.bind.annotation.RequestBody BookingDTO sb) {
+    public ResponseEntity<ServiceBooking> addServiceBooking(
+            @Parameter(description = "Booking data to create") @RequestBody BookingDTO sb) {
 
         if (sb == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -187,9 +189,9 @@ public class BookingAPI {
             @ApiResponse(responseCode = "204", description = "Successfully deleted service booking"),
             @ApiResponse(responseCode = "404", description = "Service booking with ID not found")
     })
-    @DeleteMapping("/api/user/{id}")
-    public ResponseEntity<Void> deleteUserById(
-            @Parameter(description = "User's UUID to delete") @PathVariable String id) {
+    @DeleteMapping("/api/booking/{id}")
+    public ResponseEntity<Void> deleteBookingById(
+            @Parameter(description = "Booking's UUID to delete") @PathVariable String id) {
 
         ServiceBooking sb = service.getById(id);
         if (service.deleteServiceBooking(sb)) {
