@@ -12,11 +12,12 @@ import com.GHSMSystemBE.GHSMSystem.Services.IHealthRating;
 import com.GHSMSystemBE.GHSMSystem.Services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
+@Service
 public class RatingService implements IHealthRating {
 
     @Autowired
