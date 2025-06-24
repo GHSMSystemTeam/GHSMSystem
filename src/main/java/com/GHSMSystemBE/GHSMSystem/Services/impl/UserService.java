@@ -172,7 +172,7 @@ Integer roleId = 1;
         User u1 = repo.findByEmail(u.getEmail());
 
         if(u1 != null){
-            u1.setPassword(password);
+            u1.setPassword(passwordEncoder.encode(password));
             repo.save(u1);
         }
     }
