@@ -340,8 +340,8 @@ public class UserAPI {
     })
     @PutMapping("/api/user/changepassword")
     public ResponseEntity<User> updatePasswordUser(
-            @Parameter(description = "User's email to update") @PathVariable String email,
-            @PathVariable String newpass) {
+            @Parameter(description = "User's email to update") @RequestParam String email,
+            @RequestParam String newpass) {
         System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Attempting to update user with email: " + email);
         User foundUser = service.getByEmail(email);
         if (foundUser == null) {
