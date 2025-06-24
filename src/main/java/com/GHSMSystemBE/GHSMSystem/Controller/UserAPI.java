@@ -332,6 +332,29 @@ public class UserAPI {
         }
     }
 
+    //edit user password
+    @Operation(summary = "edit user password", description = "")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "202", description = "Successfully updated user password"),
+            @ApiResponse(responseCode = "404", description = "User with email not found")
+    })
+    @PutMapping("/api/user/changepassword")
+    public ResponseEntity<User> updatePasswordUser(
+            @Parameter(description = "User's email to update") @PathVariable String email,
+            @PathVariable String newpass) {
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Attempting to update user with email: " + email);
+        User foundUser = service.getByEmail(email);
+        if (foundUser == null) {
+            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Can't find user with email: " + email + " for update");
+            return ResponseEntity.notFound().build();
+        } else {
+            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Updating user: " + foundUser.getName() + " with email: " + email);
+            service.editUserPassword(foundUser, newpass);
+            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Successfully updated user with email: " + email);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        }
+    }
+
     // user Login
     @Operation(summary = "User login", description = "Authenticate user with email and password")
     @ApiResponses(value = {

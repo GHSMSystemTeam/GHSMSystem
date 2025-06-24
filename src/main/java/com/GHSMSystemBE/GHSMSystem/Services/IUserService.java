@@ -19,6 +19,7 @@ public interface IUserService {
     User createUser(User u);
     User createConsultant(User u);
     void editUser(User u);
+    void editUserPassword (User u, String password);
     User checkLogin(String email, String password);
     User getById(String id);
     void deleteUser(User user);

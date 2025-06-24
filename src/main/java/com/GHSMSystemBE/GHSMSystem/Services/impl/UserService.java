@@ -155,12 +155,24 @@ Integer roleId = 1;
             u1.setName(u.getName());
             u1.setEmail(u.getEmail());
             String uPass = u.getPassword();
-            u1.setPassword(passwordEncoder.encode(uPass));
+            //u1.setPassword(passwordEncoder.encode(uPass));
             u1.setPhone(u.getPhone());
             if(u.getRole().getId() == 2){
                 u1.setSpecialization(u.getSpecialization());
                 u1.setExpYear(u.getExpYear());
             }
+            repo.save(u1);
+        }
+    }
+
+    @Override
+    public void editUserPassword(User u, String password) {
+
+        // check user is existed ????
+        User u1 = repo.findByEmail(u.getEmail());
+
+        if(u1 != null){
+            u1.setPassword(password);
             repo.save(u1);
         }
     }
