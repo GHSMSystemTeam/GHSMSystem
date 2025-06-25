@@ -33,6 +33,10 @@ public class ServiceType {
     @Schema(description = "Price of the service in the system's currency. Must not be empty")
     @Column(name="price", nullable = false, unique = false)
     private float price;
+
+    @Schema(description = "Service type Code")
+    @Column(name="service_type_code")
+    private Integer typeCode;
     
     @Schema(description = "Indicates whether this service type is currently active. Must not be empty- must be unique")
     @Column(name="is_active", nullable = false)
