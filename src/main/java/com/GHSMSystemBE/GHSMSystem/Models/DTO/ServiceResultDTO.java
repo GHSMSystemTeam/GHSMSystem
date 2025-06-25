@@ -10,7 +10,11 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class ServiceResultDTO {
-    private ServiceBooking serviceBookingId;
-    private User customerID;
+
+    private String serviceBookingId;
+
+    private String customerID;
+
     private String content;
+
 }

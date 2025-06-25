@@ -171,14 +171,15 @@ public class BookingAPI {
     })
     @PostMapping("/api/servicebooking")
     public ResponseEntity<ServiceBooking> addServiceBooking(
-            @Parameter(description = "Booking data to create") @RequestBody BookingDTO sb) {
+            @Parameter(description = "Booking data to create") @RequestBody BookingDTO sbDTO) {
 
-        if (sb == null) {
+        if (sbDTO == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        if (service.createServiceBooking(sb) != null) {
-            return new ResponseEntity<>(HttpStatus.CREATED);
+        ServiceBooking sb = service.createServiceBooking(sbDTO);
+        if (sb != null) {
+            return new ResponseEntity<>(sb, HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

@@ -33,7 +33,7 @@ public class ServiceResult {
     @JoinColumn(name="customer_id", nullable = false, unique = true)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private User customerID;
+    private User customerId;
 
 
     @Schema(description = "Content or results of the service appointment. Must not be empty- must be unique")

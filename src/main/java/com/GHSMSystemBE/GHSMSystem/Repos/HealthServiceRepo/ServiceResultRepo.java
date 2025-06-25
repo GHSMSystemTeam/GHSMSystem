@@ -12,12 +12,14 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface ServiceResultRepo extends JpaRepository<ServiceResult, UUID> {
+public interface ServiceResultRepo extends JpaRepository<ServiceResult, Integer> {
 
     @Query("SELECT sr FROM ServiceResult sr WHERE sr.customerId = :cusID")
     List<ServiceResult> findByCustomerId(@Param("cusID") User u);
 
     @Query("SELECT sr FROM ServiceResult sr WHERE sr.serviceBookingId = :sbID")
     List<ServiceResult> findByServiceBookingId(@Param("sbID") ServiceBooking sb);
+
+    ServiceResult findById(UUID id);
 
 }
