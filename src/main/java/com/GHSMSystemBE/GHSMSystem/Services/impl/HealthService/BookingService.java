@@ -116,7 +116,7 @@ public class BookingService implements IBookingService {
 
             sb.setCreateDate(LocalDateTime.now());
             sb.setActive(true);
-            sb.setDescription(sbdto.getDescription);
+            sb.setDescription(sbdto.getDescription());
             return repo.save(sb);
 
         }else{
@@ -135,7 +135,7 @@ public class BookingService implements IBookingService {
 
                 sb.setCreateDate(LocalDateTime.now());
                 sb.setActive(true);
-                sb.setDescription(sbdto.getDescription);
+                sb.setDescription(sbdto.getDescription());
                 return repo.save(sb);
             }
         }
