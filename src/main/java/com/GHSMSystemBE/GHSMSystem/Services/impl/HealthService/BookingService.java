@@ -112,11 +112,11 @@ public class BookingService implements IBookingService {
             sb.setCustomerId(u);
             sb.setServiceTypeId(st);
             sb.setAppointmentDate(sbdto.getAppointmentDate());
-            sb.setDuration(sb.getDuration());
+            sb.setDuration(sbdto.getDuration());
 
             sb.setCreateDate(LocalDateTime.now());
             sb.setActive(true);
-            sb.setDescription("some appointment");
+            sb.setDescription(sbdto.getDescription);
             return repo.save(sb);
 
         }else{
@@ -131,11 +131,11 @@ public class BookingService implements IBookingService {
                 sb.setCustomerId(u);
                 sb.setServiceTypeId(st);
                 sb.setAppointmentDate(sbdto.getAppointmentDate());
-                sb.setDuration(sb.getDuration());
+                sb.setDuration(sbdto.getDuration());
 
                 sb.setCreateDate(LocalDateTime.now());
                 sb.setActive(true);
-                sb.setDescription("some appointment");
+                sb.setDescription(sbdto.getDescription);
                 return repo.save(sb);
             }
         }
