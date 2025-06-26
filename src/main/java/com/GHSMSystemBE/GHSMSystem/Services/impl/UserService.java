@@ -157,6 +157,7 @@ Integer roleId = 1;
             String uPass = u.getPassword();
             //u1.setPassword(passwordEncoder.encode(uPass));
             u1.setPhone(u.getPhone());
+            u1.setGender(u.getGender());
             if(u.getRole().getId() == 2){
                 u1.setSpecialization(u.getSpecialization());
                 u1.setExpYear(u.getExpYear());
