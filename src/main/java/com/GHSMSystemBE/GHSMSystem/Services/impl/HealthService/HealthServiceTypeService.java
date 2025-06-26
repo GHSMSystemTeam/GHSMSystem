@@ -123,8 +123,8 @@ public class HealthServiceTypeService implements IHealthServiceType {
     }
 
     @Override
-    public List<ServiceType> findByTypeCode(Integer typeCode) {
-    List<ServiceType> list = repo.findAll(ServiceTypeSpecifications.findByTypeCode(typeCode));
-    return list;
+    public List<ServiceType> findByTypeCode(Integer typecode) {
+     List<ServiceType> list = repo.findAll(ServiceTypeSpecifications.findByTypeCode(typecode));
+     return list;
     }
 }
