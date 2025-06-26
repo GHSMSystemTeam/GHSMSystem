@@ -35,7 +35,7 @@ public class ServiceType {
     private float price;
 
     @Schema(description = "Service type Code")
-    @Column(name="service_type_code")
+    @Column(name="service_type_code", nullable=false, unique = false)
     private Integer typeCode;
     
     @Schema(description = "Indicates whether this service type is currently active. Must not be empty- must be unique")

@@ -60,6 +60,18 @@ public class ServiceTypeAPI {
         return ResponseEntity.ok(inactiveServiceTypesList);
     }
 
+    @GetMapping("/api/servicetypes/typeCode/{typeCode}")
+    public ResponseEntity<List<ServiceType>> getByTypeCode(@PathVariable Integer typeCode) {
+        if(typeCode<0)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        System.out.println("Retrieving all service types with code: " +typeCode);
+        List<ServiceType>List = service.findByTypeCode(typeCode);
+        System.out.println("Found " + List.size() + " service types in the database");
+        return ResponseEntity.ok(List);
+    }
+
     @Operation(summary = "Get service type by ID", description = "Retrieve a service type with the specified ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Service type found",

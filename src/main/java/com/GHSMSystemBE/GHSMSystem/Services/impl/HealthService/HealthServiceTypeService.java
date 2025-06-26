@@ -122,4 +122,14 @@ public class HealthServiceTypeService implements IHealthServiceType {
         repo.save(serviceType);
         System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Service type deactivated successfully");
     }
+<<<<<<< Updated upstream
 }
+=======
+
+    @Override
+    public List<ServiceType> findByTypeCode(Integer typecode) {
+     List<ServiceType> list = repo.findAll(ServiceTypeSpecifications.findByTypeCode(typecode));
+     return list;
+    }
+}
+>>>>>>> Stashed changes

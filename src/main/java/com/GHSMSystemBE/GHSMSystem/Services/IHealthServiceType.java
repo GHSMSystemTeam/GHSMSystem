@@ -14,4 +14,5 @@ public interface IHealthServiceType {
     ServiceType getById(int serviceTypeId);
     void active(ServiceType serviceType);
     void deActive(ServiceType serviceType);
+    List<ServiceType>findByTypeCode(Integer typecode);
 }

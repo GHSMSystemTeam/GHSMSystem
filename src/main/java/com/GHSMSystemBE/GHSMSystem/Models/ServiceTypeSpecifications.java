@@ -12,4 +12,9 @@ public class ServiceTypeSpecifications {
     {
         return((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("isActive"),false));
     }
+
+    public static Specification<ServiceType> findByTypeCode(Integer serviceTypeCode)
+    {
+        return((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("typeCode"),serviceTypeCode));
+    }
 }

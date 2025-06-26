@@ -1,4 +1,4 @@
-package com.GHSMSystemBE.GHSMSystem.Misc.QRCodePayment;
+package com.GHSMSystemBE.GHSMSystem.Misc.QRCodePayment.QRCodeGen;
 
 import io.nayuki.qrcodegen.QrCode;
 
