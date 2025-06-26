@@ -23,21 +23,21 @@ public class ServiceResult {
 
     @Schema(description = "Reference to the original service booking order. Must not be empty- must be unique")
     @OneToOne
-    @JoinColumn(name="service_booking_id", nullable = false, unique = true)
+    @JoinColumn(name="service_booking_id", nullable = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private ServiceBooking serviceBookingId;
 
     @Schema(description = "Reference to the original service booking order. Must not be empty- must be unique")
     @OneToOne
-    @JoinColumn(name="customer_id", nullable = false, unique = true)
+    @JoinColumn(name="customer_id", nullable = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private User customerId;
 
 
     @Schema(description = "Content or results of the service appointment. Must not be empty- must be unique")
-    @Column(name="content", nullable = false, unique = true)
+    @Column(name="content", nullable = false)
     private String content;
 
     @Schema(description = "Indicates whether this history record is active. Must not be empty")

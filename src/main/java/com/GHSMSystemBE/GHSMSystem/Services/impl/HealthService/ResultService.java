@@ -45,6 +45,13 @@ public class ResultService implements IHealthResultService {
     }
 
     @Override
+    public List<ServiceResult> getAllByConsultantId(String id) {
+        Optional<User> c = urepo.findById(UUID.fromString(id));
+        User u = c.get();
+        return srrepo.findByConsultantId(u);
+    }
+
+    @Override
     public ServiceResult getById(String id) {
         return srrepo.findById(UUID.fromString(id));
     }

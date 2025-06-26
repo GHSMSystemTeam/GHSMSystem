@@ -20,6 +20,9 @@ public interface ServiceResultRepo extends JpaRepository<ServiceResult, Integer>
     @Query("SELECT sr FROM ServiceResult sr WHERE sr.serviceBookingId = :sbID")
     List<ServiceResult> findByServiceBookingId(@Param("sbID") ServiceBooking sb);
 
+    @Query("SELECT sr FROM ServiceResult sr JOIN sr.serviceBookingId sb WHERE sb.consultantId = :cID")
+    List<ServiceResult> findByConsultantId(@Param("cID") User c);
+
     ServiceResult findById(UUID id);
 
 }

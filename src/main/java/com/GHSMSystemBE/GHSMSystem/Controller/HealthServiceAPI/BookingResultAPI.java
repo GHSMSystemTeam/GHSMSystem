@@ -51,6 +51,18 @@ public class BookingResultAPI {
         return ResponseEntity.ok(list);
     }
 
+    @Operation(summary = "Get all service results by consultant id", description = "Retrieve a complete list of service results from the database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of service result retrieved successfully")
+    })
+    @GetMapping("/api/result/consultant/{id}")
+    public ResponseEntity<List<ServiceResult>> getServiceResultListByConsultantId(
+            @PathVariable String id) {
+
+        List<ServiceResult> list = hrservice.getAllByConsultantId(id);
+        return ResponseEntity.ok(list);
+    }
+
     @Operation(summary = "Get service results by service booking id", description = "Retrieve a service results from the database")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "A service result retrieved successfully")

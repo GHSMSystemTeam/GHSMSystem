@@ -12,6 +12,7 @@ public interface IHealthResultService {
 
     List<ServiceResult> getAll();
     List<ServiceResult> getAllByCustomerId(String id);
+    List<ServiceResult> getAllByConsultantId(String id);
     ServiceResult getById(String id);
     ByteArrayResource generateMServiceResultPDF(String srId) throws DocumentException, IOException;
     ServiceResult createServiceResult(ServiceResultDTO srDTO);
