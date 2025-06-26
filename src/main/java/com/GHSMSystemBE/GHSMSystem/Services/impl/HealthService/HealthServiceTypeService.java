@@ -62,6 +62,7 @@ public class HealthServiceTypeService implements IHealthServiceType {
             existingType.setName(updatedServiceType.getName());
             existingType.setPrice(updatedServiceType.getPrice());
             existingType.setDescription(updatedServiceType.getDescription());
+            existingType.setTypeCode(updatedServiceType.getTypeCode());
             existingType.setActive(updatedServiceType.isActive()); // Match entity field name
 
             System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Saving updated service type: " + existingType.getName());
