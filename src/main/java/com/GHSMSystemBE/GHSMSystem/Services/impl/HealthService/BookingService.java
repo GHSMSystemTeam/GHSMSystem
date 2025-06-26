@@ -101,43 +101,26 @@ public class BookingService implements IBookingService {
         ServiceType st = new ServiceType();
         ServiceBooking sb = new ServiceBooking();
 
-        // cac truong hop service type ko yeu cau consultant
-        if(sbdto.getServiceTypeId() == 2 && sbdto.getAppointmentDate().compareTo(sqlDate) > 0){
-
+        if(sbdto.getAppointmentDate().compareTo(sqlDate) > 0){
             u = us.getById(sbdto.getCustomerId());
             st = hst.getById(sbdto.getServiceTypeId());
+            c = us.getById(sbdto.getConsultantId());
 
             // mapping
-            sb.setConsultantId(null);
             sb.setCustomerId(u);
-            sb.setServiceTypeId(st);
             sb.setAppointmentDate(sbdto.getAppointmentDate());
             sb.setDuration(sbdto.getDuration());
+            sb.setServiceTypeId(st);
+            if(st.getTypeCode() == 1){
+                sb.setConsultantId(null);
+            }else{
+                sb.setConsultantId(c);
+            }
 
             sb.setCreateDate(LocalDateTime.now());
             sb.setActive(true);
             sb.setDescription(sbdto.getDescription());
             return repo.save(sb);
-
-        }else{
-            if(sbdto.getAppointmentDate().compareTo(sqlDate) > 0){
-                // cac loai ServiceType con lai yeu cau co consultant
-                c = us.getById(sbdto.getConsultantId());
-                u = us.getById(sbdto.getCustomerId());
-                st = hst.getById(sbdto.getServiceTypeId());
-
-                // mapping
-                sb.setConsultantId(c);
-                sb.setCustomerId(u);
-                sb.setServiceTypeId(st);
-                sb.setAppointmentDate(sbdto.getAppointmentDate());
-                sb.setDuration(sbdto.getDuration());
-
-                sb.setCreateDate(LocalDateTime.now());
-                sb.setActive(true);
-                sb.setDescription(sbdto.getDescription());
-                return repo.save(sb);
-            }
         }
         return null;
     }
