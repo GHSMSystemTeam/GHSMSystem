@@ -113,7 +113,7 @@ public class BookingService implements IBookingService {
             sb.setServiceTypeId(st);
             if(st.getTypeCode() == 1){
                 sb.setConsultantId(null);
-            }else{
+            }else if(st.getTypeCode() == 0){
                 sb.setConsultantId(c);
             }
 
