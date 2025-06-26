@@ -22,7 +22,7 @@ public class AnswerService implements IHealthAnswers {
 
     @Override
     public List<Answer> getAllActiveAnswers() {
-       return harepo.findAll(AnswerSpecifications.hasStatusTrue());
+        return harepo.findAll(AnswerSpecifications.hasStatusTrue());
     }
 
     @Override
@@ -32,65 +32,48 @@ public class AnswerService implements IHealthAnswers {
 
     @Override
     public Answer createAnswer(Answer newAnswer) {
-        if(newAnswer == null)
-        {
+        if(newAnswer == null) {
             return null;
         }
-return harepo.save(newAnswer);
-
+        return harepo.save(newAnswer);
     }
 
     @Override
     public Answer editAnswer(Answer updatedAnswer) {
-        if(updatedAnswer == null)
-        {
+        if(updatedAnswer == null) {
             return null;
         }
-       Answer old = harepo.findById(updatedAnswer.getId()).get();
-        if(old==null)
-        {
-            return null;
-        }
-        else
-        {
-            old.setId(updatedAnswer.getId());
-            old.setTitle(updatedAnswer.getTitle());
-            old.setAnswerContent(updatedAnswer.getAnswerContent()+"(edited)");
-            old.setUser(updatedAnswer.getUser());
-            old.setIsActive(updatedAnswer.getIsActive());
-            old.setIsPublic(updatedAnswer.getIsPublic());
-            old.setRating(updatedAnswer.getRating());
-            return harepo.save(old);
-        }
+        return harepo.findById(updatedAnswer.getId())
+                .map(old -> {
+                    old.setTitle(updatedAnswer.getTitle());
+                    old.setAnswerContent(updatedAnswer.getAnswerContent()+"(edited)");
+                    old.setUser(updatedAnswer.getUser());
+                    old.setIsActive(updatedAnswer.getIsActive());
+                    old.setIsPublic(updatedAnswer.getIsPublic());
+                    old.setRating(updatedAnswer.getRating());
+                    return harepo.save(old);
+                })
+                .orElse(null);
     }
 
     @Override
     public void deleteAnswer(Answer answer) {
-      harepo.delete(answer);
+        harepo.delete(answer);
     }
 
     @Override
     public Answer getById(String answerId) {
-        if(answerId==null)
-        {
+        if(answerId == null) {
             return null;
         }
         UUID uuid = UUID.fromString(answerId);
-     Answer answer = harepo.findById(uuid).get();
-     if(answer==null)
-     {
-         return null;
-     }
-     else
-     {
-         return answer;
-     }
+        return harepo.findById(uuid).orElse(null);
     }
 
     @Override
     public void active(Answer answer) {
-   answer.setIsActive(true);
-   harepo.save(answer);
+        answer.setIsActive(true);
+        harepo.save(answer);
     }
 
     @Override
