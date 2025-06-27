@@ -1,6 +1,5 @@
 package com.GHSMSystemBE.GHSMSystem.Repos.HealthContentRepo;
 
-import com.GHSMSystemBE.GHSMSystem.Models.FeedbackSpecification;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthContent.Feedback;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;

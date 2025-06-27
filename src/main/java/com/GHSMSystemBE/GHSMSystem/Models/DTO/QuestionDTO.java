@@ -1,12 +1,10 @@
 package com.GHSMSystemBE.GHSMSystem.Models.DTO;
 
-import com.GHSMSystemBE.GHSMSystem.Models.HealthContent.Answer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @AllArgsConstructor

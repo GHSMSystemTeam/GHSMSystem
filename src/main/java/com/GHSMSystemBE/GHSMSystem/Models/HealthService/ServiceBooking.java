@@ -3,7 +3,9 @@ package com.GHSMSystemBE.GHSMSystem.Models.HealthService;
 import com.GHSMSystemBE.GHSMSystem.Models.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.sql.Date;
 import java.time.LocalDateTime;

@@ -4,7 +4,6 @@ import com.GHSMSystemBE.GHSMSystem.Models.HealthContent.Rating;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceBooking;
 import org.springframework.data.jpa.domain.Specification;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 public class RatingSpecification {

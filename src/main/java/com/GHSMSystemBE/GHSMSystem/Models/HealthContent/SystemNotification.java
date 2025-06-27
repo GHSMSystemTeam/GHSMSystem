@@ -4,13 +4,12 @@ import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceBooking;
 import com.GHSMSystemBE.GHSMSystem.Models.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Data

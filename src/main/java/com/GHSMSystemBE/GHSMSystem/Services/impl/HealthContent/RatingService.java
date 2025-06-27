@@ -5,18 +5,17 @@ import com.GHSMSystemBE.GHSMSystem.Models.HealthContent.Rating;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceBooking;
 import com.GHSMSystemBE.GHSMSystem.Models.RatingSpecification;
 import com.GHSMSystemBE.GHSMSystem.Models.User;
-import com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo.UserRepo;
 import com.GHSMSystemBE.GHSMSystem.Repos.HealthContentRepo.HealthRatingRepo;
 import com.GHSMSystemBE.GHSMSystem.Services.IBookingService;
 import com.GHSMSystemBE.GHSMSystem.Services.IHealthRating;
 import com.GHSMSystemBE.GHSMSystem.Services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
 @Service
 public class RatingService implements IHealthRating {
 

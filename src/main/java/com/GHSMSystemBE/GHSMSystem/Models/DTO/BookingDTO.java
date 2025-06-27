@@ -1,7 +1,5 @@
 package com.GHSMSystemBE.GHSMSystem.Models.DTO;
 
-import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceType;
-import com.GHSMSystemBE.GHSMSystem.Models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

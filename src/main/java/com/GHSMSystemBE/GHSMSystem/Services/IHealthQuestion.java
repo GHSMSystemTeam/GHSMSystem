@@ -3,7 +3,6 @@ package com.GHSMSystemBE.GHSMSystem.Services;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthContent.Question;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface IHealthQuestion {
     List<Question> getAll();

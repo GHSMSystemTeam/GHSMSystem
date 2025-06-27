@@ -2,8 +2,6 @@ package com.GHSMSystemBE.GHSMSystem.Controller.HealthServiceAPI;
 
 import com.GHSMSystemBE.GHSMSystem.Models.DTO.BookingDTO;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceBooking;
-import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceType;
-import com.GHSMSystemBE.GHSMSystem.Models.User;
 import com.GHSMSystemBE.GHSMSystem.Services.IBookingService;
 import com.GHSMSystemBE.GHSMSystem.Services.IHealthServiceType;
 import com.GHSMSystemBE.GHSMSystem.Services.IUserService;

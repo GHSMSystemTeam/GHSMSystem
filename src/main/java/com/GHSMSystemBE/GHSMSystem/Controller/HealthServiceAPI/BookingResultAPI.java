@@ -1,8 +1,6 @@
 package com.GHSMSystemBE.GHSMSystem.Controller.HealthServiceAPI;
 
-import com.GHSMSystemBE.GHSMSystem.Models.DTO.BookingDTO;
 import com.GHSMSystemBE.GHSMSystem.Models.DTO.ServiceResultDTO;
-import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceBooking;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceResult;
 import com.GHSMSystemBE.GHSMSystem.Services.IHealthResultService;
 import io.swagger.v3.oas.annotations.Operation;
