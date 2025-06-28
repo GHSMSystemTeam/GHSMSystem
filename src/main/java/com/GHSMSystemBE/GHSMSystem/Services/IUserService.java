@@ -1,7 +1,9 @@
 package com.GHSMSystemBE.GHSMSystem.Services;
 
+import com.GHSMSystemBE.GHSMSystem.Models.Role;
 import com.GHSMSystemBE.GHSMSystem.Models.User;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface IUserService {
@@ -13,6 +15,7 @@ public interface IUserService {
     List<User> getAllActiveConsultant();
     List<User> getAllDeActiveCustomer();
     List<User> getAllDeActiveConsultant();
+    List<User> getAllAvailableConsultant(Date bd, int slot);
     void activeUser(User u);
     void deActiveUser(User u);
     User getByEmail(String email);

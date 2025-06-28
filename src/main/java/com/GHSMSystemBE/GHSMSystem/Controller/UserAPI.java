@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -81,6 +82,21 @@ public class UserAPI {
     public ResponseEntity<List<User>> getAllConsultants() {
         System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Retrieving all consultants");
         List<User> list = service.getAllConsultant();
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Found " + list.size() + " consultants in the database");
+        return ResponseEntity.ok(list);
+    }
+
+    //print out a list of consultants not booked
+    @Operation(summary = "Get a list of consultants not booked", description = "Retrieve all users with consultant role")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of consultants retrieved successfully")
+    })
+    @GetMapping("/api/availableconsultants")
+    public ResponseEntity<List<User>> getAllConsultantsAvailable(
+            @Parameter Date bookingDate,
+            @Parameter int slot) {
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Retrieving all consultants");
+        List<User> list = service.getAllAvailableConsultant(bookingDate, slot);
         System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Found " + list.size() + " consultants in the database");
         return ResponseEntity.ok(list);
     }

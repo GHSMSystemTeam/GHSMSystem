@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -81,6 +82,13 @@ Integer roleId = 1;
         Integer roleId = 2;
         Role role = roleRepo.findById(roleId).orElseThrow();
         return repo.findByRoleAndIsActive(role, false);
+    }
+
+    @Override
+    public List<User> getAllAvailableConsultant(Date bd, int slot) {
+        Integer roleId = 2;
+        Role role = roleRepo.findById(roleId).orElseThrow();
+        return repo.findConsultantNotBooked(role, bd, slot);
     }
 
     @Override

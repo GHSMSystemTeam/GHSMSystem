@@ -46,6 +46,9 @@ public class ServiceBooking {
     @Column(name="appointment_date", nullable = false, unique = false)
     private Date appointmentDate;
 
+    @Schema(description = "Indicates booking order slot")
+    @Column(name="slot", nullable = true)
+    private int slot=1; // 5 slot between 7h - 17h
 
     @Schema(description = "Duration of the appointment in hours. Must not be empty")
     @Column(name="duration", nullable = false, unique = false)
