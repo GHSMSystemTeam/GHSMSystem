@@ -94,6 +94,11 @@
 		</dependency>
 
 		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>io.nayuki</groupId>
 			<artifactId>qrcodegen</artifactId>
 			<version>1.8.0</version>
