@@ -111,6 +111,7 @@ public class BookingService implements IBookingService {
             sb.setAppointmentDate(sbdto.getAppointmentDate());
             sb.setDuration(sbdto.getDuration());
             sb.setServiceTypeId(st);
+            sb.setSlot(sbdto.getSlot());
             if(st.getTypeCode() == 1){
                 sb.setConsultantId(null);
             }else if(st.getTypeCode() == 0){
