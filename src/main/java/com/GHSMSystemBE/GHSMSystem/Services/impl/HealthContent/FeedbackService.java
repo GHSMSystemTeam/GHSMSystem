@@ -133,7 +133,7 @@ public class FeedbackService implements IHealthFeedback {
     @Override
     public List<Feedback> findByServiceBooking(String sbId) {
         ServiceBooking sb = bService.getById(sbId);
-        List<Feedback> list = hfRepo.findAll(FeedbackSpecification.findByserviceBooking(sb));
+        List<Feedback> list = hfRepo.findAll(FeedbackSpecification.findByServiceBooking(sb));
         return list;
   }
 }

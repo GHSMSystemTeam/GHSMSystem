@@ -55,6 +55,22 @@ public class AnswerAPI {
         return ResponseEntity.ok(haservice.getAllActiveAnswers());
     }
 
+
+    @GetMapping("/api/answer/user/{id}")
+    public ResponseEntity<List<Answer>> getByUser(@PathVariable String id)
+    {
+        if (id==null)
+        {
+            return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else
+        {
+            List<Answer> list = haservice.getByUser(id);
+return ResponseEntity.ok(list);
+        }
+    }
+
+
     @Operation(summary = "Get all inactive answers", description = "Retrieves a list of all inactive answers in the system")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved all inactive answers",

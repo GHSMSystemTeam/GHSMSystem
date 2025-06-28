@@ -2,8 +2,10 @@ package com.GHSMSystemBE.GHSMSystem.Services.impl.HealthContent;
 
 import com.GHSMSystemBE.GHSMSystem.Models.AnswerSpecifications;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthContent.Answer;
+import com.GHSMSystemBE.GHSMSystem.Models.User;
 import com.GHSMSystemBE.GHSMSystem.Repos.HealthContentRepo.HealthAnswerRepo;
 import com.GHSMSystemBE.GHSMSystem.Services.IHealthAnswers;
+import com.GHSMSystemBE.GHSMSystem.Services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,9 @@ import java.util.UUID;
 public class AnswerService implements IHealthAnswers {
     @Autowired
     private HealthAnswerRepo harepo;
+
+    @Autowired
+    private IUserService userService;
 
     @Override
     public List<Answer> getAll() {
@@ -80,5 +85,19 @@ public class AnswerService implements IHealthAnswers {
     public void deActive(Answer answer) {
         answer.setIsActive(false);
         harepo.save(answer);
+    }
+
+    @Override
+    public List<Answer> getByUser(String id) {
+       User user = userService.getById(id);
+       if (user ==null)
+       {
+           return  null;
+       }
+       else
+       {
+           List<Answer> list = harepo.findAll(AnswerSpecifications.madeByUser(user));
+           return list;
+       }
     }
 }

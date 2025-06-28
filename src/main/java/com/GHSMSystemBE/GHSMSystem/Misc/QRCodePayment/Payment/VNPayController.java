@@ -32,8 +32,6 @@ public class VNPayController {
     public ResponseEntity<BufferedImage> createVNPayQR(
             @RequestBody Map<String, String> paymentRequest,
             HttpServletRequest request) {
-        // Your existing code...
-        // No changes needed here
         try {
             // Validate required parameters
             String userId = paymentRequest.get("userId");

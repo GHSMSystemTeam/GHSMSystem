@@ -59,6 +59,20 @@ public class QuestionAPI {
         return ResponseEntity.ok(list);
     }
 
+    @GetMapping("/api/question/user/{id}")
+    public ResponseEntity<List<Question>> getByUserId(@PathVariable  String id)
+    {
+        if(id==null)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else
+        {
+            List<Question> list = hqservice.getByUser(id);
+                return  ResponseEntity.ok(list);
+        }
+    }
+
     @Operation(summary = "Get inactive questions", description = "Retrieve a list of all inactive questions")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List of inactive questions retrieved successfully")

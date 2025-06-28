@@ -13,4 +13,11 @@ public class QuestionSpecifications {
         return (( (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("isActive"),false)));
     }
 
+    public static Specification<Question> madeByUser(User user)
+    {
+        return ((((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("customer"), user))));
+    }
+
+
+
 }

@@ -14,4 +14,5 @@ public interface IHealthQuestion {
     Question getById(String questionId);
     void active(Question question);
     void deActive(Question question);
+    List<Question> getByUser(String userId);
 }

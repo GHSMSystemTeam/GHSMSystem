@@ -19,7 +19,7 @@ public class FeedbackSpecification {
         return (( (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("customerId"),user)));
     }
 
-    public static Specification<Feedback> findByserviceBooking(ServiceBooking sb)
+    public static Specification<Feedback> findByServiceBooking(ServiceBooking sb)
     {
         return (( (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("serviceBookingId"),sb)));
     }

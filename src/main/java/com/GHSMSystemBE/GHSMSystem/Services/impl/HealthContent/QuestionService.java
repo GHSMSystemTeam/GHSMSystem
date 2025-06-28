@@ -3,9 +3,11 @@ package com.GHSMSystemBE.GHSMSystem.Services.impl.HealthContent;
 
 import com.GHSMSystemBE.GHSMSystem.Models.HealthContent.Question;
 import com.GHSMSystemBE.GHSMSystem.Models.QuestionSpecifications;
+import com.GHSMSystemBE.GHSMSystem.Models.User;
 import com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo.UserRepo;
 import com.GHSMSystemBE.GHSMSystem.Repos.HealthContentRepo.HealthQuestionRepo;
 import com.GHSMSystemBE.GHSMSystem.Services.IHealthQuestion;
+import com.GHSMSystemBE.GHSMSystem.Services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,7 @@ public class QuestionService implements IHealthQuestion {
    private HealthQuestionRepo hqrepo;
 
     @Autowired
-    private UserRepo urepo;
+    private IUserService userService;
 
     @Override
     public List<Question> getAll() {
@@ -103,5 +105,18 @@ hqrepo.delete(deleteQuestion);
     public void deActive(Question question) {
         question.setIsActive(false);
         hqrepo.save(question);
+    }
+
+    @Override
+    public List<Question> getByUser(String userId) {
+       User user = userService.getById(userId);
+       if(user==null)
+       {
+           return null;
+       }
+       else {
+           List<Question> list = hqrepo.findAll(QuestionSpecifications.madeByUser(user));
+           return list;
+       }
     }
 }
