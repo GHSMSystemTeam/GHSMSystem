@@ -21,7 +21,7 @@ public class BookingDTO {
 
     private int duration; // hour
 
-    private int slot;
+    private Integer slot;
 
     private String description;
 }

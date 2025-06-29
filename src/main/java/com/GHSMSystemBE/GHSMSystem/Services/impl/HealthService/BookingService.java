@@ -40,7 +40,13 @@ public class BookingService implements IBookingService {
 
     @Override
     public List<ServiceBooking> getAll() {
-        return repo.findAll();
+        List<ServiceBooking> bookings = repo.findAll();
+        for (ServiceBooking booking : bookings) {
+            if (booking.getSlot() == null) {
+                booking.setSlot(1);
+            }
+        }
+        return bookings;
     }
 
     @Override
@@ -117,6 +123,9 @@ public class BookingService implements IBookingService {
                 sb.setConsultantId(c);
             }
 
+            // Set the slot field
+            sb.setSlot(sbdto.getSlot() != null ? sbdto.getSlot() : 1);
+
             sb.setCreateDate(LocalDateTime.now());
             sb.setActive(true);
             sb.setDescription(sbdto.getDescription());
@@ -138,5 +147,12 @@ public class BookingService implements IBookingService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public ServiceBooking updateTimeSlot(ServiceBooking serviceBooking, int slot) {
+        serviceBooking.setSlot(slot);
+        repo.save(serviceBooking);
+        return serviceBooking;
     }
 }

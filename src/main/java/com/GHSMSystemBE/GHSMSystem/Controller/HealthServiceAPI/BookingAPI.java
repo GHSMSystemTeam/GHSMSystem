@@ -199,4 +199,22 @@ public class BookingAPI {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PutMapping("/api/booking/slot/{id}")
+    public ResponseEntity<ServiceBooking> updateSlot(@PathVariable String id, @RequestBody Integer slot)
+    {
+        ServiceBooking sb = service.getById(id);
+        if(id==null)
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        else
+        service.updateTimeSlot(sb,slot);
+        if(sb==null)
+        {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        else
+            return ResponseEntity.ok(sb);
+    }
 }
