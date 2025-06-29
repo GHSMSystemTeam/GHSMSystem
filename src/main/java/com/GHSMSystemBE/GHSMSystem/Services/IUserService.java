@@ -27,4 +27,9 @@ public interface IUserService {
     User checkLogin(String email, String password);
     User getById(String id);
     void deleteUser(User user);
+    User updateRole(String userId,Integer roleId);
+    List<User> getAllActiveStaff();
+    List<User> getAllStaff();
+    List<User> getAllInactiveStaff();
+
 }

@@ -235,5 +235,42 @@ Integer roleId = 1;
         repo.delete(user);
     }
 
+    @Override
+    public User updateRole(String userId, Integer roleId) {
+        User user = getById(userId);
+        Optional<Role> oRole = roleRepo.findById(4);
+        Role role = oRole.orElseThrow();
+        if(user==null || role ==null)
+        {
+            return null;
+        }
+        else
+        {
+            user.setRole(role);
+           return repo.save(user);
+        }
+    }
+
+    @Override
+    public List<User> getAllActiveStaff() {
+        Optional<Role> oRole = roleRepo.findById(4);
+        Role role = oRole.orElseThrow();
+      return  repo.findAll(UserSpecifications.getAllByRoleActive(role));
+    }
+
+    @Override
+    public List<User> getAllStaff() {
+        Optional<Role> oRole = roleRepo.findById(4);
+        Role role = oRole.orElseThrow();
+        return  repo.findAll(UserSpecifications.getAllByRole(role));
+    }
+
+    @Override
+    public List<User> getAllInactiveStaff() {
+        Optional<Role> oRole = roleRepo.findById(4);
+        Role role = oRole.orElseThrow();
+        return  repo.findAll(UserSpecifications.getAllByRoleInActive(role));
+    }
+
 
 }

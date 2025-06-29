@@ -463,4 +463,75 @@ public class UserAPI {
         System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Failed to activate user - not found");
         return ResponseEntity.notFound().build();
     }
+
+
+    @Operation(summary = "Update user role", description = "Update a user account to a new role")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully updated user role."),
+            @ApiResponse(responseCode = "404", description = "User or role not found"),
+            @ApiResponse(responseCode = "400", description = "Bad request fields are missing")
+    })
+    @PutMapping("/api/user/role/{userId}")
+    public ResponseEntity<User> updateUserRole(
+            @Parameter(description = "User's UUID") @PathVariable String userId,
+            @Parameter(description = "Role ID to assign") @RequestParam Integer roleId) {
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Attempting to update role for user ID: " + userId);
+
+        if(userId == null || roleId == null) {
+            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Missing required parameters");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        User user = service.updateRole(userId, roleId);
+        if(user == null) {
+            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - User or role not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Successfully updated role for user: " + user.getName());
+            return ResponseEntity.ok(user);
+        }
+    }
+
+    @Operation(summary = "Get a list of all Staffs", description = "Retrieve a complete list of available Staffs from the database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of Staffs retrieved successfully"),
+            @ApiResponse(responseCode = "500", description = "Internal server error occurred")
+    })
+    @GetMapping("/api/user/staff")
+    public ResponseEntity<List<User>> getStaffList() {
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Retrieving all staffs");
+        List<User> userList = service.getAllStaff();
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Found " + userList.size() + " staffs in the database");
+        return ResponseEntity.ok(userList);
+    }
+
+    @Operation(summary = "Get a list of active Staffs", description = "Retrieve a complete list of active Staffs from the database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of active Staffs retrieved successfully"),
+            @ApiResponse(responseCode = "500", description = "Internal server error occurred")
+    })
+    @GetMapping("/api/user/staff/active")
+    public ResponseEntity<List<User>> getActiveStaffList() {
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Retrieving active staffs");
+        List<User> userList = service.getAllActiveStaff();
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Found " + userList.size() + " active staffs in the database");
+        return ResponseEntity.ok(userList);
+    }
+
+
+    @Operation(summary = "Get a list of inactive Staffs", description = "Retrieve a complete list of inactive Staffs from the database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of inactive Staffs retrieved successfully"),
+            @ApiResponse(responseCode = "500", description = "Internal server error occurred")
+    })
+    @GetMapping("/api/user/staff/inactive")
+    public ResponseEntity<List<User>> getInactiveStaffList() {
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Retrieving inactive staffs");
+        List<User> userList = service.getAllInactiveStaff();
+        System.out.println("LOG: " + CURRENT_DATE + " - " + CURRENT_USER + " - Found " + userList.size() + " inactive staffs in the database");
+        return ResponseEntity.ok(userList);
+    }
+
+
+
 }
