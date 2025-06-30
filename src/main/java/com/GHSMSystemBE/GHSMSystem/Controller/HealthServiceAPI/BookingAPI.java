@@ -165,7 +165,7 @@ public class BookingAPI {
     @Operation(summary = "Add new service booking", description = "Add a new service booking to the database")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Successfully created service booking"),
-            @ApiResponse(responseCode = "400", description = "Failed to create service booking - validation error")
+            @ApiResponse(responseCode = "400", description = "Failed to create service booking - your slot booking maybe full")
     })
     @PostMapping("/api/servicebooking")
     public ResponseEntity<ServiceBooking> addServiceBooking(
@@ -176,6 +176,27 @@ public class BookingAPI {
         }
 
         ServiceBooking sb = service.createServiceBooking(sbDTO);
+        if (sb != null) {
+            return new ResponseEntity<>(sb, HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Operation(summary = "Add new service testing", description = "Add a new service testing to the database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Successfully created service testing"),
+            @ApiResponse(responseCode = "400", description = "Failed to create service booking - your slot booking maybe full")
+    })
+    @PostMapping("/api/servicetesting")
+    public ResponseEntity<ServiceBooking> addServiceTesting(
+            @Parameter(description = "Booking data to create") @RequestBody BookingDTO sbDTO) {
+
+        if (sbDTO == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        ServiceBooking sb = service.createTesting(sbDTO);
         if (sb != null) {
             return new ResponseEntity<>(sb, HttpStatus.CREATED);
         } else {

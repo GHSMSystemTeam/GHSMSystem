@@ -1,5 +1,6 @@
 package com.GHSMSystemBE.GHSMSystem.Services.impl.HealthService;
 
+import com.GHSMSystemBE.GHSMSystem.Configs.Validation;
 import com.GHSMSystemBE.GHSMSystem.Models.DTO.BookingDTO;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceBooking;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceType;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -99,15 +101,20 @@ public class BookingService implements IBookingService {
 
     @Override
     public ServiceBooking createServiceBooking(BookingDTO sbdto) {
-        // get now date from LocalDate and convert to java.sql.date
-        LocalDate localDate = LocalDate.now();
-        Date sqlDate = Date.valueOf(localDate.toString());
+
+        // prepare to validation
+        LocalDate dateCheck = sbdto.getAppointmentDate().toLocalDate();
+        LocalTime thisTime = LocalTime.now();
+        List<ServiceBooking> listQuery = repo.findByAppointmentDateAndSlot(sbdto.getAppointmentDate(), sbdto.getSlot());
+        int listNum = listQuery.size();
 
         User u, c = new User();
         ServiceType st = new ServiceType();
         ServiceBooking sb = new ServiceBooking();
 
-        if(sbdto.getAppointmentDate().compareTo(sqlDate) > 0){
+        Validation val = new Validation();
+
+        if(val.validationSlot(dateCheck, thisTime, sbdto.getSlot(),listNum)){
             u = us.getById(sbdto.getCustomerId());
             st = hst.getById(sbdto.getServiceTypeId());
             c = us.getById(sbdto.getConsultantId());
@@ -133,6 +140,44 @@ public class BookingService implements IBookingService {
             return repo.save(sb);
         }
         return null;
+    }
+
+    @Override
+    public ServiceBooking createTesting(BookingDTO sbdto) {
+
+        LocalDate dateCheck = sbdto.getAppointmentDate().toLocalDate();
+
+        LocalTime thisTime = LocalTime.now();
+
+        User u = new User();
+        ServiceType st = new ServiceType();
+        ServiceBooking sb = new ServiceBooking();
+
+        List<ServiceBooking> listQuery = repo.findByAppointmentDateAndSlot(sbdto.getAppointmentDate(), sbdto.getSlot());
+        int listNum = listQuery.size();
+
+        Validation val = new Validation();
+        if(!val.validationSlot(dateCheck, thisTime, sbdto.getSlot(),listNum)){
+            return null;
+        }else{
+            u = us.getById(sbdto.getCustomerId());
+            st = hst.getById(sbdto.getServiceTypeId());
+            if(st.getTypeCode() == 1){
+                // mapping
+                sb.setCustomerId(u);
+                sb.setAppointmentDate(sbdto.getAppointmentDate());
+                sb.setDuration(sbdto.getDuration());
+                sb.setServiceTypeId(st);
+                // Set the slot field if null
+                sb.setSlot(sbdto.getSlot() != null ? sbdto.getSlot() : 1);
+                sb.setConsultantId(null);
+                sb.setCreateDate(LocalDateTime.now());
+                sb.setDescription(sbdto.getDescription());
+                sb.setActive(true);
+                return repo.save(sb);
+            }
+            return null;
+        }
     }
 
     @Override

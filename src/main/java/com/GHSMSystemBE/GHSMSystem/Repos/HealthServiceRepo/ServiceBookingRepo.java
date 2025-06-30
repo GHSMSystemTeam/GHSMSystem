@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,6 +24,8 @@ public interface ServiceBookingRepo extends JpaRepository<ServiceBooking,Integer
 
     @Query("SELECT sb FROM ServiceBooking sb WHERE sb.serviceTypeId = :serID")
     List<ServiceBooking> findByServiceTypeId(@Param("serID")ServiceType st);
+
+    List<ServiceBooking> findByAppointmentDateAndSlot(Date bookDate, int bookSlot);
 
     ServiceBooking findById(UUID id);
 }
