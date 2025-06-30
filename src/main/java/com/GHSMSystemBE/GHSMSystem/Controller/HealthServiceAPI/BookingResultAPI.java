@@ -61,7 +61,7 @@ public class BookingResultAPI {
         return ResponseEntity.ok(list);
     }
 
-    @Operation(summary = "Get service results by service booking id", description = "Retrieve a service results from the database")
+    @Operation(summary = "Get service results by result id", description = "Retrieve a service results from the database")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "A service result retrieved successfully")
     })
@@ -104,7 +104,7 @@ public class BookingResultAPI {
         }
     }
 
-    @Operation(summary = "Add new service result", description = "Add a new service result to the database")
+    @Operation(summary = "Add new result", description = "Add a new service result to the database")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Successfully created service result"),
             @ApiResponse(responseCode = "400", description = "Failed to create service result - validation error")
