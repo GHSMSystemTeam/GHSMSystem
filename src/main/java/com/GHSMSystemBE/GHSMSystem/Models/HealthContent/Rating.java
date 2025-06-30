@@ -46,7 +46,7 @@ public class Rating {
     private ServiceBooking serviceBookingId;
 
     @Schema(description = "Title or summary of the rating")
-    @Column(name = "title")
+    @Column(name = "title", unique =false)
     private String title;
 
     @Schema(description = "Numerical rating value provided by the customer")

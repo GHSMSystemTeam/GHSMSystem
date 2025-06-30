@@ -233,8 +233,8 @@ public class RatingAPI {
     })
     @PostMapping("/api/rating")
     public ResponseEntity<Rating> createRating(
-            @Parameter(description = "Rating data to create", required = true)
             @RequestBody RatingDTO dto) {
+        System.out.println("\nRATING"+dto);
         if (dto == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {

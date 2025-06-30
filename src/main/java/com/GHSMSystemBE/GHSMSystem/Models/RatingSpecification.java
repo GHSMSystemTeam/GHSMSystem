@@ -37,7 +37,7 @@ public class RatingSpecification {
 
     public static Specification<Rating> findByConsultant(User consultant)
     {
-        return (( (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("consultanId"),consultant)));
+        return (( (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("consultantId"),consultant)));
     }
 
 }

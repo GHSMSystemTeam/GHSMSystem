@@ -2,6 +2,7 @@ package com.GHSMSystemBE.GHSMSystem.Services;
 
 import com.GHSMSystemBE.GHSMSystem.Models.DTO.RatingDTO;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthContent.Rating;
+import com.GHSMSystemBE.GHSMSystem.Models.User;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface IHealthRating {
     List<Rating> findByServiceBooking(String sbId);
     List<Rating> findInRange(Float min, Float max);
     List<Rating> findForConsultantInRange(Float min, Float max, String consultantId);
+    Float calculateAvgRatingForConsultant(User consultant);
+    User setAvgRating(User consultant);
 }

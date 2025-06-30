@@ -238,7 +238,7 @@ Integer roleId = 1;
     @Override
     public User updateRole(String userId, Integer roleId) {
         User user = getById(userId);
-        Optional<Role> oRole = roleRepo.findById(4);
+        Optional<Role> oRole = roleRepo.findById(roleId);
         Role role = oRole.orElseThrow();
         if(user==null || role ==null)
         {
