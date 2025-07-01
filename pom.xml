@@ -29,6 +29,7 @@
 	<properties>
 		<java.version>17</java.version>
 	</properties>
+
 	<dependencies>
 
 		<!-- https://mvnrepository.com/artifact/org.modelmapper/modelmapper -->
@@ -102,6 +103,45 @@
 			<groupId>io.nayuki</groupId>
 			<artifactId>qrcodegen</artifactId>
 			<version>1.8.0</version>
+		</dependency>
+
+		<!-- Agora RTC SDK -->
+		<!--<dependency>
+			<groupId>io.agora</groupId>
+			<artifactId>authentication</artifactId>
+			<version>2.0.0</version>
+		</dependency>-->
+
+		<!-- WebSocket support for real-time communication -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-messaging</artifactId>
+		</dependency>
+
+		<!-- JSON Web Token for secure token generation -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>0.11.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>0.11.5</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>0.11.5</version>
+			<scope>runtime</scope>
 		</dependency>
 
 	</dependencies>
