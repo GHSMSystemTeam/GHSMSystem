@@ -25,7 +25,7 @@ public class Validation {
         }
 
         // check date
-        if(bookDate.isBefore(thisDate)){
+        if(bookDate.isEqual(thisDate)){
             if(bookTime.isAfter(startSlot1) && bookTime.isBefore(endSlot1) && slot==1){ // time between 7h - 9h
                 return false;
             }else if(bookTime.isAfter(endSlot1) && bookTime.isBefore(endSlot2) && slot <= 2){ // time between 9h - 11h
