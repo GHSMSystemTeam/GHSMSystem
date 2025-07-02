@@ -18,7 +18,7 @@ public class ServiceResult {
     @Schema(description = "ID field. Must not be empty- must be unique")
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name="id", nullable = false, unique = true)
+    @Column(name="id", nullable = false)
     private UUID id;
 
     @Schema(description = "Reference to the original service booking order. Must not be empty- must be unique")
