@@ -20,7 +20,7 @@ public class Validation {
         }
 
         // when booking for the following days
-        if(bookDate.isEqual(tomorrow)){
+        if(bookDate.isEqual(tomorrow) || bookDate.isAfter(tomorrow)){
             return true;
         }
 
