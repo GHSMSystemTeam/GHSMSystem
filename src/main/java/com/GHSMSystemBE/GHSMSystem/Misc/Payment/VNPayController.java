@@ -1,6 +1,5 @@
-package com.GHSMSystemBE.GHSMSystem.Misc.QRCodePayment.Payment;
+package com.GHSMSystemBE.GHSMSystem.Misc.Payment;
 
-<<<<<<< Updated upstream
 import com.GHSMSystemBE.GHSMSystem.Misc.Payment.DTOs.PaymentRequestDTO;
 import com.GHSMSystemBE.GHSMSystem.Misc.Payment.DTOs.PaymentResponseDTO;
 import com.GHSMSystemBE.GHSMSystem.Misc.Payment.DTOs.TransactionResponseDTO;
@@ -11,10 +10,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-=======
-import com.GHSMSystemBE.GHSMSystem.Misc.QRCodeGen.QRCodeGenerator;
->>>>>>> Stashed changes
-import com.GHSMSystemBE.GHSMSystem.Misc.QRCodeGen.QRCodeGenerator;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.Map;
 
 @Controller
