@@ -110,7 +110,6 @@
 			<version>9.1.1</version>
 		</dependency>
 
-<<<<<<< Updated upstream
 		<!-- Agora RTC SDK -->
 		<!--<dependency>
 			<groupId>io.agora</groupId>
@@ -149,9 +148,7 @@
 			<version>0.11.5</version>
 			<scope>runtime</scope>
 		</dependency>
-
-=======
->>>>>>> Stashed changes
+		
 		<dependency>
 			<groupId>com.google.firebase</groupId>
 			<artifactId>firebase-admin</artifactId>
