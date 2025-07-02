@@ -1,4 +1,4 @@
-package com.GHSMSystemBE.GHSMSystem.Misc.Payment;
+package com.GHSMSystemBE.GHSMSystem.Misc.QRCodePayment.Payment;
 
 <<<<<<< Updated upstream
 import com.GHSMSystemBE.GHSMSystem.Misc.Payment.DTOs.PaymentRequestDTO;
@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 =======
 import com.GHSMSystemBE.GHSMSystem.Misc.QRCodeGen.QRCodeGenerator;
 >>>>>>> Stashed changes
+import com.GHSMSystemBE.GHSMSystem.Misc.QRCodeGen.QRCodeGenerator;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -286,5 +287,4 @@ public class VNPayController {
             return "redirect:/payment-complete.html?success=false&error=" + e.getMessage();
         }
     }
-
 }
