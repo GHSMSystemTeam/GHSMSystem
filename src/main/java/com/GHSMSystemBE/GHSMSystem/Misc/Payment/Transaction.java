@@ -1,4 +1,4 @@
-package com.GHSMSystemBE.GHSMSystem.Misc.QRCodePayment.Payment;
+package com.GHSMSystemBE.GHSMSystem.Misc.Payment;
 
 import jakarta.persistence.*;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.GHSMSystemBE.GHSMSystem.Misc.QRCodePayment.QRCodeGen;
+package com.GHSMSystemBE.GHSMSystem.Misc.QRCodeGen;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

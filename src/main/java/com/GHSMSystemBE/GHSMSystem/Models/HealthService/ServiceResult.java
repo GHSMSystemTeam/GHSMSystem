@@ -23,14 +23,14 @@ public class ServiceResult {
 
     @Schema(description = "Reference to the original service booking order. Must not be empty- must be unique")
     @OneToOne
-    @JoinColumn(name="service_booking_id", nullable = false)
+    @JoinColumn(name="service_booking_id", nullable = false, unique = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private ServiceBooking serviceBookingId;
 
     @Schema(description = "Reference to the original service booking order. Must not be empty- must be unique")
     @OneToOne
-    @JoinColumn(name="customer_id", nullable = false)
+    @JoinColumn(name="customer_id", nullable = false, unique = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private User customerId;

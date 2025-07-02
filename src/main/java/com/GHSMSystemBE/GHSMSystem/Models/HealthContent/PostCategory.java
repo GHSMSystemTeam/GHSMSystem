@@ -15,7 +15,7 @@ public class PostCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    private int id;
+    private Integer id;
 
     @Schema(description = "Name of the post category")
     @Column(name = "name")

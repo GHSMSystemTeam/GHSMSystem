@@ -1,4 +1,4 @@
-package com.GHSMSystemBE.GHSMSystem.Misc.QRCodePayment.Payment;
+package com.GHSMSystemBE.GHSMSystem.Misc.Payment;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

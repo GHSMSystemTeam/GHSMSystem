@@ -1,6 +1,15 @@
-package com.GHSMSystemBE.GHSMSystem.Misc.QRCodePayment.Payment;
+package com.GHSMSystemBE.GHSMSystem.Misc.Payment;
 
-import com.GHSMSystemBE.GHSMSystem.Misc.QRCodePayment.QRCodeGen.QRCodeGenerator;
+import com.GHSMSystemBE.GHSMSystem.Misc.Payment.DTOs.PaymentRequestDTO;
+import com.GHSMSystemBE.GHSMSystem.Misc.Payment.DTOs.PaymentResponseDTO;
+import com.GHSMSystemBE.GHSMSystem.Misc.Payment.DTOs.TransactionResponseDTO;
+import com.GHSMSystemBE.GHSMSystem.Misc.QRCodeGen.QRCodeGenerator;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,9 +25,10 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller  // Change to Controller instead of RestController for HTML views
+@Controller
 @RequestMapping("/payment")
 @CrossOrigin("*")
+@Tag(name = "VNPay Payment", description = "API endpoints for VNPay payment processing")
 public class VNPayController {
     @Autowired
     private VNPayService vnPayService;
@@ -26,19 +36,22 @@ public class VNPayController {
     @Autowired
     private TransactionRepo transactionRepository;
 
-    // Keep your existing endpoints
+    @Operation(summary = "Create VNPay QR code for payment",
+            description = "Generates a QR code containing the VNPay payment URL")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "QR code generated successfully",
+                    content = @Content(mediaType = "image/png")),
+            @ApiResponse(responseCode = "400", description = "Invalid request parameters"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @PostMapping(value = "/vnpay/create-qr", produces = MediaType.IMAGE_PNG_VALUE)
-    @ResponseBody  // Need this when mixing JSON and HTML responses in a @Controller
+    @ResponseBody
     public ResponseEntity<BufferedImage> createVNPayQR(
-            @RequestBody Map<String, String> paymentRequest,
+            @RequestBody PaymentRequestDTO paymentRequest,
             HttpServletRequest request) {
         try {
             // Validate required parameters
-            String userId = paymentRequest.get("userId");
-            String amount = paymentRequest.get("amount");
-            String orderInfo = paymentRequest.get("orderInfo");
-
-            if (userId == null || amount == null) {
+            if (paymentRequest.getUserId() == null || paymentRequest.getAmount() == null) {
                 return ResponseEntity.badRequest().build();
             }
 
@@ -49,18 +62,22 @@ public class VNPayController {
             String orderId = "GHSM_" + System.currentTimeMillis();
 
             // Log payment request for debugging
-            System.out.println("Creating payment for user: " + userId + ", amount: " + amount);
+            System.out.println("Creating payment for user: " + paymentRequest.getUserId() + ", amount: " + paymentRequest.getAmount());
 
             // Create VNPay payment URL
-            String paymentUrl = vnPayService.createPaymentUrl(orderId, amount, orderInfo, ipAddress);
+            String paymentUrl = vnPayService.createPaymentUrl(
+                    orderId,
+                    paymentRequest.getAmount(),
+                    paymentRequest.getOrderInfo(),
+                    ipAddress);
 
             // Save transaction record
             Transaction transaction = new Transaction();
             transaction.setOrderId(orderId);
-            transaction.setAmount(new BigDecimal(amount));
-            transaction.setOrderInfo(orderInfo);
+            transaction.setAmount(new BigDecimal(paymentRequest.getAmount()));
+            transaction.setOrderInfo(paymentRequest.getOrderInfo());
             transaction.setStatus("PENDING");
-            transaction.setUserId(userId);
+            transaction.setUserId(paymentRequest.getUserId());
             transaction.setCreatedAt(LocalDateTime.now());
             transactionRepository.save(transaction);
 
@@ -78,33 +95,37 @@ public class VNPayController {
         }
     }
 
+    @Operation(summary = "Handle VNPay payment callback",
+            description = "Processes the callback from VNPay after payment completion")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Payment processed successfully",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = PaymentResponseDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Invalid payment data"),
+            @ApiResponse(responseCode = "404", description = "Transaction not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @GetMapping("/vnpay/return")
     @ResponseBody
-    public ResponseEntity<Map<String, String>> vnpayReturn(@RequestParam Map<String, String> params) {
-        // Your existing code...
-        // No changes needed here
-        Map<String, String> response = new HashMap<>();
-
-        // DEBUG: Log all incoming parameters
+    public ResponseEntity<PaymentResponseDTO> vnpayReturn(@RequestParam Map<String, String> params) {
+        // Your existing code with updated return type...
         System.out.println("VNPay Return - Received parameters: " + params);
 
+        PaymentResponseDTO response = new PaymentResponseDTO();
+
         try {
-            // First check if we have any parameters at all
             if (params == null || params.isEmpty()) {
                 System.err.println("ERROR: No parameters received from VNPay");
-                response.put("status", "error");
-                response.put("message", "No parameters received from payment gateway");
+                response.setStatus("error");
+                response.setMessage("No parameters received from payment gateway");
                 return ResponseEntity.badRequest().body(response);
             }
 
-            // Get order ID from parameters - check both standard and alternate parameter names
             String orderId = params.get("vnp_TxnRef");
             if (orderId == null) {
-                // Try alternate parameter names VNPay might use
                 orderId = params.get("vnp_OrderInfo");
             }
 
-            // If still null, check if there's any parameter that contains the GHSM_ prefix
             if (orderId == null) {
                 for (Map.Entry<String, String> entry : params.entrySet()) {
                     if (entry.getValue() != null && entry.getValue().startsWith("GHSM_")) {
@@ -115,94 +136,101 @@ public class VNPayController {
                 }
             }
 
-            // Check if order ID is valid after our best efforts
             if (orderId == null || orderId.trim().isEmpty()) {
                 System.err.println("ERROR: Invalid or missing order ID in VNPay response");
-                response.put("status", "error");
-                response.put("message", "Invalid order ID in payment response");
+                response.setStatus("error");
+                response.setMessage("Invalid order ID in payment response");
                 return ResponseEntity.badRequest().body(response);
             }
 
-            // Get response code and transaction number
             String responseCode = params.get("vnp_ResponseCode");
             String transactionNo = params.get("vnp_TransactionNo");
 
             System.out.println("Processing payment return - Order ID: " + orderId + ", Response Code: " + responseCode);
 
-            // Handle potential transaction lookup
             try {
                 Transaction transaction = transactionRepository.findById(orderId).orElse(null);
 
                 if (transaction != null) {
-                    // Update transaction details
                     transaction.setTransactionId(transactionNo);
 
-                    // Set status based on VNPay response code (00 = success)
                     if ("00".equals(responseCode)) {
                         transaction.setStatus("SUCCESS");
-                        response.put("status", "success");
-                        response.put("message", "Payment successful");
+                        response.setStatus("success");
+                        response.setMessage("Payment successful");
                     } else {
                         transaction.setStatus("FAILED");
                         transaction.setResultCode(responseCode);
-                        response.put("status", "failed");
-                        response.put("message", "Payment failed with code: " + responseCode);
+                        response.setStatus("failed");
+                        response.setMessage("Payment failed with code: " + responseCode);
                     }
 
                     transactionRepository.save(transaction);
                     return ResponseEntity.ok(response);
                 } else {
                     System.err.println("Transaction not found in database: " + orderId);
-                    response.put("status", "error");
-                    response.put("message", "Transaction not found: " + orderId);
+                    response.setStatus("error");
+                    response.setMessage("Transaction not found: " + orderId);
                     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
                 }
             } catch (Exception dbEx) {
                 System.err.println("Database error: " + dbEx.getMessage());
-                response.put("status", "error");
-                response.put("message", "Database error: " + dbEx.getMessage());
+                response.setStatus("error");
+                response.setMessage("Database error: " + dbEx.getMessage());
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.put("status", "error");
-            response.put("message", "An error occurred processing the payment response: " + e.getMessage());
+            response.setStatus("error");
+            response.setMessage("An error occurred processing the payment response: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
 
+    @Operation(summary = "Get transaction status",
+            description = "Retrieves the status of a payment transaction by order ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Transaction status retrieved successfully",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = TransactionResponseDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Transaction not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @GetMapping("/vnpay/status/{orderId}")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> getTransactionStatus(@PathVariable String orderId) {
-        // Your existing code...
-        // No changes needed here
-        Map<String, Object> response = new HashMap<>();
+    public ResponseEntity<TransactionResponseDTO> getTransactionStatus(@PathVariable String orderId) {
+        // Your existing code with updated return type...
+        TransactionResponseDTO response = new TransactionResponseDTO();
 
         try {
             Transaction transaction = transactionRepository.findById(orderId).orElse(null);
 
             if (transaction != null) {
-                response.put("status", "success");
-                response.put("transactionStatus", transaction.getStatus());
-                response.put("orderId", transaction.getOrderId());
-                response.put("amount", transaction.getAmount());
-                response.put("createdAt", transaction.getCreatedAt());
-                response.put("transactionId", transaction.getTransactionId());
-                response.put("resultCode", transaction.getResultCode());
+                response.setStatus("success");
+                response.setTransactionStatus(transaction.getStatus());
+                response.setOrderId(transaction.getOrderId());
+                response.setAmount(transaction.getAmount());
+                response.setCreateDate(transaction.getCreatedAt());
+                response.setTransactionId(transaction.getTransactionId());
+                response.setResultCode(transaction.getResultCode());
                 return ResponseEntity.ok(response);
             } else {
-                response.put("status", "error");
-                response.put("message", "Transaction not found");
+                response.setStatus("error");
+                response.setMessage("Transaction not found");
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
             }
         } catch (Exception e) {
-            response.put("status", "error");
-            response.put("message", e.getMessage());
+            response.setStatus("error");
+            response.setMessage(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
 
-    // Add this new endpoint for browser redirects from VNPay (note the hyphen)
+    @Operation(summary = "Handle VNPay browser redirect",
+            description = "Processes user browser redirect from VNPay after payment and shows result page")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "302", description = "Redirect to payment complete page")
+    })
     @GetMapping("/vnpay-return")
     public String vnpayReturnView(@RequestParam Map<String, String> params, Model model) {
         System.out.println("VNPay browser return with params: " + params);
@@ -254,4 +282,5 @@ public class VNPayController {
             return "redirect:/payment-complete.html?success=false&error=" + e.getMessage();
         }
     }
+
 }
