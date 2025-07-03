@@ -54,6 +54,7 @@ public class VideoCallService implements IVideoCallService {
         videoCall.setConsultantId(con);
         videoCall.setCustomerId(cus);
         videoCall.setStatus(VideoCall.CallStatus.INITIATED);
+        videoCall.setCreatedAt(LocalDateTime.now());
 
         videoCall = videoCallRepository.save(videoCall);
 
