@@ -3,14 +3,19 @@ package com.GHSMSystemBE.GHSMSystem.Controller.HealthServiceAPI;
 import com.GHSMSystemBE.GHSMSystem.Models.DTO.VideoCallRequest;
 import com.GHSMSystemBE.GHSMSystem.Models.DTO.VideoCallResponse;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthService.VideoCall;
-import com.GHSMSystemBE.GHSMSystem.Services.impl.HealthService.VideoCallService;
+import com.GHSMSystemBE.GHSMSystem.Models.User;
+import com.GHSMSystemBE.GHSMSystem.Services.IVideoCallService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/video-calls")
@@ -19,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 public class VideoCallAPI {
 
     @Autowired
-    private VideoCallService videoCallService;
+    private IVideoCallService videoCallService;
 
     @PostMapping("/initiate")
     @Operation(summary = "Initiate a video call", description = "Start a one-to-one video call between consultant and customer")
@@ -82,6 +87,18 @@ public class VideoCallAPI {
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    //Print user list
+    @Operation(summary = "Get a list of all call record", description = "Retrieve a complete list of available video call from the database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of video retrieved successfully"),
+            @ApiResponse(responseCode = "500", description = "Internal server error occurred")
+    })
+    @GetMapping("/videcalls")
+    public ResponseEntity<List<VideoCall>> getCalls() {
+        List<VideoCall> callList = videoCallService.getAll();
+        return ResponseEntity.ok(callList);
     }
 
     /*@PostMapping("/{callId}/token/refresh")
