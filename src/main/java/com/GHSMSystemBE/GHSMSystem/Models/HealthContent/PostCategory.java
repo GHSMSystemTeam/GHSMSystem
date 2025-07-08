@@ -1,5 +1,6 @@
 package com.GHSMSystemBE.GHSMSystem.Models.HealthContent;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -13,6 +14,7 @@ import lombok.ToString;
 public class PostCategory {
     @Schema(description = "ID field. Must not be empty- must be unique")
     @Id
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     private Integer id;
