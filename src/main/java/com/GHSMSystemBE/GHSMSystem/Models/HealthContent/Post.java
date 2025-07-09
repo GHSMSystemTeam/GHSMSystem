@@ -43,11 +43,7 @@ public class Post {
     @Column(name = "content", nullable = false, unique = true)
     private String content;
 
-    @Schema(description = "Average rating score given to this post by users")
-    @Column(name = "ratings", nullable = true, unique = false)
-    private float ratings;
-
-    @Schema(description = "Collected feedback on this post")
-    @Column(name = "feedback", nullable = true, unique = false)
-    private String feedback;
+    @Schema(description = "Indicates whether this service type is currently active. Must not be empty- must be unique")
+    @Column(name="is_active", nullable = false)
+    private boolean isActive = true;
 }

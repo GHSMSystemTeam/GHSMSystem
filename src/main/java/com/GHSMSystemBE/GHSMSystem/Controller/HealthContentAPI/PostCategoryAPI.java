@@ -20,7 +20,7 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController
 @Tag(name = "Post Category Management", description = "API endpoints for Post Category management operations")
-@RequestMapping("/post-category/")
+@RequestMapping("/api/post-category/")
 public class PostCategoryAPI {
     @Autowired
     private IHealthPostCategory service;
