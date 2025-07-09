@@ -41,7 +41,7 @@ public class VideoCallAPI {
     @PostMapping("/{callId}/accept")
     @Operation(summary = "Accept a video call", description = "Accept an incoming video call")
     public ResponseEntity<VideoCallResponse> acceptCall(
-            @Parameter(description = "Call ID") @PathVariable Long callId,
+            @Parameter(description = "Call ID") @PathVariable String callId,
             @Parameter(description = "Customer ID accepting the call") @RequestParam String userId) {
         try {
             VideoCallResponse response = videoCallService.acceptCall(callId, userId);
@@ -54,7 +54,7 @@ public class VideoCallAPI {
     @PostMapping("/{callId}/decline")
     @Operation(summary = "Decline a video call", description = "Decline an incoming video call")
     public ResponseEntity<Void> declineCall(
-            @Parameter(description = "Call ID") @PathVariable Long callId,
+            @Parameter(description = "Call ID") @PathVariable String callId,
             @Parameter(description = "Customer ID declining the call") @RequestParam String userId) {
         try {
             videoCallService.declineCall(callId, userId);
@@ -67,7 +67,7 @@ public class VideoCallAPI {
     @PostMapping("/{callId}/end")
     @Operation(summary = "End a video call", description = "End an active video call")
     public ResponseEntity<Void> endCall(
-            @Parameter(description = "Call ID") @PathVariable Long callId,
+            @Parameter(description = "Call ID") @PathVariable String callId,
             @Parameter(description = "Customer ID ending the call") @RequestParam String userId) {
         try {
             videoCallService.endCall(callId, userId);
@@ -80,7 +80,7 @@ public class VideoCallAPI {
     @GetMapping("/{callId}")
     @Operation(summary = "Get call details", description = "Retrieve details of a specific video call")
     public ResponseEntity<VideoCall> getCallDetails(
-            @Parameter(description = "Call ID") @PathVariable Long callId) {
+            @Parameter(description = "Call ID") @PathVariable String callId) {
         try {
             VideoCall videoCall = videoCallService.getCallDetails(callId);
             return ResponseEntity.ok(videoCall);

@@ -75,10 +75,12 @@ public class VideoCallService implements IVideoCallService {
      * Accept an incoming video call
      */
     @Override
-    public VideoCallResponse acceptCall(Long callId, String userId) {
+    public VideoCallResponse acceptCall(String callId, String userId) {
         User cus = userService.getById(userId);
 
-        VideoCall videoCall = videoCallRepository.findById(callId)
+        Long callIdLong = Long.parseLong(callId);
+
+        VideoCall videoCall = videoCallRepository.findById(callIdLong)
                 .orElseThrow(() -> new RuntimeException("Video call not found"));
 
         if (!videoCall.getCustomerId().getId().toString().equals(userId)) {
@@ -95,7 +97,7 @@ public class VideoCallService implements IVideoCallService {
         videoCall = videoCallRepository.save(videoCall);
 
         // Notify caller that call was accepted
-        webSocketService.notifyCallAccepted(videoCall.getConsultantId(), callId);
+        webSocketService.notifyCallAccepted(videoCall.getConsultantId(), callIdLong);
 
         return VideoCallResponse.builder()
                 .callId(videoCall.getId())
@@ -109,8 +111,11 @@ public class VideoCallService implements IVideoCallService {
      * Decline an incoming video call
      */
     @Override
-    public void declineCall(Long callId, String userId) {
-        VideoCall videoCall = videoCallRepository.findById(callId)
+    public void declineCall(String callId, String userId) {
+
+        Long callIdLong = Long.parseLong(callId);
+
+        VideoCall videoCall = videoCallRepository.findById(callIdLong)
                 .orElseThrow(() -> new RuntimeException("Video call not found"));
 
         if (!videoCall.getCustomerId().getId().toString().equals(userId)) {
@@ -122,17 +127,19 @@ public class VideoCallService implements IVideoCallService {
         videoCallRepository.save(videoCall);
 
         // Notify caller that call was declined
-        webSocketService.notifyCallDeclined(videoCall.getConsultantId(), callId);
+        webSocketService.notifyCallDeclined(videoCall.getConsultantId(), callIdLong);
     }
 
     /**
      * End an active video call
      */
     @Override
-    public void endCall(Long callId, String userId) {
+    public void endCall(String callId, String userId) {
         User user = userService.getById(userId);
 
-        VideoCall videoCall = videoCallRepository.findById(callId)
+        Long callIdLong = Long.parseLong(callId);
+
+        VideoCall videoCall = videoCallRepository.findById(callIdLong)
                 .orElseThrow(() -> new RuntimeException("Video call not found"));
 
         if (!videoCall.getConsultantId().getId().toString().equals(userId) && !videoCall.getCustomerId().toString().equals(userId)) {
@@ -152,15 +159,18 @@ public class VideoCallService implements IVideoCallService {
         // Notify other participant that call ended
         User otherUserId = videoCall.getConsultantId().getId().toString().equals(userId) ?
                 videoCall.getCustomerId() : videoCall.getConsultantId();
-        webSocketService.notifyCallEnded(otherUserId, callId);
+        webSocketService.notifyCallEnded(otherUserId, callIdLong);
     }
 
     /**
      * Get call details
      */
     @Override
-    public VideoCall getCallDetails(Long callId) {
-        return videoCallRepository.findById(callId)
+    public VideoCall getCallDetails(String callId) {
+
+        Long callIdLong = Long.parseLong(callId);
+
+        return videoCallRepository.findById(callIdLong)
                 .orElseThrow(() -> new RuntimeException("Video call not found"));
     }
 

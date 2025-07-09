@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface IVideoCallService {
     VideoCallResponse initiateCall(VideoCallRequest request);
-    VideoCallResponse acceptCall(Long callId, String userId);
-    void declineCall(Long callId, String userId);
-    void endCall(Long callId, String userId);
-    VideoCall getCallDetails(Long callId);
+    VideoCallResponse acceptCall(String callId, String userId);
+    void declineCall(String callId, String userId);
+    void endCall(String callId, String userId);
+    VideoCall getCallDetails(String callId);
     String generateChannelName(String consultantId, String customerId);
     List<VideoCall> getAll();
 }
