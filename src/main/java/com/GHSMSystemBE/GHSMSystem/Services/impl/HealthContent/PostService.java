@@ -77,7 +77,7 @@ public class PostService implements IHealthPost {
 
     @Override
     public Post addPost(PostDTO dto) {
-        Post created =null ;
+        Post created =new Post() ;
         User consultant = userService.getById(dto.getConsultantId());
         PostCategory category = postCategoryService.getById(dto.getCategoryId());
         created.setConsultantId(consultant);
@@ -131,7 +131,7 @@ public class PostService implements IHealthPost {
         {
             return null;
         }
-        found.setActive(true);
+        found.setActive(false);
         return repo.save(found);
     }
 }
