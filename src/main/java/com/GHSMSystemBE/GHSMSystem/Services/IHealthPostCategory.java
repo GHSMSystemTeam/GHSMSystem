@@ -12,4 +12,6 @@ public interface IHealthPostCategory {
     PostCategory editCategory(Integer id,PostCategory category);
     PostCategory deleteCategory(Integer id);
     PostCategory getById(Integer ID);
+    PostCategory deactivate(Integer ID);
+    PostCategory activate(Integer ID);
 }

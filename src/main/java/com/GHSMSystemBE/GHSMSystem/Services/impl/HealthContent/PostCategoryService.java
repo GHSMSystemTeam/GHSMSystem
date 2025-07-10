@@ -4,6 +4,7 @@ import com.GHSMSystemBE.GHSMSystem.Models.HealthContent.PostCategory;
 import com.GHSMSystemBE.GHSMSystem.Models.PostCategorySpecification;
 import com.GHSMSystemBE.GHSMSystem.Repos.HealthContentRepo.PostCategoryRepo;
 import com.GHSMSystemBE.GHSMSystem.Services.IHealthPostCategory;
+import jakarta.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +37,22 @@ public class PostCategoryService implements IHealthPostCategory {
     public PostCategory getById(Integer ID) {
         Optional<PostCategory> oFound = Optional.of(repo.findById(ID).orElseThrow());
         PostCategory found = oFound.get();
+        return found;
+    }
+
+    @Override
+    public PostCategory deactivate(Integer ID) {
+      PostCategory found = getById(ID);
+      found.setIsActive(false);
+      repo.save(found);
+      return found;
+    }
+
+    @Override
+    public PostCategory activate(Integer ID) {
+        PostCategory found = getById(ID);
+        found.setIsActive(true);
+        repo.save(found);
         return found;
     }
 

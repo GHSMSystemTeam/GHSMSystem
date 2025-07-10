@@ -199,4 +199,44 @@ public class PostCategoryAPI {
             }
         }
     }
+
+    @Operation(summary = "Deactivate a post category",
+            description = "Deactivate a post category with the specified ID")
+    @ApiResponses(value =
+            {
+                    @ApiResponse(responseCode = "400", description = "Bad request. Missing required field."),
+                    @ApiResponse(responseCode = "200", description = "Deactivation successful.")
+            })
+    @PutMapping("/deactivate/id/{id}")
+    public  ResponseEntity<PostCategory> deactivateCategory(Integer ID)
+    {
+        if(ID==null)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else
+        {
+            return ResponseEntity.ok(service.deactivate(ID));
+        }
+    }
+
+    @Operation(summary = "Activate a post category",
+            description = "Activate a post category with the specified ID")
+    @ApiResponses(value =
+            {
+                    @ApiResponse(responseCode = "400", description = "Bad request. Missing required field."),
+                    @ApiResponse(responseCode = "200", description = "Activation successful.")
+            })
+    @PutMapping("/activate/id/{id}")
+    public  ResponseEntity<PostCategory> activateCategory(Integer ID)
+    {
+        if(ID==null)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else
+        {
+            return ResponseEntity.ok(service.activate(ID));
+        }
+    }
 }
