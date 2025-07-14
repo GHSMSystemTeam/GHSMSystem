@@ -39,12 +39,12 @@ public class VideoCallService implements IVideoCallService {
         User con = userService.getById(request.getConsultantId());
         User cus = userService.getById(request.getCustomerId());
 
-        Optional<VideoCall> activeCall = videoCallRepository.findActiveCallBetweenUsers(
+        /*Optional<VideoCall> activeCall = videoCallRepository.findActiveCallBetweenUsers(
                 con, cus);
 
         if (activeCall.isPresent()) {
             throw new RuntimeException("There is already an active call between these users");
-        }
+        }*/
 
         // Generate unique channel name
         String channelName = generateChannelName(con.getId().toString(), cus.getId().toString());
@@ -83,9 +83,9 @@ public class VideoCallService implements IVideoCallService {
         VideoCall videoCall = videoCallRepository.findById(callIdLong)
                 .orElseThrow(() -> new RuntimeException("Video call not found"));
 
-        if (!videoCall.getCustomerId().getId().toString().equals(userId)) {
+        /*if (!videoCall.getCustomerId().getId().toString().equals(userId)) {
             throw new RuntimeException("Only the receiver can accept the call");
-        }
+        }*/
 
         if (videoCall.getStatus() != VideoCall.CallStatus.INITIATED &&
                 videoCall.getStatus() != VideoCall.CallStatus.RINGING) {
@@ -142,9 +142,9 @@ public class VideoCallService implements IVideoCallService {
         VideoCall videoCall = videoCallRepository.findById(callIdLong)
                 .orElseThrow(() -> new RuntimeException("Video call not found"));
 
-        if (!videoCall.getConsultantId().getId().toString().equals(userId) && !videoCall.getCustomerId().toString().equals(userId)) {
+        /*if (!videoCall.getConsultantId().getId().toString().equals(userId) && !videoCall.getCustomerId().toString().equals(userId)) {
             throw new RuntimeException("Only call participants can end the call");
-        }
+        }*/
 
         videoCall.setStatus(VideoCall.CallStatus.ENDED);
         videoCall.setEndedAt(LocalDateTime.now());
