@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .system-info {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="system-info" th:text="${systemInfo}">
+    Current Date and Time (UTC - YYYY-MM-DD HH:MM:SS formatted): 2025-07-13 08:26:54
+    Current User's Login: TranDucHai2123
+</div>
+
+<h2>Image Upload</h2>
+
+<form method="post" th:action="@{/uploadImage}" enctype="multipart/form-data">
+    <div>
+        <label for="file">Select an image:</label>
+        <input type="file" id="file" name="file" accept="image/*" />
+    </div>
+    <div style="margin-top: 10px;">
+        <button type="submit">Upload</button>
+    </div>
+</form>
+
+<div class="message" th:if="${msg}" th:text="${msg}"></div>
+</body>
+</html>

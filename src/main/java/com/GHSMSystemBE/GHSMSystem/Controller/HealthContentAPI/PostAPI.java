@@ -109,7 +109,7 @@ public class PostAPI {
     @GetMapping("/category/{id}")
     public ResponseEntity<List<Post>> getByCategory(
             @Parameter(description = "ID of the category to filter posts by", required = true)
-            @PathVariable Integer id){
+            @PathVariable String id){
         if(id== null)
         {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

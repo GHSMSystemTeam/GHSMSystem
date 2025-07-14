@@ -9,9 +9,9 @@ public interface IHealthPostCategory {
     List<PostCategory> getAllActive();
     List<PostCategory> getAllInactive();
     PostCategory addCategory(PostCategory category);
-    PostCategory editCategory(Integer id,PostCategory category);
-    PostCategory deleteCategory(Integer id);
-    PostCategory getById(Integer ID);
-    PostCategory deactivate(Integer ID);
-    PostCategory activate(Integer ID);
+    PostCategory editCategory(String id,PostCategory category);
+    PostCategory deleteCategory(String id);
+    PostCategory getById(String ID);
+    PostCategory deactivate(String id);
+    PostCategory activate(String ID);
 }

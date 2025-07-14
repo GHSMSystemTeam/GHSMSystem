@@ -39,12 +39,21 @@ public class VideoCallService implements IVideoCallService {
         User con = userService.getById(request.getConsultantId());
         User cus = userService.getById(request.getCustomerId());
 
+<<<<<<< Updated upstream
         /*Optional<VideoCall> activeCall = videoCallRepository.findActiveCallBetweenUsers(
                 con, cus);
 
         if (activeCall.isPresent()) {
             throw new RuntimeException("There is already an active call between these users");
         }*/
+=======
+//        Optional<VideoCall> activeCall = videoCallRepository.findActiveCallBetweenUsers(
+//                con, cus);
+//
+//        if (activeCall.isPresent()) {
+//            throw new RuntimeException("There is already an active call between these users");
+//        }
+>>>>>>> Stashed changes
 
         // Generate unique channel name
         String channelName = generateChannelName(con.getId().toString(), cus.getId().toString());
@@ -87,7 +96,7 @@ public class VideoCallService implements IVideoCallService {
             throw new RuntimeException("Only the receiver can accept the call");
         }*/
 
-        if (videoCall.getStatus() != VideoCall.CallStatus.INITIATED &&
+        if (videoCall.getStatus() != VideoCall.CallStatus.INITIATED ||
                 videoCall.getStatus() != VideoCall.CallStatus.RINGING) {
             throw new RuntimeException("Call cannot be accepted in current status: " + videoCall.getStatus());
         }

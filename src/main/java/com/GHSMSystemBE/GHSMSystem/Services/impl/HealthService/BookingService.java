@@ -1,6 +1,9 @@
 package com.GHSMSystemBE.GHSMSystem.Services.impl.HealthService;
 
 import com.GHSMSystemBE.GHSMSystem.Configs.Validation;
+import com.GHSMSystemBE.GHSMSystem.Misc.Payment.Transaction;
+import com.GHSMSystemBE.GHSMSystem.Misc.Payment.TransactionRepo;
+import com.GHSMSystemBE.GHSMSystem.Misc.Payment.VNPayService;
 import com.GHSMSystemBE.GHSMSystem.Models.DTO.BookingDTO;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceBooking;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceType;
@@ -14,6 +17,7 @@ import com.GHSMSystemBE.GHSMSystem.Services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -39,6 +43,13 @@ public class BookingService implements IBookingService {
 
     @Autowired
     private ServiceTypeRepo strepo;
+
+    @Autowired
+    private VNPayService payService;
+
+    @Autowired
+    private TransactionRepo blahajRepo;
+
 
     @Override
     public List<ServiceBooking> getAll() {
@@ -100,7 +111,7 @@ public class BookingService implements IBookingService {
     }
 
     @Override
-    public ServiceBooking createServiceBooking(BookingDTO sbdto) {
+    public ServiceBooking createServiceBooking(BookingDTO sbdto, String ipAddress) {
 
         // prepare to validation
         LocalDate dateCheck = sbdto.getAppointmentDate().toLocalDate();
@@ -133,11 +144,20 @@ public class BookingService implements IBookingService {
 
             // Set the slot field
             sb.setSlot(sbdto.getSlot() != null ? sbdto.getSlot() : 1);
-
             sb.setCreateDate(LocalDateTime.now());
             sb.setActive(true);
             sb.setDescription(sbdto.getDescription());
-            return repo.save(sb);
+            ServiceBooking saved = repo.save(sb);
+            //Initate payment (if orderID is empty sb will still be saved without problems.
+            String transactionId = initiateBookingPayment(sb,ipAddress);
+
+            if(transactionId!=null)
+            {
+                sb.setTransactionId(transactionId);
+                return repo.save(saved);
+            }
+            else
+                return  saved;
         }
         return null;
     }
@@ -200,5 +220,80 @@ public class BookingService implements IBookingService {
         serviceBooking.setSlot(slot);
         repo.save(serviceBooking);
         return serviceBooking;
+    }
+
+   private String initiateBookingPayment(ServiceBooking sb, String ipAddess)
+    {
+        try
+        {
+            //Gen orderId
+            String orderId = "GHSM_BOOKING_"+sb.getId().toString();
+            //Get payment amount
+            BigDecimal price = BigDecimal.valueOf(sb.getServiceTypeId().getPrice());
+            if(price == null)
+            {
+                price = BigDecimal.ZERO;
+            }
+            //Order info
+            String orderInfo = "Payment from customer: "+sb.getCustomerId().getName()+"\nAppointment ID : "+sb.getId();
+
+            //Payment URL
+            String paymentURL = payService.createPaymentUrl(orderId,price.toString(),orderInfo,ipAddess!=null? ipAddess:"127.0.0.1");
+
+            //Create a new Transaction record
+            Transaction transaction = new Transaction();
+            transaction.setOrderId(orderId);
+            transaction.setOrderInfo(orderInfo);
+            transaction.setStatus("PENDING");
+            transaction.setUserId(sb.getCustomerId().getId().toString());
+            transaction.setUserName(sb.getCustomerId().getName());
+            transaction.setUserName(sb.getId().toString());
+
+            sb.setPaymentUrl(paymentURL);
+            blahajRepo.save(transaction);
+            return orderId;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean updateBokingtransactionStatus(String orderID)
+    {
+try
+{
+    Optional<Transaction> oTransaction = blahajRepo.findById(orderID);
+    if(!oTransaction.isPresent())
+    {
+        return  false;
+    }
+    Transaction transaction = oTransaction.get();
+
+    //AppointmentID
+    String appointmentID = orderID.replace("GHSM_BOOKING_", "");//extract appointment ID
+
+    UUID bookingUUID = UUID.fromString(appointmentID);
+    ServiceBooking sb = repo.findById(bookingUUID);
+
+    if(sb==null)
+    {
+        return false;
+    }
+
+    if("SUCCESS".equals(transaction.getStatus()))
+    {
+        sb.setPaymentStatus("PAID");
+        sb.setTransactionId(sb.getTransactionId());
+        repo.save(sb);
+        return  true;
+    }
+    else if("FAILED".equals(transaction.getStatus()))
+    {
+        sb.setPaymentStatus("PAYMENT FAILED");
+        repo.save(sb);
+    }
+    return false;
+} catch (Exception e) {
+    throw new RuntimeException(e);
+}
     }
 }

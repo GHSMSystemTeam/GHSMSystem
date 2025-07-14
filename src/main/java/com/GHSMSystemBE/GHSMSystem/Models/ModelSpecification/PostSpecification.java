@@ -1,7 +1,8 @@
-package com.GHSMSystemBE.GHSMSystem.Models;
+package com.GHSMSystemBE.GHSMSystem.Models.ModelSpecification;
 
 import com.GHSMSystemBE.GHSMSystem.Models.HealthContent.Post;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthContent.PostCategory;
+import com.GHSMSystemBE.GHSMSystem.Models.User;
 import org.springframework.data.jpa.domain.Specification;
 
 public class PostSpecification {

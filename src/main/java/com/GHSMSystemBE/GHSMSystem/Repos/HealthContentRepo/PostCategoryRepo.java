@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PostCategoryRepo extends JpaRepository<PostCategory,Integer> {
+public interface PostCategoryRepo extends JpaRepository<PostCategory,String> {
     List<PostCategory> findAll(Specification<PostCategory> specification);
 }

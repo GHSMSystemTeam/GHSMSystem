@@ -1,7 +1,7 @@
 package com.GHSMSystemBE.GHSMSystem.Services.impl.HealthContent;
 
 import com.GHSMSystemBE.GHSMSystem.Models.DTO.FeedbackDTO;
-import com.GHSMSystemBE.GHSMSystem.Models.FeedbackSpecification;
+import com.GHSMSystemBE.GHSMSystem.Models.ModelSpecification.FeedbackSpecification;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthContent.Feedback;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceBooking;
 import com.GHSMSystemBE.GHSMSystem.Models.User;

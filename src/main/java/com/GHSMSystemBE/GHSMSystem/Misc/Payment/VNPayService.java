@@ -12,16 +12,16 @@ import java.util.*;
 @Service
 public class VNPayService {
     @Value("${vnpay.terminal-id}")
-    private String vnpTerminalId;
+    private String vnpTerminalId;//merchant id
 
     @Value("${vnpay.secret-key}")
-    private String vnpSecretKey;
+    private String vnpSecretKey;//secret key used for transaction signature verification
 
     @Value("${vnpay.payment-url}")
-    private String vnpPayUrl;
+    private String vnpPayUrl;//Payment gateway url
 
     @Value("${vnpay.return-url}")
-    private String vnpReturnUrl;
+    private String vnpReturnUrl;//VNPAY return url
 
     public String createPaymentUrl(String orderId, String amount, String orderInfo, String ipAddress) {
         try {
@@ -38,7 +38,7 @@ public class VNPayService {
             // Convert amount to VND (amount * 100)
             vnpParams.put("vnp_Amount", String.valueOf(Long.parseLong(amount) * 100));
 
-            // Create date format for VNPay
+            // Create timestamp for Vietnam timezone  (yyMMddHHmmSS)
             Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
             formatter.setTimeZone(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
@@ -53,7 +53,7 @@ public class VNPayService {
             vnpParams.put("vnp_ReturnUrl", vnpReturnUrl);
             vnpParams.put("vnp_TxnRef", orderId);
 
-            // Generate secure hash
+            // Sort parameters and build query string
             List<String> fieldNames = new ArrayList<>(vnpParams.keySet());
             Collections.sort(fieldNames);
 
@@ -92,6 +92,7 @@ public class VNPayService {
         }
     }
 
+
     private String hmacSHA512(String key, String data) {
         try {
             Mac sha512_HMAC = Mac.getInstance("HmacSHA512");
@@ -104,6 +105,7 @@ public class VNPayService {
         }
     }
 
+    //Convert byte arrays to hexa
     private String bytesToHex(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
         for (byte b : bytes) {

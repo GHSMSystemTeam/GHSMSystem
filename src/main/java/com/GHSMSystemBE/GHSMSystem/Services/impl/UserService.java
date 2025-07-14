@@ -2,7 +2,7 @@ package com.GHSMSystemBE.GHSMSystem.Services.impl;
 
 import com.GHSMSystemBE.GHSMSystem.Models.Role;
 import com.GHSMSystemBE.GHSMSystem.Models.User;
-import com.GHSMSystemBE.GHSMSystem.Models.UserSpecifications;
+import com.GHSMSystemBE.GHSMSystem.Models.ModelSpecification.UserSpecifications;
 import com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo.RoleRepo;
 import com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo.UserRepo;
 import com.GHSMSystemBE.GHSMSystem.Services.IUserService;

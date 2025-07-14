@@ -1,6 +1,6 @@
 package com.GHSMSystemBE.GHSMSystem.Services.impl.HealthContent;
 
-import com.GHSMSystemBE.GHSMSystem.Models.AnswerSpecifications;
+import com.GHSMSystemBE.GHSMSystem.Models.ModelSpecification.AnswerSpecifications;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthContent.Answer;
 import com.GHSMSystemBE.GHSMSystem.Models.User;
 import com.GHSMSystemBE.GHSMSystem.Repos.HealthContentRepo.HealthAnswerRepo;

@@ -68,5 +68,18 @@ public class ServiceBooking {
 
     @Schema(description = "Indicates booking order status")
     @Column(name="status", nullable = false, unique = false)
-    private int status=0;//0-order received 1-in progress 2-ended
+    private int status=0;//0-pending 1-in progress 2-ended
+
+    @Schema(description = "payment_url")
+    @Column(name="payment_url")
+    private String paymentUrl;
+
+    @Schema(description = "payment_status")
+    @Column(name="payment_status")
+    private String paymentStatus="UNPAID";
+
+    @Schema(description = "transaction_id")
+    @Column(name="transaction_id")
+    private String transactionId;
+
 }

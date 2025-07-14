@@ -4,6 +4,7 @@ import com.GHSMSystemBE.GHSMSystem.Misc.Payment.DTOs.PaymentRequestDTO;
 import com.GHSMSystemBE.GHSMSystem.Misc.Payment.DTOs.PaymentResponseDTO;
 import com.GHSMSystemBE.GHSMSystem.Misc.Payment.DTOs.TransactionResponseDTO;
 import com.GHSMSystemBE.GHSMSystem.Misc.QRCodeGen.QRCodeGenerator;
+import com.GHSMSystemBE.GHSMSystem.Services.IBookingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -32,6 +33,8 @@ public class VNPayController {
     @Autowired
     private VNPayService vnPayService;
 
+    @Autowired
+    private IBookingService bookingService;
     @Autowired
     private TransactionRepo transactionRepository;
 

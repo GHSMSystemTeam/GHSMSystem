@@ -3,7 +3,7 @@ package com.GHSMSystemBE.GHSMSystem.Services.impl.HealthContent;
 import com.GHSMSystemBE.GHSMSystem.Models.DTO.RatingDTO;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthContent.Rating;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceBooking;
-import com.GHSMSystemBE.GHSMSystem.Models.RatingSpecification;
+import com.GHSMSystemBE.GHSMSystem.Models.ModelSpecification.RatingSpecification;
 import com.GHSMSystemBE.GHSMSystem.Models.User;
 import com.GHSMSystemBE.GHSMSystem.Repos.HealthContentRepo.HealthRatingRepo;
 import com.GHSMSystemBE.GHSMSystem.Services.IBookingService;

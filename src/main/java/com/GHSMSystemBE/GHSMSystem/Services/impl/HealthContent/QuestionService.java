@@ -2,9 +2,8 @@ package com.GHSMSystemBE.GHSMSystem.Services.impl.HealthContent;
 
 
 import com.GHSMSystemBE.GHSMSystem.Models.HealthContent.Question;
-import com.GHSMSystemBE.GHSMSystem.Models.QuestionSpecifications;
+import com.GHSMSystemBE.GHSMSystem.Models.ModelSpecification.QuestionSpecifications;
 import com.GHSMSystemBE.GHSMSystem.Models.User;
-import com.GHSMSystemBE.GHSMSystem.Repos.ActorRepo.UserRepo;
 import com.GHSMSystemBE.GHSMSystem.Repos.HealthContentRepo.HealthQuestionRepo;
 import com.GHSMSystemBE.GHSMSystem.Services.IHealthQuestion;
 import com.GHSMSystemBE.GHSMSystem.Services.IUserService;

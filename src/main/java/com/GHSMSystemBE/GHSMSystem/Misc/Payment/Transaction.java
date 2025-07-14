@@ -21,8 +21,9 @@ public class Transaction {
 
     // Remove @ManyToOne and @JoinColumn for a simple String field
     // If this should reference a User entity, change the type to User
-    @Column(name = "user_id")
     private String userId;
+    private String userName;
+    private String appointmentId;
 
     private LocalDateTime createdAt;
 

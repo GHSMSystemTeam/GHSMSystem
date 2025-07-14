@@ -12,16 +12,11 @@ import lombok.ToString;
 @Table(name = "tbl_post_category")
 @Schema(description = "Entity representing a category for health-related posts")
 public class PostCategory {
-    @Schema(description = "ID field. Must not be empty- must be unique")
+    @Schema(description = "ID field (also acts as name field. Must not be empty- must be unique")
     @Id
-    @JsonIgnore
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    private Integer id;
+    private String id;
 
-    @Schema(description = "Name of the post category")
-    @Column(name = "name")
-    private String name;
 
     @Schema(description = "Indicates whether this category is currently active")
     @Column(name = "is_active")

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PostDTO {
     public String consultantId;
-    public Integer categoryId;
+    public String categoryId;
     public String title;
     public String content;
 }

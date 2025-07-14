@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -169,13 +171,15 @@ public class BookingAPI {
     })
     @PostMapping("/api/servicebooking")
     public ResponseEntity<ServiceBooking> addServiceBooking(
-            @Parameter(description = "Booking data to create") @RequestBody BookingDTO sbDTO) {
+            @Parameter(description = "Booking data to create") @RequestBody BookingDTO sbDTO,
+            HttpServletRequest request) {
 
+        String ipAddress = request.getRemoteAddr();
         if (sbDTO == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        ServiceBooking sb = service.createServiceBooking(sbDTO);
+        ServiceBooking sb = service.createServiceBooking(sbDTO, ipAddress);
         if (sb != null) {
             return new ResponseEntity<>(sb, HttpStatus.CREATED);
         } else {

@@ -16,7 +16,7 @@ public interface IBookingService {
     ServiceBooking getById(String id);
     ServiceBooking activeBooking(ServiceBooking sb);
     ServiceBooking deActiveBooking(ServiceBooking sb);
-    ServiceBooking createServiceBooking(BookingDTO sb);
+    ServiceBooking createServiceBooking(BookingDTO sb, String ipAdress);
     ServiceBooking createTesting(BookingDTO sb);
     ServiceBooking updateBookingStatus(ServiceBooking sb, int sn);
     boolean deleteServiceBooking(ServiceBooking sb);

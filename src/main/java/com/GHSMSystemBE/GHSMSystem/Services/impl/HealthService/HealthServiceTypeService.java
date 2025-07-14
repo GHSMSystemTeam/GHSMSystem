@@ -1,7 +1,7 @@
 package com.GHSMSystemBE.GHSMSystem.Services.impl.HealthService;
 
 import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceType;
-import com.GHSMSystemBE.GHSMSystem.Models.ServiceTypeSpecifications;
+import com.GHSMSystemBE.GHSMSystem.Models.ModelSpecification.ServiceTypeSpecifications;
 import com.GHSMSystemBE.GHSMSystem.Repos.HealthServiceRepo.ServiceTypeRepo;
 import com.GHSMSystemBE.GHSMSystem.Services.IHealthServiceType;
 import org.springframework.beans.factory.annotation.Autowired;

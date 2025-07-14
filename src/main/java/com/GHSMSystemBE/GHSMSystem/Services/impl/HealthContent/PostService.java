@@ -3,7 +3,7 @@ package com.GHSMSystemBE.GHSMSystem.Services.impl.HealthContent;
 import com.GHSMSystemBE.GHSMSystem.Models.DTO.PostDTO;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthContent.Post;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthContent.PostCategory;
-import com.GHSMSystemBE.GHSMSystem.Models.PostSpecification;
+import com.GHSMSystemBE.GHSMSystem.Models.ModelSpecification.PostSpecification;
 import com.GHSMSystemBE.GHSMSystem.Models.User;
 import com.GHSMSystemBE.GHSMSystem.Repos.HealthContentRepo.HealthPostRepo;
 import com.GHSMSystemBE.GHSMSystem.Services.IHealthPost;
@@ -65,7 +65,7 @@ public class PostService implements IHealthPost {
     }
 
     @Override
-    public List<Post> getByCategory(Integer category) {
+    public List<Post> getByCategory(String category) {
         PostCategory postCategory = postCategoryService.getById(category);
         if(postCategory == null)
         {

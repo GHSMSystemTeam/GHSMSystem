@@ -1,7 +1,8 @@
-package com.GHSMSystemBE.GHSMSystem.Models;
+package com.GHSMSystemBE.GHSMSystem.Models.ModelSpecification;
 
 import com.GHSMSystemBE.GHSMSystem.Models.HealthContent.Feedback;
 import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceBooking;
+import com.GHSMSystemBE.GHSMSystem.Models.User;
 import org.springframework.data.jpa.domain.Specification;
 
 public class FeedbackSpecification {

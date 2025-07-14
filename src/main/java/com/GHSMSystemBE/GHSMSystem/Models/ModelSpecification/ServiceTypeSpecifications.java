@@ -1,4 +1,4 @@
-package com.GHSMSystemBE.GHSMSystem.Models;
+package com.GHSMSystemBE.GHSMSystem.Models.ModelSpecification;
 
 import com.GHSMSystemBE.GHSMSystem.Models.HealthService.ServiceType;
 import org.springframework.data.jpa.domain.Specification;

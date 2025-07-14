@@ -77,7 +77,7 @@ public class User implements Serializable {
     @Schema(description = "Profile picture of the user stored as binary data")
     @Lob
     @Column(name="profile_picture", nullable = true, unique = false)
-    private byte[] profilePicture;
+    private String profilePicture;
 
     @Schema(description = "Booking history of a specific user. Can be empty")
     @Column(name = "booking_history")

@@ -79,7 +79,7 @@ public class PostCategoryAPI {
     @GetMapping("{id}")
     public ResponseEntity<PostCategory> getById(
             @Parameter(description = "ID of the category to retrieve", required = true)
-            @PathVariable Integer id)
+            @PathVariable String id)
     {
         PostCategory found = service.getById(id);
         if(found == null)
@@ -140,7 +140,7 @@ public class PostCategoryAPI {
     @PutMapping("{id}")
     public ResponseEntity<PostCategory> updateCategory(
             @Parameter(description = "ID of the category to update", required = true)
-            @PathVariable Integer id,
+            @PathVariable String id,
             @Parameter(description = "Updated category information", required = true)
             @RequestBody PostCategory category)
     {
@@ -180,7 +180,7 @@ public class PostCategoryAPI {
     @DeleteMapping("{id}")
     public ResponseEntity<PostCategory> deleteCategory(
             @Parameter(description = "ID of the category to delete", required = true)
-            @PathVariable Integer id)
+            @PathVariable String id)
     {
         if(id == null)
         {
@@ -208,7 +208,7 @@ public class PostCategoryAPI {
                     @ApiResponse(responseCode = "200", description = "Deactivation successful.")
             })
     @PutMapping("/deactivate/id/{id}")
-    public  ResponseEntity<PostCategory> deactivateCategory(Integer ID)
+    public  ResponseEntity<PostCategory> deactivateCategory(String ID)
     {
         if(ID==null)
         {
@@ -228,7 +228,7 @@ public class PostCategoryAPI {
                     @ApiResponse(responseCode = "200", description = "Activation successful.")
             })
     @PutMapping("/activate/id/{id}")
-    public  ResponseEntity<PostCategory> activateCategory(Integer ID)
+    public  ResponseEntity<PostCategory> activateCategory(String ID)
     {
         if(ID==null)
         {
