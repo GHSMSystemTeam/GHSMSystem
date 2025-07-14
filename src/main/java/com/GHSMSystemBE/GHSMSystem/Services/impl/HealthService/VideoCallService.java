@@ -143,6 +143,9 @@ public class VideoCallService implements IVideoCallService {
         videoCall.setEndedAt(LocalDateTime.now());
 
         if (videoCall.getStartedAt() != null) {
+            long duration = ChronoUnit.SECONDS.between(videoCall.getStartedAt(), videoCall.getEndedAt());
+            videoCall.setDurationSeconds((int) duration);
+        }else{
             long duration = ChronoUnit.SECONDS.between(videoCall.getCreatedAt(), videoCall.getEndedAt());
             videoCall.setDurationSeconds((int) duration);
         }
