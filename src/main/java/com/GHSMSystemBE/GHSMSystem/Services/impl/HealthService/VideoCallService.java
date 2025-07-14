@@ -39,22 +39,6 @@ public class VideoCallService implements IVideoCallService {
         User con = userService.getById(request.getConsultantId());
         User cus = userService.getById(request.getCustomerId());
 
-<<<<<<< Updated upstream
-        /*Optional<VideoCall> activeCall = videoCallRepository.findActiveCallBetweenUsers(
-                con, cus);
-
-        if (activeCall.isPresent()) {
-            throw new RuntimeException("There is already an active call between these users");
-        }*/
-=======
-//        Optional<VideoCall> activeCall = videoCallRepository.findActiveCallBetweenUsers(
-//                con, cus);
-//
-//        if (activeCall.isPresent()) {
-//            throw new RuntimeException("There is already an active call between these users");
-//        }
->>>>>>> Stashed changes
-
         // Generate unique channel name
         String channelName = generateChannelName(con.getId().toString(), cus.getId().toString());
 
