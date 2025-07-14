@@ -80,7 +80,7 @@ public class VideoCallService implements IVideoCallService {
             throw new RuntimeException("Only the receiver can accept the call");
         }*/
 
-        if (videoCall.getStatus() != VideoCall.CallStatus.INITIATED ||
+        if (videoCall.getStatus() != VideoCall.CallStatus.INITIATED &&
                 videoCall.getStatus() != VideoCall.CallStatus.RINGING) {
             throw new RuntimeException("Call cannot be accepted in current status: " + videoCall.getStatus());
         }
@@ -143,7 +143,7 @@ public class VideoCallService implements IVideoCallService {
         videoCall.setEndedAt(LocalDateTime.now());
 
         if (videoCall.getStartedAt() != null) {
-            long duration = ChronoUnit.SECONDS.between(videoCall.getStartedAt(), videoCall.getEndedAt());
+            long duration = ChronoUnit.SECONDS.between(videoCall.getCreatedAt(), videoCall.getEndedAt());
             videoCall.setDurationSeconds((int) duration);
         }
 
