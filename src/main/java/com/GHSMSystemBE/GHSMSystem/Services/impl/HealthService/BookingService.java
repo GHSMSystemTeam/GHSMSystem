@@ -224,76 +224,124 @@ public class BookingService implements IBookingService {
 
    private String initiateBookingPayment(ServiceBooking sb, String ipAddess)
     {
-        try
-        {
-            //Gen orderId
-            String orderId = "GHSM_BOOKING_"+sb.getId().toString();
-            //Get payment amount
+        try {
+            // Gen orderId
+            String orderId = "GHSM_BOOKING_" + sb.getId().toString();
+
+            // Get payment amount
             BigDecimal price = BigDecimal.valueOf(sb.getServiceTypeId().getPrice());
-            if(price == null)
-            {
+            if (price == null) {
                 price = BigDecimal.ZERO;
             }
-            //Order info
-            String orderInfo = "Payment from customer: "+sb.getCustomerId().getName()+"\nAppointment ID : "+sb.getId();
 
-            //Payment URL
-            String paymentURL = payService.createPaymentUrl(orderId,price.toString(),orderInfo,ipAddess!=null? ipAddess:"127.0.0.1");
+            // Order info
+            String orderInfo = "Payment for " + sb.getServiceTypeId().getName() +
+                    " appointment on " + sb.getAppointmentDate().toString();
 
-            //Create a new Transaction record
+            // Payment URL
+            String paymentURL = payService.createPaymentUrl(
+                    orderId,
+                    price.toString(),
+                    orderInfo,
+                    ipAddess != null ? ipAddess : "127.0.0.1");
+
+            // Create a new Transaction record
             Transaction transaction = new Transaction();
             transaction.setOrderId(orderId);
+            transaction.setAmount(price);  // FIX: Set the amount
             transaction.setOrderInfo(orderInfo);
             transaction.setStatus("PENDING");
             transaction.setUserId(sb.getCustomerId().getId().toString());
             transaction.setUserName(sb.getCustomerId().getName());
-            transaction.setUserName(sb.getId().toString());
+            transaction.setAppointmentId(sb.getId().toString());  // FIX: Set appointment ID properly
+            transaction.setCreatedAt(LocalDateTime.now());  // FIX: Set creation time
 
-            sb.setPaymentUrl(paymentURL);
+            // Save transaction
             blahajRepo.save(transaction);
+
+            // Update booking with payment URL and status
+            sb.setPaymentUrl(paymentURL);
+            sb.setPaymentStatus("PENDING");
+
             return orderId;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return null;
         }
     }
 
-    public boolean updateBokingtransactionStatus(String orderID)
-    {
-try
-{
-    Optional<Transaction> oTransaction = blahajRepo.findById(orderID);
-    if(!oTransaction.isPresent())
-    {
-        return  false;
-    }
-    Transaction transaction = oTransaction.get();
-
-    //AppointmentID
-    String appointmentID = orderID.replace("GHSM_BOOKING_", "");//extract appointment ID
-
-    UUID bookingUUID = UUID.fromString(appointmentID);
-    ServiceBooking sb = repo.findById(bookingUUID);
-
-    if(sb==null)
-    {
-        return false;
+    @Override
+    public ServiceBooking updateBooking(ServiceBooking booking) {
+        System.out.println("Updating booking " + booking.getId() + ", setting payment status to: " + booking.getPaymentStatus());
+        ServiceBooking saved = repo.save(booking);
+        System.out.println("Booking updated successfully with status: " + saved.getPaymentStatus());
+        return saved;
     }
 
-    if("SUCCESS".equals(transaction.getStatus()))
-    {
-        sb.setPaymentStatus("PAID");
-        sb.setTransactionId(sb.getTransactionId());
-        repo.save(sb);
-        return  true;
-    }
-    else if("FAILED".equals(transaction.getStatus()))
-    {
-        sb.setPaymentStatus("PAYMENT FAILED");
-        repo.save(sb);
-    }
-    return false;
-} catch (Exception e) {
-    throw new RuntimeException(e);
-}
+    public boolean updateBookingTransactionStatus(String orderId) {
+        try {
+            System.out.println("Updating booking status for order: " + orderId);
+
+            Optional<Transaction> oTransaction = blahajRepo.findById(orderId);
+            if (!oTransaction.isPresent()) {
+                System.out.println("Transaction not found: " + orderId);
+                return false;
+            }
+
+            Transaction transaction = oTransaction.get();
+            String appointmentId = transaction.getAppointmentId();
+
+            if (appointmentId == null || appointmentId.isEmpty()) {
+                System.out.println("No appointment ID in transaction: " + orderId);
+                // Try to extract from order ID if it follows expected format
+                if (orderId.startsWith("GHSM_BOOKING_")) {
+                    String[] parts = orderId.substring("GHSM_BOOKING_".length()).split("_");
+                    if (parts.length > 0) {
+                        appointmentId = parts[0];
+                        System.out.println("Extracted appointment ID from order ID: " + appointmentId);
+                    }
+                }
+            }
+
+            if (appointmentId == null) {
+                System.out.println("Could not determine appointment ID for order: " + orderId);
+                return false;
+            }
+
+            // Find booking by ID
+            ServiceBooking sb = null;
+            try {
+                UUID bookingUUID = UUID.fromString(appointmentId);
+                sb = repo.findById(bookingUUID);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid UUID format: " + appointmentId);
+                return false;
+            }
+
+            if (sb == null) {
+                System.out.println("Booking not found with ID: " + appointmentId);
+                return false;
+            }
+
+            // Update booking based on transaction status
+            if ("SUCCESS".equals(transaction.getStatus())) {
+                sb.setPaymentStatus("PAID");
+                sb.setTransactionId(transaction.getTransactionId());  // FIX: Use transaction's ID
+                repo.save(sb);
+                System.out.println("Booking " + sb.getId() + " payment status updated to PAID");
+                return true;
+            } else if ("FAILED".equals(transaction.getStatus())) {
+                sb.setPaymentStatus("PAYMENT_FAILED");
+                sb.setTransactionId(transaction.getTransactionId());  // FIX: Use transaction's ID
+                repo.save(sb);
+                System.out.println("Booking " + sb.getId() + " payment status updated to PAYMENT_FAILED");
+            }
+
+            return false;
+        } catch (Exception e) {
+            System.err.println("Error updating booking status: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
 }

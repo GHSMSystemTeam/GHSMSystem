@@ -70,15 +70,15 @@ public class ServiceBooking {
     @Column(name="status", nullable = false, unique = false)
     private int status=0;//0-pending 1-in progress 2-ended
 
-    @Schema(description = "payment_url")
-    @Column(name="payment_url")
+    @Schema(description = "Payment URL for online transaction")
+    @Column(name="payment_url", length = 2048)  // Increase length to 2048
     private String paymentUrl;
 
-    @Schema(description = "payment_status")
+    @Schema(description = "Current payment status")
     @Column(name="payment_status")
     private String paymentStatus="UNPAID";
 
-    @Schema(description = "transaction_id")
+    @Schema(description = "Transaction reference ID")
     @Column(name="transaction_id")
     private String transactionId;
 

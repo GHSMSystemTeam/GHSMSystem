@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 public class Transaction {
     @Id
     private String orderId;
-
     private BigDecimal amount;
     private String orderInfo;
     private String transactionId;

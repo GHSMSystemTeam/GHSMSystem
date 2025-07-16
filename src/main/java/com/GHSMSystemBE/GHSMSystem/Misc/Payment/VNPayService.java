@@ -12,16 +12,16 @@ import java.util.*;
 @Service
 public class VNPayService {
     @Value("${vnpay.terminal-id}")
-    private String vnpTerminalId;//merchant id
+    private String vnpTerminalId;
 
     @Value("${vnpay.secret-key}")
-    private String vnpSecretKey;//secret key used for transaction signature verification
+    private String vnpSecretKey;
 
     @Value("${vnpay.payment-url}")
-    private String vnpPayUrl;//Payment gateway url
+    private String vnpPayUrl;
 
     @Value("${vnpay.return-url}")
-    private String vnpReturnUrl;//VNPAY return url
+    private String vnpReturnUrl;
 
     public String createPaymentUrl(String orderId, String amount, String orderInfo, String ipAddress) {
         try {
@@ -35,10 +35,14 @@ public class VNPayService {
                 throw new IllegalArgumentException("Payment amount cannot be null or empty");
             }
 
-            // Convert amount to VND (amount * 100)
-            vnpParams.put("vnp_Amount", String.valueOf(Long.parseLong(amount) * 100));
+            // FIX: Handle decimal amounts properly
+            // Parse the amount as BigDecimal to handle decimals
+            java.math.BigDecimal amountBd = new java.math.BigDecimal(amount);
+            // Multiply by 100 and convert to long
+            long amountInVnd = amountBd.multiply(new java.math.BigDecimal("100")).longValue();
+            vnpParams.put("vnp_Amount", String.valueOf(amountInVnd));
 
-            // Create timestamp for Vietnam timezone  (yyMMddHHmmSS)
+            // Rest of the method remains unchanged
             Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
             formatter.setTimeZone(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
@@ -92,7 +96,7 @@ public class VNPayService {
         }
     }
 
-
+    // Other methods remain unchanged
     private String hmacSHA512(String key, String data) {
         try {
             Mac sha512_HMAC = Mac.getInstance("HmacSHA512");
@@ -105,7 +109,6 @@ public class VNPayService {
         }
     }
 
-    //Convert byte arrays to hexa
     private String bytesToHex(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
         for (byte b : bytes) {

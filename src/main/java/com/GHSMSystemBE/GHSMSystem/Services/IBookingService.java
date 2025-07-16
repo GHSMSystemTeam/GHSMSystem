@@ -21,5 +21,6 @@ public interface IBookingService {
     ServiceBooking updateBookingStatus(ServiceBooking sb, int sn);
     boolean deleteServiceBooking(ServiceBooking sb);
     ServiceBooking updateTimeSlot(ServiceBooking serviceBooking, int slot);
+    ServiceBooking updateBooking(ServiceBooking booking);
 
 }
