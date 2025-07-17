@@ -27,5 +27,7 @@ public interface ServiceBookingRepo extends JpaRepository<ServiceBooking,Integer
 
     List<ServiceBooking> findByAppointmentDateAndSlot(Date bookDate, int bookSlot);
 
+    ServiceBooking findByAppointmentDateAndSlotAndCustomerId(Date bookDate, int bookSlot, User u);
+
     ServiceBooking findById(UUID id);
 }

@@ -130,6 +130,11 @@ public class BookingService implements IBookingService {
             st = hst.getById(sbdto.getServiceTypeId());
             c = us.getById(sbdto.getConsultantId());
 
+            // check if that customer have booked that date
+            if(repo.findByAppointmentDateAndSlotAndCustomerId(sbdto.getAppointmentDate(), sbdto.getSlot(), u) != null){
+                return null;
+            }
+
             // mapping
             sb.setCustomerId(u);
             sb.setAppointmentDate(sbdto.getAppointmentDate());
@@ -182,6 +187,12 @@ public class BookingService implements IBookingService {
         }else{
             u = us.getById(sbdto.getCustomerId());
             st = hst.getById(sbdto.getServiceTypeId());
+
+            // check if that customer have booked that date
+            if(repo.findByAppointmentDateAndSlotAndCustomerId(sbdto.getAppointmentDate(), sbdto.getSlot(), u) != null){
+                return null;
+            }
+
             if(st.getTypeCode() == 1){
                 // mapping
                 sb.setCustomerId(u);

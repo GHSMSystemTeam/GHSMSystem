@@ -29,7 +29,7 @@ public class ServiceResult {
     private ServiceBooking serviceBookingId;
 
     @Schema(description = "Reference to the original service booking order. Must not be empty- must be unique")
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="customer_id", nullable = false, unique = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
