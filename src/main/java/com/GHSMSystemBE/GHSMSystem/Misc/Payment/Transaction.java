@@ -17,9 +17,6 @@ public class Transaction {
     private String transactionId;
     private String resultCode;
     private String status;
-
-    // Remove @ManyToOne and @JoinColumn for a simple String field
-    // If this should reference a User entity, change the type to User
     private String userId;
     private String userName;
     private String appointmentId;

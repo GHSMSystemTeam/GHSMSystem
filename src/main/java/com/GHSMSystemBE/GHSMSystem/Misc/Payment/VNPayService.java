@@ -35,7 +35,6 @@ public class VNPayService {
                 throw new IllegalArgumentException("Payment amount cannot be null or empty");
             }
 
-            // FIX: Handle decimal amounts properly
             // Parse the amount as BigDecimal to handle decimals
             java.math.BigDecimal amountBd = new java.math.BigDecimal(amount);
             // Multiply by 100 and convert to long

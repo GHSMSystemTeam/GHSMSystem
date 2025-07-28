@@ -17,7 +17,7 @@ import java.nio.file.Paths;
 
 @CrossOrigin("*")
 @RestController
-@Tag(name = "Image upload Management", description = "API endpoints for Image upload operations")
+@Tag(name = "Image upload Management", description = "API endpoints for Image uploadS operations")
 public class UploadController {
 
     public static String UPLOAD_DIRECTORY = "uploads";

@@ -131,7 +131,7 @@ public class PostService implements IHealthPost {
         {
             return null;
         }
-        found.setActive(false);
+        found.setActive(true);
         return repo.save(found);
     }
 }
