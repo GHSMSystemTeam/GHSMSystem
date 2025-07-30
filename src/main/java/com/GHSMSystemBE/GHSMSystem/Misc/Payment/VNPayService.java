@@ -41,7 +41,7 @@ public class VNPayService {
             long amountInVnd = amountBd.multiply(new java.math.BigDecimal("100")).longValue();
             vnpParams.put("vnp_Amount", String.valueOf(amountInVnd));
 
-            // Rest of the method remains unchanged
+
             Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
             formatter.setTimeZone(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
@@ -95,7 +95,7 @@ public class VNPayService {
         }
     }
 
-    // Other methods remain unchanged
+  
     private String hmacSHA512(String key, String data) {
         try {
             Mac sha512_HMAC = Mac.getInstance("HmacSHA512");
